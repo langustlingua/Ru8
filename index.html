@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Задание 8 ЕГЭ — Тренажёр</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0e17;--paper:#f8f7f2;--gold:#ffb703;--muted:#6b6a74;
+  --card:#fff;--border:#e2e1da;
+  /* GREEN HERO */
+  --green-hero:#2e7d52;--green-dark:#1b5e38;--green-light:#4caf78;
+  --green-pale:#eaf7f0;--green-mid:#d0eed e;
+  --m1:#2a6f97;--m1bg:#ebf4fa;--m1b:#c3dcee;
+  --m2:#b9770e;--m2bg:#fdf5e6;--m2b:#f5dbc0;
+  --m3:#2d6a4f;--m3bg:#eaf5ef;--m3b:#bed9cc;
+  --ok:#1a7f47;--okbg:#edfaf1;--warn:#b9770e;
+  --err:#c0392b;--errbg:#fdecea;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+
+/* NAV */
+.sitenav{position:sticky;top:0;z-index:200;background:var(--green-dark);border-bottom:1px solid rgba(255,255,255,.1);padding:0 20px;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:2px}
+.sitenav::-webkit-scrollbar{display:none}
+.sitenav-logo{font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:#a8f0c6;white-space:nowrap;padding:12px 14px 12px 0;margin-right:6px;border-right:1px solid rgba(255,255,255,.12);flex-shrink:0}
+.nav-day{font-size:11px;font-weight:500;color:rgba(255,255,255,.45);padding:12px 7px;cursor:pointer;white-space:nowrap;flex-shrink:0;border-bottom:2px solid transparent;transition:color .15s}
+.nav-day:hover{color:rgba(255,255,255,.9)}
+.nav-day.active,.nav-day[data-mod="1"].active{border-bottom-color:#a8f0c6;color:#fff}
+.nav-day[data-mod="2"].active{border-bottom-color:var(--gold);color:#fff}
+.nav-day[data-mod="3"].active{border-bottom-color:#7dd8b0;color:#fff}
+.dot{display:none;width:5px;height:5px;border-radius:50%;background:#7dd8b0;margin-left:4px;vertical-align:middle}
+.nav-day.done .dot{display:inline-block}
+.nav-count{font-size:11px;font-weight:600;color:#a8f0c6;white-space:nowrap;padding:12px 0 12px 12px;margin-left:auto;flex-shrink:0}
+
+/* FLOATING CHEAT BUTTON */
+.cheat-fab{position:fixed;bottom:24px;right:24px;z-index:300;display:flex;align-items:center;gap:8px;background:var(--green-hero);color:#fff;border:none;border-radius:100px;padding:10px 18px 10px 14px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(46,125,82,.35);transition:transform .15s,box-shadow .15s}
+.cheat-fab:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(46,125,82,.45)}
+.cheat-fab:active{transform:scale(.97)}
+.fab-icon{font-size:16px;flex-shrink:0}
+
+/* MODAL OVERLAY */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(15,14,23,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;border-radius:18px;width:100%;max-width:780px;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--green-dark);flex-shrink:0}
+.modal-title{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:#a8f0c6;letter-spacing:.08em}
+.modal-close{background:rgba(255,255,255,.12);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:16px;color:#fff;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.modal-close:hover{background:rgba(255,255,255,.25)}
+.modal-body{overflow-y:auto;padding:18px 20px}
+.modal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:9px}
+.modal-row{background:#f8f9fc;border:1px solid #e8eaf0;border-radius:10px;padding:10px 13px;border-left:3px solid var(--green-hero)}
+.modal-err{font-size:11px;font-weight:700;color:var(--green-dark);margin-bottom:3px}
+.modal-trigger{font-size:12px;color:#444;margin-bottom:3px}
+.modal-ex{font-size:11px;color:#888;font-style:italic;margin-top:2px;padding-top:3px;border-top:1px solid #e8eaf0}
+.modal-ex b{color:var(--ok);font-style:normal}
+/* косвенная речь особая строка */
+.modal-kosv{background:#fff8e1;border-left-color:var(--warn);margin-top:4px;font-size:11px;padding:6px 10px;border-radius:6px}
+
+/* HERO — GREEN */
+.hero{background:linear-gradient(135deg,var(--green-dark) 0%,var(--green-hero) 60%,#3a9e6a 100%);color:#fff;padding:60px 24px 52px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 50% at 15% 85%,rgba(168,240,198,.12) 0%,transparent 65%),radial-gradient(ellipse 45% 40% at 85% 15%,rgba(255,183,3,.1) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:4px;background:linear-gradient(90deg,#a8f0c6,var(--gold),#a8f0c6)}
+.hero-eye{font-family:'Unbounded',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#a8f0c6;margin-bottom:14px;opacity:.9}
+.hero h1{font-family:'Unbounded',sans-serif;font-size:clamp(28px,5vw,54px);font-weight:900;line-height:1.05;margin-bottom:10px;text-shadow:0 2px 20px rgba(0,0,0,.2)}
+.hero h1 span{color:var(--gold)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.75);max-width:540px;margin:0 auto 26px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:22px}
+.pill{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:5px 13px;font-size:11px;font-weight:600;color:rgba(255,255,255,.9);backdrop-filter:blur(4px)}
+
+/* STATS CARDS — GREEN */
+.stats{background:var(--green-dark);padding:20px 24px 28px}
+.stats-g{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 10px;text-align:center}
+.stat-n{font-family:'Unbounded',sans-serif;font-size:26px;font-weight:900;color:#a8f0c6;line-height:1}
+.stat-l{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px}
+
+/* LAYOUT */
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+section{padding:40px 24px}
+.sec-l{font-family:'Unbounded',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sec-t{font-family:'Unbounded',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:700;line-height:1.2;margin-bottom:22px}
+
+/* INLINE CHEAT (теперь вторичная, но остаётся) */
+.cheat{background:var(--green-dark);border-radius:16px;padding:18px 20px;margin-bottom:26px}
+.cheat-title{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;color:#a8f0c6;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.cheat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.cheat-row{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 12px}
+.cheat-err{font-size:11px;font-weight:600;color:#a8f0c6;margin-bottom:2px}
+.cheat-trigger{font-size:12px;color:rgba(248,247,242,.7)}
+.cheat-ex{font-size:11px;color:rgba(248,247,242,.45);margin-top:3px;font-style:italic}
+.cheat-ex b{color:#7dd8b0;font-style:normal}
+
+/* HOW TO */
+.howto{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:26px}
+.howto h3{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;margin-bottom:10px}
+.howto ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.howto li{font-size:13px;display:flex;gap:8px;align-items:flex-start}
+.howto li::before{content:'→';color:var(--green-hero);font-weight:700;flex-shrink:0}
+
+/* DAY 0 SPECIAL */
+.day0-banner{background:linear-gradient(135deg,#eaf7f0,#d6f0e2);border:2px solid var(--m3b);border-radius:14px;padding:16px 20px;margin-bottom:20px}
+.day0-banner h3{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:var(--green-dark);margin-bottom:10px}
+.glossary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.gterm{background:#fff;border-radius:9px;border:1px solid var(--m3b);padding:10px 13px}
+.gterm-word{font-size:12px;font-weight:700;color:var(--green-dark);margin-bottom:4px}
+.gterm-def{font-size:12px;color:#444;line-height:1.5}
+.gterm-ex{font-size:11px;color:var(--muted);margin-top:4px;font-style:italic}
+
+/* MODULES */
+.mods{display:flex;flex-direction:column;gap:30px}
+.mod{border-radius:18px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
+.mh{padding:18px 22px 14px}
+.m1 .mh{background:var(--m1bg);border-bottom:2px solid var(--m1b)}
+.m2 .mh{background:var(--m2bg);border-bottom:2px solid var(--m2b)}
+.m3 .mh{background:var(--m3bg);border-bottom:2px solid var(--m3b)}
+.mn{font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:3px}
+.m1 .mn{color:var(--m1)}.m2 .mn{color:var(--m2)}.m3 .mn{color:var(--m3)}
+.mt{font-family:'Unbounded',sans-serif;font-size:clamp(14px,2vw,20px);font-weight:700;line-height:1.2;margin-bottom:8px}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:10px;font-weight:500;border-radius:100px;padding:3px 10px;border:1px solid}
+.m1 .tag{color:var(--m1);border-color:var(--m1b);background:#f5faff}
+.m2 .tag{color:var(--m2);border-color:var(--m2b);background:#fdf8ef}
+.m3 .tag{color:var(--m3);border-color:var(--m3b);background:#f1faf5}
+.mod-progress{height:4px;background:var(--border);border-radius:2px;margin:0 18px}
+.mod-progress-fill{height:100%;border-radius:2px;background:var(--m1);transition:width .4s ease;width:0%}
+.m2 .mod-progress-fill{background:var(--m2)}.m3 .mod-progress-fill{background:var(--m3)}
+.mod-progress-label{font-size:10px;color:var(--muted);text-align:right;padding:2px 18px 8px;font-family:'Unbounded',sans-serif}
+.days{display:flex;flex-direction:column}
+.day{border-top:1px solid var(--border)}
+.day.is-done .done-row{background:#f0faf6;border-color:var(--m3b);border-style:solid}
+.dbtn{width:100%;background:none;border:none;cursor:pointer;padding:13px 18px;display:flex;align-items:center;gap:10px;text-align:left;transition:background .15s}
+.dbtn:hover{background:#fafaf8}
+.dnum{font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;letter-spacing:.08em;min-width:44px;flex-shrink:0}
+.m1 .dnum{color:var(--m1)}.m2 .dnum{color:var(--m2)}.m3 .dnum{color:var(--m3)}
+.dttl{font-size:13px;font-weight:600;flex:1;color:var(--ink)}
+.dmeta{font-size:10px;color:var(--muted);flex-shrink:0}
+.darr{font-size:10px;color:var(--muted);transition:transform .25s;flex-shrink:0}
+.day.open .darr{transform:rotate(180deg)}
+.dbody{display:none}
+.day.open .dbody{display:block}
+.lesson{padding:4px 18px 22px;display:flex;flex-direction:column;gap:14px}
+.bl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.theory{background:var(--paper);border-left:3px solid var(--green-hero);border-radius:0 8px 8px 0;padding:11px 14px;font-size:13px;line-height:1.65}
+.m2 .theory{border-left-color:var(--m2)}.m3 .theory{border-left-color:var(--m3)}
+.task{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:13px 15px;font-size:13px;line-height:1.65}
+.warmup-badge{display:inline-flex;align-items:center;gap:6px;background:var(--m1bg);border:1px solid var(--m1b);border-radius:100px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--m1);margin-bottom:8px}
+ol.ex{list-style:none;counter-reset:exc;padding:0;margin-top:8px}
+ol.ex li{counter-increment:exc;margin-bottom:7px;display:flex;gap:7px;align-items:flex-start;font-size:13px}
+ol.ex li::before{content:counter(exc)".";font-weight:700;min-width:20px;flex-shrink:0;color:var(--ink)}
+.anti-tag{display:inline-block;font-size:10px;font-weight:600;background:#fdf5e6;color:var(--warn);border:1px solid var(--m2b);border-radius:4px;padding:1px 6px;margin-left:5px;cursor:help}
+.anti-tag:hover{background:#f5dbc0}
+/* ANTI WHY (замечание Кати — объяснение) */
+.anti-why{display:inline;font-size:11px;color:var(--muted);font-style:italic;margin-left:4px}
+
+/* MATCH */
+.match-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px}
+.match-table th{background:rgba(0,0,0,.04);text-align:left;padding:5px 8px;font-weight:600;border-bottom:1px solid var(--border);font-size:11px}
+.match-table td{padding:5px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+.match-table tr:last-child td{border-bottom:none}
+/* ИНСТРУКЦИЯ к зачёту (рек. Карпова) */
+.zachet-instr{background:#fffbf0;border:1px solid #f5d478;border-radius:8px;padding:9px 13px;font-size:12px;color:#7a5800;margin-bottom:10px;display:flex;gap:8px;align-items:flex-start}
+.zachet-instr::before{content:'💡';flex-shrink:0}
+.match-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin-top:8px}
+.match-cell{display:flex;flex-direction:column;align-items:center;gap:4px}
+.match-lbl{font-size:11px;font-weight:700;color:var(--muted)}
+.match-in{width:100%;max-width:52px;text-align:center;padding:7px 5px;border:1px solid var(--border);border-radius:6px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;background:#fffef9}
+.match-in:focus{outline:none;border-color:var(--green-hero)}
+.match-in.correct{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+.match-in.wrong{border-color:var(--err);background:var(--errbg);color:var(--err)}
+.match-in.empty-ok{border-color:var(--muted);background:#f5f5f0;color:var(--muted)}
+.check-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:var(--green-dark);color:#fff;border:none;border-radius:7px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;margin-top:8px}
+.check-btn:hover{background:var(--green-hero)}
+.check-result{margin-top:8px;font-size:13px;font-weight:600;display:none;padding:8px 12px;border-radius:7px}
+.check-result.ok{color:var(--ok);background:var(--okbg)}
+.check-result.partial{color:var(--warn);background:#fffbf0}
+.check-result.err{color:var(--err);background:var(--errbg)}
+
+/* CONFIDENCE */
+.confidence{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.conf-hint{font-size:11px;color:var(--muted);font-style:italic;margin-left:2px}
+.conf-btn{padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:none;font-size:12px;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
+.conf-btn:hover,.conf-btn.active{background:var(--m3bg);border-color:var(--m3b);color:var(--m3);font-weight:600}
+
+/* KEY */
+.key{border-radius:9px;padding:11px 14px;font-size:13px;line-height:1.65}
+.m1 .key{background:#f5faff;border:1px solid var(--m1b)}
+.m2 .key{background:#fdf8ef;border:1px solid var(--m2b)}
+.m3 .key{background:#f1faf5;border:1px solid var(--m3b)}
+.key summary{cursor:pointer;font-weight:600;font-size:12px;color:var(--muted);list-style:none}
+.key summary::before{content:'🔑 Показать ключ'}
+.key[open] summary{margin-bottom:8px}
+.key[open] summary::before{content:'🔑 Скрыть ключ'}
+.ans{width:100%;margin-top:6px;border:1px solid var(--border);border-radius:7px;padding:7px 11px;font-family:'Inter',sans-serif;font-size:13px;line-height:1.6;color:var(--ink);background:#fffef9;resize:none;overflow:hidden;min-height:38px;transition:border-color .15s}
+.ans:focus{outline:none;border-color:var(--green-hero)}
+.m2 .ans:focus{border-color:var(--m2)}.m3 .ans:focus{border-color:var(--m3)}
+.ans::placeholder{color:#b8b6ac}
+table.tb{width:100%;border-collapse:collapse;font-size:12px;margin-top:5px}
+.tb th{background:rgba(0,0,0,.04);text-align:left;padding:5px 7px;font-weight:600;border-bottom:1px solid var(--border)}
+.tb td{padding:5px 7px;border-bottom:1px solid var(--border);vertical-align:top}
+.tb tr:last-child td{border-bottom:none}
+
+/* NEXT-DAY ANCHOR (рек. Антона) */
+.next-anchor{display:flex;align-items:center;gap:9px;padding:9px 13px;background:linear-gradient(135deg,#eaf7f0,#d6f0e2);border-radius:9px;border:1px solid var(--m3b);margin-top:5px;cursor:pointer;font-size:13px;font-weight:600;color:var(--green-dark)}
+.next-anchor:hover{background:#d0eed8}
+.next-anchor-arrow{font-size:16px}
+
+/* RETURN MAP (рек. Беловой — день 10) */
+.return-map{background:#fff8e1;border:1px solid #f5d478;border-radius:10px;padding:12px 14px;margin-top:8px}
+.return-map h4{font-size:12px;font-weight:700;color:#7a5800;margin-bottom:8px}
+.return-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px}
+.return-item{background:#fff;border-radius:7px;border:1px solid #f5d478;padding:6px 10px;font-size:12px;cursor:pointer;transition:background .15s}
+.return-item:hover{background:#fff3cd}
+.return-item b{color:var(--green-dark)}
+
+.done-row{display:flex;align-items:center;gap:9px;margin-top:5px;padding:9px 13px;background:var(--paper);border-radius:9px;border:1px dashed var(--border)}
+.done-row input{width:17px;height:17px;accent-color:var(--green-hero);cursor:pointer;flex-shrink:0}
+.done-row label{font-size:13px;font-weight:600;cursor:pointer;color:var(--ink)}
+.score-row{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.score-in{width:52px;padding:5px 7px;border:2px solid var(--border);border-radius:6px;text-align:center;font-weight:700;font-size:16px;font-family:'Inter',sans-serif}
+.score-in:focus{outline:none;border-color:var(--green-hero)}
+
+/* FINISH */
+.finish{background:linear-gradient(135deg,var(--green-dark),#1a4d2e);color:#fff;border-radius:18px;padding:40px 28px;text-align:center;margin:0 24px 44px;position:relative;overflow:hidden}
+.finish::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 0% 50%,rgba(168,240,198,.1) 0%,transparent 60%),radial-gradient(ellipse 50% 80% at 100% 50%,rgba(255,183,3,.1) 0%,transparent 60%);pointer-events:none}
+.fi{font-size:42px;margin-bottom:10px;display:block}
+.finish h2{font-family:'Unbounded',sans-serif;font-size:clamp(16px,3vw,24px);font-weight:700;margin-bottom:14px;line-height:1.2}
+.finish ul{list-style:none;display:inline-flex;flex-direction:column;gap:6px;text-align:left;margin-bottom:18px}
+.finish ul li{font-size:13px;display:flex;gap:8px}
+.finish ul li::before{content:'✅';flex-shrink:0}
+.fc{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:#a8f0c6}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+.tool-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:rgba(255,255,255,.9);border-radius:7px;padding:8px 14px;font-family:'Inter',sans-serif}
+.tool-btn:hover{background:rgba(255,255,255,.18)}
+footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;border-top:1px solid var(--border)}
+@media(max-width:600px){.stats-g{grid-template-columns:repeat(2,1fr)}.sitenav{padding:0 10px}.dmeta{display:none}.finish{margin:0 8px 30px}.match-inputs{grid-template-columns:repeat(3,1fr)}.cheat-fab{bottom:16px;right:16px;padding:8px 14px 8px 11px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- FLOATING CHEAT BUTTON -->
+<button class="cheat-fab" onclick="openModal()" aria-label="Открыть шпаргалку">
+  <span class="fab-icon">📋</span> Шпаргалка
+</button>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <span class="modal-title" id="modalTitle">📋 Шпаргалка — 9 типов ошибок</span>
+      <button class="modal-close" onclick="closeModal()" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div class="modal-row">
+          <div class="modal-err">А · Подлежащее + сказуемое</div>
+          <div class="modal-trigger">Триггер: большинство / ряд / часть + мн.ч.; «кто» в придаточной</div>
+          <div class="modal-ex">❌ Ряд студентов <u>сдали</u> → ✅ <b>сдал</b></div>
+          <div class="modal-ex">❌ Те, кто хочет, должен → ✅ <b>должны</b> (при «те» мн.ч.)</div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-err">Б · Падеж с предлогом</div>
+          <div class="modal-trigger">Дат.п. (чему?): благодаря, согласно, вопреки, наперекор<br>Предл.п. (о чём?): по (= «после»)</div>
+          <div class="modal-ex">❌ согласно <u>приказа</u> → ✅ <b>приказу</b></div>
+          <div class="modal-ex">❌ по <u>приезду</u> → ✅ <b>по приезде</b></div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-err">В · Несогласованное приложение</div>
+          <div class="modal-trigger">Есть родовое слово (роман, фильм…) → название не склоняется<br>Нет родового слова → название склоняется</div>
+          <div class="modal-ex">❌ в романе «<u>Войне и мире</u>» → ✅ «<b>Война и мир</b>»</div>
+          <div class="modal-ex">✅ в «<b>Войне и мире</b>» (нет родового слова)</div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-err">Г · Причастный оборот</div>
+          <div class="modal-trigger">Падеж причастия = падеж определяемого слова</div>
+          <div class="modal-ex">❌ спортсменами, <u>победивших</u> (Род.) → ✅ <b>победившими</b> (Тв.)</div>
+        </div>
+        <div class="modal-row" style="border-left-color:var(--warn)">
+          <div class="modal-err" style="color:#7a5800">Д · Деепричастный оборот</div>
+          <div class="modal-trigger">Деепричастие и сказуемое — один субъект<br>⚠ Безличные предложения — всегда ошибка!</div>
+          <div class="modal-ex">❌ Читая, у меня возник... → ✅ <b>Когда я читал</b>...</div>
+          <div class="modal-ex">❌ Читая, <u>стемнело</u> → безличное, нет субъекта!</div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-err">Е · Вид и время глаголов</div>
+          <div class="modal-trigger">Все глаголы в предложении — одно время</div>
+          <div class="modal-ex">❌ открыл и <u>входит</u> → ✅ открыл и <b>вошёл</b></div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-err">Ж · Однородные члены</div>
+          <div class="modal-trigger">Глаголы-однородные могут требовать разных падежей</div>
+          <div class="modal-ex">❌ любить и гордиться <u>родиной</u></div>
+          <div class="modal-ex">✅ <b>любить родину</b> и <b>гордиться ею</b></div>
+        </div>
+        <div class="modal-row" style="border-left-color:var(--m2)">
+          <div class="modal-err" style="color:#7a5800">З · Косвенная речь</div>
+          <div class="modal-trigger">Местоимения меняются; нельзя «что...ли»</div>
+          <div class="modal-ex">❌ Сказал, что <u>я</u> иду → ✅ что <b>он</b> идёт</div>
+          <div class="modal-kosv">
+            <b>Прямая → Косвенная:</b><br>
+            «я иду» → он идёт / «я скажу» → он скажет<br>
+            «буду ли я» → <b>буду ли</b> (убрать «что»)
+          </div>
+        </div>
+        <div class="modal-row">
+          <div class="modal-err">И · Сложное предложение</div>
+          <div class="modal-trigger">«Который» стоит рядом со своим словом; не смешивай «что» и «ли»</div>
+          <div class="modal-ex">❌ Фильм мы смотрели, <u>который</u>...</div>
+          <div class="modal-ex">✅ Мы смотрели <b>фильм</b>, который...</div>
+          <div class="modal-ex">❌ Спросил, <u>что</u> буду ли → ✅ Спросил, <b>буду ли</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="sitenav">
+  <div class="sitenav-logo">Задание 8</div>
+  <span class="nav-day" data-mod="1" onclick="goDay(0)">0<span class="dot"></span></span>
+  <span class="nav-day" data-mod="1" onclick="goDay(1)">1<span class="dot"></span></span>
+  <span class="nav-day" data-mod="1" onclick="goDay(2)">2<span class="dot"></span></span>
+  <span class="nav-day" data-mod="1" onclick="goDay(3)">3<span class="dot"></span></span>
+  <span class="nav-day" data-mod="1" onclick="goDay(4)">4<span class="dot"></span></span>
+  <span class="nav-day" data-mod="1" onclick="goDay(5)">5а<span class="dot"></span></span>
+  <span class="nav-day" data-mod="1" onclick="goDay(6)">5б<span class="dot"></span></span>
+  <span class="nav-day" data-mod="1" onclick="goDay(7)">6<span class="dot"></span></span>
+  <span class="nav-day" data-mod="2" onclick="goDay(8)">7<span class="dot"></span></span>
+  <span class="nav-day" data-mod="2" onclick="goDay(9)">8<span class="dot"></span></span>
+  <span class="nav-day" data-mod="2" onclick="goDay(10)">9⭐<span class="dot"></span></span>
+  <span class="nav-day" data-mod="2" onclick="goDay(11)">10<span class="dot"></span></span>
+  <span class="nav-day" data-mod="2" onclick="goDay(12)">11<span class="dot"></span></span>
+  <span class="nav-day" data-mod="2" onclick="goDay(13)">12⭐<span class="dot"></span></span>
+  <span class="nav-day" data-mod="3" onclick="goDay(14)">13<span class="dot"></span></span>
+  <span class="nav-day" data-mod="3" onclick="goDay(15)">14<span class="dot"></span></span>
+  <span class="nav-day" data-mod="3" onclick="goDay(16)">15<span class="dot"></span></span>
+  <span class="nav-day" data-mod="3" onclick="goDay(17)">16🏆<span class="dot"></span></span>
+  <span class="nav-count" id="navCount">0 / 17</span>
+</nav>
+
+<section class="hero">
+  <p class="hero-eye">ЕГЭ · Русский язык · 17 дней · 20 минут в день</p>
+  <h1>Задание 8<br><span>Синтаксические нормы</span></h1>
+  <p class="hero-sub">Интерактивный тренажёр с форматом ЕГЭ, ловушками ФИПИ и плавающей шпаргалкой</p>
+  <div class="pills">
+    <span class="pill">🎯 3 первичных балла</span>
+    <span class="pill">⚡ 9 типов ошибок</span>
+    <span class="pill">🔁 Спейсд-репетишн</span>
+    <span class="pill">✅ Автопроверка зачётов</span>
+    <span class="pill">📋 Шпаргалка в 1 клик</span>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stats-g">
+    <div class="stat"><div class="stat-n">17</div><div class="stat-l">дней</div></div>
+    <div class="stat"><div class="stat-n">20′</div><div class="stat-l">в день</div></div>
+    <div class="stat"><div class="stat-n">9</div><div class="stat-l">типов ошибок</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">балла max</div></div>
+  </div>
+</div>
+
+<section style="padding-top:0">
+<div class="wrap">
+<p class="sec-l">Шпаргалка</p>
+<h2 class="sec-t">9 типов ошибок — держи перед глазами</h2>
+<div style="background:linear-gradient(135deg,#eaf7f0,#d6f0e2);border:2px solid var(--m3b);border-radius:14px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px">
+  <span style="font-size:22px">📋</span>
+  <div>
+    <p style="font-size:13px;font-weight:600;color:var(--green-dark)">Шпаргалка доступна в любой момент — кнопка в правом нижнем углу</p>
+    <p style="font-size:12px;color:var(--muted);margin-top:2px">Открывается поверх страницы, не сбрасывает твои ответы. Ниже — полная версия для первого знакомства.</p>
+  </div>
+</div>
+<div class="cheat">
+  <div class="cheat-title">📋 Таблица: маркеры, ловушки и «было → стало»</div>
+  <div class="cheat-grid">
+    <div class="cheat-row"><div class="cheat-err">А · Подлежащее + сказуемое</div><div class="cheat-trigger">Триггер: большинство / ряд / часть → ед.ч.; «кто» → ед.ч.</div><div class="cheat-ex">❌ Ряд студентов <u>сдали</u> → ✅ <b>сдал</b></div></div>
+    <div class="cheat-row"><div class="cheat-err">Б · Падеж с предлогом</div><div class="cheat-trigger">согласно/благодаря/вопреки + Дат.п.; по (после) + Предл.п.</div><div class="cheat-ex">❌ согласно <u>приказа</u> → ✅ <b>приказу</b></div></div>
+    <div class="cheat-row"><div class="cheat-err">В · Несогласованное приложение</div><div class="cheat-trigger">Есть родовое слово → название не склоняем</div><div class="cheat-ex">❌ в романе «<u>Войне и мире</u>» → ✅ «<b>Война и мир</b>»</div></div>
+    <div class="cheat-row"><div class="cheat-err">Г · Причастный оборот</div><div class="cheat-trigger">Падеж причастия = падеж определяемого слова</div><div class="cheat-ex">❌ спортсменами <u>победивших</u> → ✅ <b>победившими</b></div></div>
+    <div class="cheat-row"><div class="cheat-err">Д · Деепричастный оборот</div><div class="cheat-trigger">Один субъект; безличные — всегда ошибка</div><div class="cheat-ex">❌ Читая, <u>стемнело</u> → ✅ <b>Когда я читал</b>...</div></div>
+    <div class="cheat-row"><div class="cheat-err">Е · Вид и время глаголов</div><div class="cheat-trigger">Все глаголы — одно время</div><div class="cheat-ex">❌ открыл и <u>входит</u> → ✅ открыл и <b>вошёл</b></div></div>
+    <div class="cheat-row"><div class="cheat-err">Ж · Однородные члены</div><div class="cheat-trigger">Глаголы с разными падежами — разные дополнения</div><div class="cheat-ex">❌ любить и гордиться <u>родиной</u> → ✅ <b>любить родину</b> и <b>гордиться ею</b></div></div>
+    <div class="cheat-row"><div class="cheat-err">З · Косвенная речь</div><div class="cheat-trigger">«я» меняется; нельзя «что + ли»</div><div class="cheat-ex">❌ сказал, что <u>я</u> иду → ✅ что <b>он</b> идёт</div></div>
+    <div class="cheat-row"><div class="cheat-err">И · Сложное предложение</div><div class="cheat-trigger">«который» рядом со своим словом</div><div class="cheat-ex">❌ Фильм мы смотрели, <u>который</u> → ✅ смотрели <b>фильм</b>, который</div></div>
+  </div>
+</div>
+<div class="howto">
+  <h3>📖 Как заниматься</h3>
+  <ul>
+    <li><b>День 0</b> — глоссарий терминов. Если уже знаешь — пропускай, но загляни на 2 минуты.</li>
+    <li>Каждый день начинается с <b>разминки</b> — предложения из прошлых тем (спейсд-репетишн).</li>
+    <li>Основное задание — <b>8–12 предложений</b>. Навык строится на объёме.</li>
+    <li>С дня 7 — <b>формат ЕГЭ</b>: сопоставляй ошибки и предложения.</li>
+    <li><b>Шпаргалку</b> можно открыть в любой момент кнопкой справа внизу — твои ответы останутся.</li>
+    <li>После ответа — оцени <b>уверенность</b> (1–3). Помогает найти слабые места.</li>
+    <li>Ставь галочку → счётчик растёт.</li>
+  </ul>
+</div>
+<div class="mods">
+<!-- МОДУЛЬ 1 -->
+<div class="mod m1" id="mod1">
+<div class="mh"><div class="mn">Модуль 1 · Дни 0–6</div><div class="mt">Фундамент: глоссарий + все 9 типов</div><div class="tags"><span class="tag">День 0: Глоссарий</span><span class="tag">А–Д: Обороты</span><span class="tag">Е–З: Глаголы и речь</span><span class="tag">И: СПП</span></div></div>
+<div class="mod-progress"><div class="mod-progress-fill" id="prog1"></div></div>
+<div class="mod-progress-label" id="progl1">0 / 8 дней</div>
+<div class="days">
+
+<!-- ДЕНЬ 0: ГЛОССАРИЙ (рекомендация Кати) -->
+<div class="day" id="day0">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 0</span><span class="dttl">Глоссарий — термины простым языком</span><span class="dmeta">🕒 5 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><div class="bl">📖 Термины, которые встретятся в тренажёре</div>
+<div class="day0-banner">
+<h3>Знай эти слова — и всё станет понятнее</h3>
+<div class="glossary">
+<div class="gterm"><div class="gterm-word">Подлежащее</div><div class="gterm-def">Главный деятель предложения. Отвечает на вопрос <b>кто? что?</b></div><div class="gterm-ex">«<b>Ряд студентов</b> сдало экзамен» — «ряд студентов» — подлежащее.</div></div>
+<div class="gterm"><div class="gterm-word">Сказуемое</div><div class="gterm-def">Что делает подлежащее. Отвечает на вопрос <b>что делает? что делали?</b></div><div class="gterm-ex">«Ряд студентов <b>сдало</b> экзамен» — «сдало» — сказуемое.</div></div>
+<div class="gterm"><div class="gterm-word">Субъект</div><div class="gterm-def">Тот, кто выполняет действие. Иногда не совпадает с подлежащим.</div><div class="gterm-ex">В «Читая книгу, у меня возник вопрос» — читаю <b>я</b>, а не вопрос.</div></div>
+<div class="gterm"><div class="gterm-word">Падеж</div><div class="gterm-def">Форма слова, отвечающая на вопрос: Им.(кто?), Род.(кого?), Дат.(кому?), Вин.(кого?), Тв.(кем?), Пр.(о ком?).</div><div class="gterm-ex">Тв.п. = кем/чем: «<b>спортсменами</b>». Вин.п. = кого/что: «вижу <b>спортсменов</b>».</div></div>
+<div class="gterm"><div class="gterm-word">Причастный оборот</div><div class="gterm-def">Группа слов с причастием (слово на -ший, -вший, -нный, -тый), описывает предмет.</div><div class="gterm-ex">«Спортсмены, <b>победившие на Олимпиаде</b>, получили медали» — оборот выделен.</div></div>
+<div class="gterm"><div class="gterm-word">Деепричастный оборот</div><div class="gterm-def">Группа слов с деепричастием (слово на -я, -в, -вши), описывает добавочное действие.</div><div class="gterm-ex">«<b>Читая книгу</b>, я не замечал времени» — «читая книгу» — оборот.</div></div>
+<div class="gterm"><div class="gterm-word">Однородные члены</div><div class="gterm-def">Слова, отвечающие на один вопрос и относящиеся к одному слову.</div><div class="gterm-ex">«Я <b>люблю</b> и <b>уважаю</b> его» — однородные сказуемые.</div></div>
+<div class="gterm"><div class="gterm-word">Родовое слово</div><div class="gterm-def">Слово перед названием в кавычках: роман, фильм, журнал, повесть, рассказ…</div><div class="gterm-ex">В «<b>романе</b> «Война и мир»» — «роман» — родовое слово.</div></div>
+</div>
+</div></div>
+<div class="done-row"><input type="checkbox" id="done0" onchange="markDone(0,this.checked,1,8)"><label for="done0">✓ День 0 пройден — термины знаю</label></div>
+</div></div></div>
+
+<!-- ДЕНЬ 1 -->
+<div class="day" id="day1">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 1</span><span class="dttl">Тип А — нарушение связи подлежащего и сказуемого</span><span class="dmeta">🕒 18 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><div class="bl">📌 Теория</div>
+<div class="theory">
+<p><b>Суть:</b> сказуемое не согласуется с подлежащим по числу или роду.</p>
+<p style="margin-top:8px">🔍 <b>Три главных случая:</b></p>
+<ul style="margin:6px 0 0 16px;font-size:13px">
+<li style="margin-bottom:5px"><b>«Большинство / ряд / часть / множество»</b> + сущ. → сказуемое <b>ед.ч.</b>: <i>Большинство студентов <u>сдало</u> экзамен.</i></li>
+<li style="margin-bottom:5px"><b>«Кто»</b> в придаточной → сказуемое <b>ед.ч.</b>: <i>Те, кто <u>занимается</u> спортом, реже болеет.</i><br>Но: при <b>«все / те»</b> → сказуемое <b>мн.ч.</b>: <i>Те, кто хочет, <b>должны</b> готовиться.</i></li>
+<li><b>Аббревиатура</b> → по главному слову: МИД → <u>объявило</u>; ООН → <u>приняла</u></li>
+</ul>
+<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как в КИМе:</b> «нарушение связи между подлежащим и сказуемым»</p>
+</div></div>
+<div><div class="bl">✏️ Задание — 8 предложений</div>
+<div class="task">
+<p style="font-size:12px;color:var(--muted);margin-bottom:8px">Запиши исправленное слово или «✓» если предложение правильное.</p>
+<ol class="ex">
+<li>Ряд известных учёных выступали против этой теории.</li>
+<li>Те, кто мечтает стать врачом, должны много учиться.</li>
+<li>НАТО приняло решение о проведении учений. <span class="anti-tag" title="Подсказка: НАТО — несклоняемое ср.р.">антипример</span> <span class="anti-why">— НАТО = несклоняемое → ср.р. → «приняло» верно</span></li>
+<li>Большинство опрошенных поддержали новые правила.</li>
+<li>Все, кто работает в этой компании, знают о проблемах. <span class="anti-tag" title="Подсказка: при 'все, кто' смотри на 'все'">антипример</span> <span class="anti-why">— при «все» сказуемое мн.ч. «знают» верно</span></li>
+<li>Часть документов были утеряны при переезде.</li>
+<li>Множество вопросов остались без ответа.</li>
+<li>Ряд специалистов отметили улучшение ситуации.</li>
+</ol>
+<textarea class="ans" rows="3" placeholder="1. выступал  2. должен  3. ✓  4. поддержало  5. ✓  6. была утеряна  7. осталось  8. отметил"></textarea>
+</div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb">
+<tr><th>№</th><th>Правильно</th><th>Почему</th></tr>
+<tr><td>1</td><td><b>выступал</b></td><td>«Ряд» → ед.ч.</td></tr>
+<tr><td>2</td><td><b>должен</b></td><td>«Кто» → ед.ч.</td></tr>
+<tr><td>3</td><td>✓ приняло</td><td>НАТО = несклоняемое → ср.р. Ошибки нет!</td></tr>
+<tr><td>4</td><td><b>поддержало</b></td><td>«Большинство» → ед.ч.</td></tr>
+<tr><td>5</td><td>✓ знают</td><td>«Все, кто» — при «все» мн.ч. Верно!</td></tr>
+<tr><td>6</td><td><b>была утеряна</b></td><td>«Часть» → ед.ч.</td></tr>
+<tr><td>7</td><td><b>осталось</b></td><td>«Множество» → ед.ч.</td></tr>
+<tr><td>8</td><td><b>отметил</b></td><td>«Ряд» → ед.ч.</td></tr>
+</table>
+</details></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c1')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c1')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c1')">3 — уверен</button><span class="conf-hint">— оцени честно, это покажет пробелы</span></div>
+<div class="done-row"><input type="checkbox" id="done1" onchange="markDone(1,this.checked,1,8)"><label for="done1">✓ День 1 пройден</label></div>
+</div></div></div>
+
+<!-- ДЕНЬ 2 -->
+<div class="day" id="day2">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 2</span><span class="dttl">Тип Б — падежная форма с предлогом + повтор А</span><span class="dmeta">🕒 18 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><span class="warmup-badge">🔁 Разминка — тип А</span>
+<div class="task"><ol class="ex">
+<li>Ряд вопросов осталось без ответа. <span class="anti-tag">антипример</span> <span class="anti-why">— ряд → ед.ч. «осталось» уже верно</span></li>
+<li>Те, кто участвовал в олимпиаде, получили дипломы. <span class="anti-tag">антипример</span> <span class="anti-why">— при «те» допустимо мн.ч. «получили»</span></li>
+<li>МВД сообщило о задержании. <span class="anti-tag">антипример</span> <span class="anti-why">— МВД = Министерство, ср.р. → «сообщило» верно</span></li>
+</ol><textarea class="ans" rows="2" placeholder="1. ✓  2. ✓  3. ✓"></textarea></div></div>
+<div><div class="bl">📌 Теория — тип Б</div>
+<div class="theory">
+<p><b>Суть:</b> существительное при предлоге стоит не в том падеже.</p>
+<table class="tb" style="margin-top:8px"><tr><th>Предлог</th><th>Нужен падеж</th><th>Пример</th></tr>
+<tr><td><b>благодаря, согласно, вопреки, наперекор</b></td><td>Дат.п. (кому? чему?)</td><td>согласно <b>приказу</b></td></tr>
+<tr><td><b>по</b> (= «после»)</td><td>Предл.п. (о чём?)</td><td>по <b>приезде</b>, по <b>окончании</b></td></tr></table>
+<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как в КИМе:</b> «неправильное употребление падежной формы существительного с предлогом»</p>
+</div></div>
+<div><div class="bl">✏️ Задание — 8 предложений</div>
+<div class="task"><ol class="ex">
+<li>Благодаря своевременной помощи удалось избежать проблем. <span class="anti-tag">антипример</span> <span class="anti-why">— благодаря + Дат.п. «помощи» — верно</span></li>
+<li>Вопреки прогноза синоптиков, погода оказалась тёплой.</li>
+<li>По прилёту в город мы сразу поехали в гостиницу.</li>
+<li>Согласно расписания, поезд прибывает в 10:00.</li>
+<li>По возвращению из командировки он написал отчёт.</li>
+<li>Вопреки предсказаниям, команда выиграла. <span class="anti-tag">антипример</span> <span class="anti-why">— вопреки + Дат.п. «предсказаниям» — верно</span></li>
+<li>По окончанию школы она поступила в университет.</li>
+<li>По приезду на дачу мы сразу пошли купаться.</li>
+</ol><textarea class="ans" rows="3" placeholder="1. ✓  2. прогнозу  3. прилёте  4. расписанию  5. возвращении  6. ✓  7. окончании  8. приезде"></textarea></div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>№</th><th>Правильно</th></tr>
+<tr><td>1</td><td>✓ — благодаря + Дат.п. «помощи» верно</td></tr>
+<tr><td>2</td><td>вопреки <b>прогнозу</b></td></tr>
+<tr><td>3</td><td>по <b>прилёте</b></td></tr>
+<tr><td>4</td><td>согласно <b>расписанию</b></td></tr>
+<tr><td>5</td><td>по <b>возвращении</b></td></tr>
+<tr><td>6</td><td>✓ — вопреки + Дат.п. «предсказаниям» верно</td></tr>
+<tr><td>7</td><td>по <b>окончании</b></td></tr>
+<tr><td>8</td><td>по <b>приезде</b></td></tr>
+</table></details></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c2')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c2')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c2')">3 — уверен</button></div>
+<div class="done-row"><input type="checkbox" id="done2" onchange="markDone(2,this.checked,1,8)"><label for="done2">✓ День 2 пройден</label></div>
+</div></div></div>
+
+<!-- ДЕНЬ 3 -->
+<div class="day" id="day3">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 3</span><span class="dttl">Тип В — несогласованное приложение + повтор А, Б</span><span class="dmeta">🕒 18 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><span class="warmup-badge">🔁 Разминка — А и Б</span>
+<div class="task"><ol class="ex">
+<li>Большинство учеников справились с контрольной.</li>
+<li>Согласно договора, оплата производится раз в месяц.</li>
+<li>По прилёте мы сразу позвонили домой. <span class="anti-tag">антипример</span> <span class="anti-why">— по прилёте — Предл.п., верно</span></li>
+</ol><textarea class="ans" rows="2" placeholder="1. справилось  2. договору  3. ✓"></textarea></div></div>
+<div><div class="bl">📌 Теория — тип В</div>
+<div class="theory">
+<p><b>Правило:</b> если есть родовое слово (роман, фильм, журнал...) — название в кавычках <b>не склоняется</b>.</p>
+<table class="tb" style="margin-top:8px"><tr><th>Ситуация</th><th>Правильно</th><th>Ошибка</th></tr>
+<tr><td>Есть родовое слово</td><td>в романе «Война и мир»</td><td>в романе «Войне и мире» ✗</td></tr>
+<tr><td>Нет родового слова</td><td>в «Войне и мире»</td><td>в «Война и мир» ✗</td></tr>
+<tr><td>Газеты, журналы</td><td>в газете «Известия»</td><td>в газете «Известиях» ✗</td></tr></table>
+<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как в КИМе:</b> «нарушение в построении предложения с несогласованным приложением»</p>
+</div></div>
+<div><div class="bl">✏️ Задание — 8 предложений</div>
+<div class="task"><ol class="ex">
+<li>В романе «Преступлении и наказании» поднимаются вечные вопросы.</li>
+<li>События фильма «Оно» происходят в вымышленном городе. <span class="anti-tag">антипример</span> <span class="anti-why">— есть «фильм», название «Оно» не склоняем</span></li>
+<li>В газете «Известиям» опубликовали интервью с актёром.</li>
+<li>Сюжет пьесы «Вишнёвого сада» разворачивается в усадьбе.</li>
+<li>В журнале «Новом мире» впервые напечатали эту повесть.</li>
+<li>Режиссёр снял продолжение фильма «Аватар». <span class="anti-tag">антипример</span> <span class="anti-why">— есть «фильм», «Аватар» не склоняем</span></li>
+<li>В повести «Капитанской дочке» описана пугачёвщина.</li>
+<li>В рассказе «Хамелеоне» Чехов высмеивает угодничество.</li>
+</ol><textarea class="ans" rows="3" placeholder="1. Преступление и наказание  2. ✓  3. Известия  4. Вишнёвый сад  5. Новый мир  6. ✓  7. Капитанская дочка  8. Хамелеон"></textarea></div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>№</th><th>Правильно</th></tr>
+<tr><td>1</td><td>«<b>Преступление и наказание</b>»</td></tr>
+<tr><td>2</td><td>✓ — есть «фильм», «Оно» не склоняем</td></tr>
+<tr><td>3</td><td>«<b>Известия</b>»</td></tr>
+<tr><td>4</td><td>«<b>Вишнёвый сад</b>»</td></tr>
+<tr><td>5</td><td>«<b>Новый мир</b>»</td></tr>
+<tr><td>6</td><td>✓ — есть «фильм», «Аватар» не склоняем</td></tr>
+<tr><td>7</td><td>«<b>Капитанская дочка</b>»</td></tr>
+<tr><td>8</td><td>«<b>Хамелеон</b>»</td></tr>
+</table></details></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c3')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c3')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c3')">3 — уверен</button></div>
+<div class="done-row"><input type="checkbox" id="done3" onchange="markDone(3,this.checked,1,8)"><label for="done3">✓ День 3 пройден</label></div>
+</div></div></div>
+
+<!-- ДЕНЬ 4 -->
+<div class="day" id="day4">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 4</span><span class="dttl">Типы Г и Д — причастный и деепричастный обороты</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><span class="warmup-badge">🔁 Разминка — А, Б, В</span>
+<div class="task"><ol class="ex">
+<li>Вопреки предсказаний, фильм стал хитом.</li>
+<li>В книге «Войне и мире» описана эпоха Наполеона.</li>
+<li>Часть вопросов осталась без ответа. <span class="anti-tag">антипример</span> <span class="anti-why">— часть → ед.ч. «осталась» верно</span></li>
+</ol><textarea class="ans" rows="2" placeholder="1. предсказаниям  2. Война и мир  3. ✓"></textarea></div></div>
+<div><div class="bl">📌 Теория — Г и Д</div>
+<div class="theory">
+<p><b>Г — Причастный оборот:</b> причастие согласуется с определяемым словом в роде, числе, <b>падеже</b>.</p>
+<p>❌ Гордимся спортсменами, <u>победивших</u> (Род.п.) — нужно <b>победившими</b> (Тв.п.)</p>
+<p style="margin-top:8px"><b>Д — Деепричастный оборот:</b> деепричастие и сказуемое — <b>один субъект</b>.</p>
+<p>❌ <u>Читая</u> книгу, у меня возник вопрос. (читаю я; возник вопрос — разные субъекты)</p>
+<p>✅ <u>Читая</u> книгу, я задал вопрос. (и читаю, и задал — я)</p>
+<p style="margin-top:6px;font-size:12px;background:#fff3cd;border-radius:6px;padding:7px 10px">⚠️ <b>Безличные предложения:</b> «Читая книгу, <b>стемнело</b>» — всегда ошибка! У «стемнело», «было скучно», «казалось» нет субъекта.</p>
+</div></div>
+<div><div class="bl">✏️ Задание — 8 предложений (оба типа + безличные)</div>
+<div class="task"><ol class="ex">
+<li>Мы гордимся нашими футболистами, победивших английскую команду.</li>
+<li>Читая книгу, у меня возник вопрос.</li>
+<li>Последние вопросы, рассматривавшиеся на совещании, были решены. <span class="anti-tag">антипример</span> <span class="anti-why">— вопросы (Им.п.) рассматривавшиеся (Им.п.) — падежи совпадают</span></li>
+<li>Возвращаясь домой, пошёл сильный дождь.</li>
+<li>Книга, написанная известным автором, стала бестселлером. <span class="anti-tag">антипример</span> <span class="anti-why">— книга (Им.п.) написанная (Им.п.) — верно</span></li>
+<li>Сделав домашнее задание, я пошёл гулять. <span class="anti-tag">антипример</span> <span class="anti-why">— я сделал и я пошёл — один субъект</span></li>
+<li>Подъезжая к станции, у меня зазвонил телефон.</li>
+<li>Проснувшись рано, мне сразу захотелось пить.</li>
+</ol><textarea class="ans" rows="3" placeholder="1. победившими  2. Когда я читал...  3. ✓  4. Когда я возвращался...  5. ✓  6. ✓  7. Когда я подъезжал...  8. Когда я проснулся... (безличное!)"></textarea></div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>№</th><th>Тип</th><th>Правильно</th></tr>
+<tr><td>1</td><td>Г</td><td>победившими (Тв.п. мн.ч.)</td></tr>
+<tr><td>2</td><td>Д</td><td>Когда я читал книгу, у меня возник вопрос.</td></tr>
+<tr><td>3</td><td>✓</td><td>вопросы Им. → рассматривавшиеся Им. — падежи совпадают</td></tr>
+<tr><td>4</td><td>Д</td><td>Когда я возвращался домой, пошёл дождь.</td></tr>
+<tr><td>5</td><td>✓</td><td>книга Им. → написанная Им.</td></tr>
+<tr><td>6</td><td>✓</td><td>Я сделал и я пошёл — один субъект</td></tr>
+<tr><td>7</td><td>Д</td><td>Когда я подъезжал к станции, у меня зазвонил телефон.</td></tr>
+<tr><td>8</td><td>Д</td><td>Безличное «захотелось» — нет субъекта → Когда я проснулся, мне захотелось пить.</td></tr>
+</table></details></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c4')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c4')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c4')">3 — уверен</button></div>
+<div class="done-row"><input type="checkbox" id="done4" onchange="markDone(4,this.checked,1,8)"><label for="done4">✓ День 4 пройден</label></div>
+</div></div></div>
+
+<!-- ДЕНЬ 5а — Е + Ж (разбит по рекомендации Насти и Громовой) -->
+<div class="day" id="day5">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 5а</span><span class="dttl">Типы Е и Ж — вид/время глаголов + однородные члены</span><span class="dmeta">🕒 18 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><span class="warmup-badge">🔁 Разминка — Г и Д</span>
+<div class="task"><ol class="ex">
+<li>Прочитав книгу, меня поразил главный герой.</li>
+<li>Ученики, сдавшие экзамен, получили дипломы. <span class="anti-tag">антипример</span> <span class="anti-why">— ученики Им. → сдавшие Им. — верно</span></li>
+<li>Войдя в комнату, свет был выключен.</li>
+</ol><textarea class="ans" rows="2" placeholder="1. Когда я прочитал...  2. ✓  3. Когда я вошёл... (или: безличное — свет не входил)"></textarea></div></div>
+<div><div class="bl">📌 Теория — Е и Ж</div>
+<div class="theory">
+<p><b>Е — Видовременная соотнесённость:</b> все глаголы в одном предложении → одно время.</p>
+<p>❌ Он <u>открыл</u> окно и <u>дышит</u>. → ✅ открыл и <b>вдохнул</b></p>
+<p>❌ Туман <u>рассеялся</u>, и солнце <u>освещает</u> поляну. → ✅ <b>осветило</b></p>
+<p style="margin-top:8px"><b>Ж — Однородные члены:</b> однородные глаголы могут требовать разных падежей.</p>
+<p>❌ Любить и гордиться <u>родиной</u>. → ✅ <b>любить родину</b> и <b>гордиться ею</b></p>
+<p>❌ Он увлекается и <u>занимается</u> спортом. → ✅ <b>увлекается спортом</b> и занимается им</p>
+</div></div>
+<div><div class="bl">✏️ Задание — 8 предложений (только Е и Ж)</div>
+<div class="task"><ol class="ex">
+<li>Туман рассеялся, и солнце освещает поляну.</li>
+<li>Он увлекается и занимается спортом.</li>
+<li>Он вышел на улицу и видит знакомого.</li>
+<li>Мы не только прочитали книгу, но и написали отзыв. <span class="anti-tag">антипример</span> <span class="anti-why">— не только... но и — союз правильный, падежи совпадают</span></li>
+<li>Поезд остановился, и пассажиры выходят из вагонов.</li>
+<li>Я люблю и восхищаюсь природой.</li>
+<li>Девочка подошла к окну и смотрит на улицу.</li>
+<li>Он взял книгу и начинает читать.</li>
+</ol><textarea class="ans" rows="3" placeholder="1. Е — осветило  2. Ж — увлекается спортом и занимается им  3. Е — увидел  4. ✓  5. Е — вышли  6. Ж — люблю природу и восхищаюсь ею  7. Е — посмотрела  8. Е — начал"></textarea></div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>№</th><th>Тип</th><th>Правильно</th></tr>
+<tr><td>1</td><td>Е</td><td>осветило</td></tr>
+<tr><td>2</td><td>Ж</td><td>увлекается спортом и занимается им</td></tr>
+<tr><td>3</td><td>Е</td><td>увидел</td></tr>
+<tr><td>4</td><td>✓</td><td>не только... но и — верно</td></tr>
+<tr><td>5</td><td>Е</td><td>вышли</td></tr>
+<tr><td>6</td><td>Ж</td><td>Я люблю природу и восхищаюсь ею.</td></tr>
+<tr><td>7</td><td>Е</td><td>посмотрела</td></tr>
+<tr><td>8</td><td>Е</td><td>начал читать</td></tr>
+</table></details></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c5a')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c5a')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c5a')">3 — уверен</button></div>
+<div class="done-row"><input type="checkbox" id="done5" onchange="markDone(5,this.checked,1,8)"><label for="done5">✓ День 5а пройден</label></div>
+</div></div></div>
+
+<!-- ДЕНЬ 5б — З + И -->
+<div class="day" id="day6">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 5б</span><span class="dttl">Типы З и И — косвенная речь + сложное предложение</span><span class="dmeta">🕒 18 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><span class="warmup-badge">🔁 Разминка — Е и Ж</span>
+<div class="task"><ol class="ex">
+<li>Он открыл дверь и выходит на улицу.</li>
+<li>Я уважаю и восхищаюсь этим человеком.</li>
+<li>Она взяла зонт и вышла на улицу. <span class="anti-tag">антипример</span> <span class="anti-why">— оба глагола прошедшее время — верно</span></li>
+</ol><textarea class="ans" rows="2" placeholder="1. Е — вышел  2. Ж — уважаю этого человека и восхищаюсь им  3. ✓"></textarea></div></div>
+<div><div class="bl">📌 Теория — З и И</div>
+<div class="theory">
+<p><b>З — Косвенная речь:</b> в косвенной речи местоимения меняются; нельзя «что + ли».</p>
+<p>❌ Сказала, что <u>я</u> приду. → ✅ что <b>она</b> придёт.</p>
+<p>❌ Спросил, <u>что</u> буду ли я → ✅ Спросил, <b>буду ли</b> я.</p>
+<div style="background:#fff8e1;border-radius:7px;padding:8px 12px;margin-top:8px;font-size:12px">
+<b>Прямая → Косвенная (таблица):</b><br>
+«я иду» → он идёт &nbsp;|&nbsp; «я скажу» → он скажет<br>
+«мы придём» → они придут &nbsp;|&nbsp; «что будет ли» → <b>будет ли</b>
+</div>
+<p style="margin-top:8px"><b>И — Сложное предложение:</b> «который» стоит рядом со своим словом; не смешивай союзы.</p>
+<p>❌ Фильм мы смотрели, <u>который</u>. → ✅ Мы смотрели <b>фильм</b>, который</p>
+</div></div>
+<div><div class="bl">✏️ Задание — 8 предложений (только З и И)</div>
+<div class="task"><ol class="ex">
+<li>Мама сказала, что я уже поужинал.</li>
+<li>Он спросил меня, что буду ли я завтра.</li>
+<li>Письмо он написал, которое собирался отправить.</li>
+<li>Она сообщила, что придёт к пяти. <span class="anti-tag">антипример</span> <span class="anti-why">— местоимение «она», не «я» — косвенная речь составлена верно</span></li>
+<li>Автор утверждал, что я уверен в правоте своих слов.</li>
+<li>Книгу она читала, которую взяла в библиотеке.</li>
+<li>Он спросил, что придём ли мы на встречу.</li>
+<li>Она предупредила, что задержится на работе. <span class="anti-tag">антипример</span> <span class="anti-why">— «она задержится» — местоимение верное</span></li>
+</ol><textarea class="ans" rows="3" placeholder="1. З — она  2. З — буду ли  3. И — Он написал письмо, которое  4. ✓  5. З — он уверен  6. И — Она читала книгу, которую  7. И/З — придём ли  8. ✓"></textarea></div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>№</th><th>Тип</th><th>Правильно</th></tr>
+<tr><td>1</td><td>З</td><td>Мама сказала, что <b>она</b> уже поужинала.</td></tr>
+<tr><td>2</td><td>З/И</td><td>Спросил, <b>буду ли</b> я завтра.</td></tr>
+<tr><td>3</td><td>И</td><td>Он написал письмо, которое собирался отправить.</td></tr>
+<tr><td>4</td><td>✓</td><td>«она придёт» — местоимение верное</td></tr>
+<tr><td>5</td><td>З</td><td>Автор утверждал, что <b>он</b> уверен в правоте своих слов.</td></tr>
+<tr><td>6</td><td>И</td><td>Она читала книгу, которую взяла в библиотеке.</td></tr>
+<tr><td>7</td><td>И/З</td><td>Спросил, <b>придём ли</b> мы на встречу.</td></tr>
+<tr><td>8</td><td>✓</td><td>«она задержится» — верно</td></tr>
+</table></details></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c5b')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c5b')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c5b')">3 — уверен</button></div>
+<div class="done-row"><input type="checkbox" id="done6" onchange="markDone(6,this.checked,1,8)"><label for="done6">✓ День 5б пройден</label></div>
+</div></div></div>
+
+<!-- ДЕНЬ 6 — РЕВЬЮ -->
+<div class="day" id="day7">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 6</span><span class="dttl">Ревью модуля 1 — все 9 типов в 12 предложениях</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><span class="warmup-badge">🔁 Разминка — З и И</span>
+<div class="task"><ol class="ex">
+<li>Он открыл дверь и выходит на улицу.</li>
+<li>Она сказала, что я обязательно приду.</li>
+<li>Книгу он прочитал, которую ему подарили.</li>
+</ol><textarea class="ans" rows="2" placeholder="1. Е — вышел  2. З — она придёт  3. И — Он прочитал книгу, которую..."></textarea></div></div>
+<div><div class="bl">🏁 Ревью — 12 предложений, все типы А–И</div>
+<div class="task">
+<p style="font-size:12px;color:var(--muted);margin-bottom:8px">Определи тип (А–И) и запиши исправление. «✓» если ошибки нет.</p>
+<ol class="ex">
+<li>Ряд экспертов полагали, что ситуация изменится.</li>
+<li>Вопреки прогноза, акции выросли.</li>
+<li>В романе «Мастере и Маргарите» много загадок.</li>
+<li>Сделав уроки, мама позвала меня ужинать.</li>
+<li>Мы гордимся спортсменами, завоевавшими медали. <span class="anti-tag">антипример</span> <span class="anti-why">— спортсменами Тв. → завоевавшими Тв. — падежи совпадают</span></li>
+<li>Она сказала, что я обязательно приду.</li>
+<li>Я люблю и восхищаюсь природой.</li>
+<li>Согласно плана, строительство завершится в марте.</li>
+<li>Туристы, уставшие от долгой дороги, остановились. <span class="anti-tag">антипример</span> <span class="anti-why">— туристы Им. → уставшие Им. — верно</span></li>
+<li>Большинство участников проголосовали за это решение.</li>
+<li>Спросил, что придёт ли он завтра.</li>
+<li>Читая рукопись, у редактора возникли замечания.</li>
+</ol>
+<textarea class="ans" rows="4" placeholder="1. А — полагал  2. Б — прогнозу  3. В — Мастер и Маргарита  4. Д — Когда я сделал...  5. ✓  6. З — она придёт  7. Ж  8. Б — плану  9. ✓  10. А — проголосовало  11. И/З — придёт ли  12. Д"></textarea>
+</div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>№</th><th>Тип</th><th>Исправление</th></tr>
+<tr><td>1</td><td>А</td><td>полагал</td></tr>
+<tr><td>2</td><td>Б</td><td>вопреки прогнозу</td></tr>
+<tr><td>3</td><td>В</td><td>«Мастер и Маргарита»</td></tr>
+<tr><td>4</td><td>Д</td><td>Когда я сделал уроки, мама позвала меня.</td></tr>
+<tr><td>5</td><td>✓</td><td>спортсменами Тв. → завоевавшими Тв. — верно</td></tr>
+<tr><td>6</td><td>З</td><td>Она сказала, что <b>она</b> обязательно придёт.</td></tr>
+<tr><td>7</td><td>Ж</td><td>Я люблю природу и восхищаюсь ею.</td></tr>
+<tr><td>8</td><td>Б</td><td>согласно плану</td></tr>
+<tr><td>9</td><td>✓</td><td>туристы Им. → уставшие Им. — верно</td></tr>
+<tr><td>10</td><td>А</td><td>проголосовало</td></tr>
+<tr><td>11</td><td>И/З</td><td>Спросил, придёт ли он завтра.</td></tr>
+<tr><td>12</td><td>Д</td><td>Когда редактор читал рукопись, у него возникли замечания.</td></tr>
+</table></details></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c6')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c6')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c6')">3 — уверен</button></div>
+<div class="done-row"><input type="checkbox" id="done7" onchange="markDone(7,this.checked,1,8)"><label for="done7">✓ День 6 пройден</label></div>
+</div></div></div>
+
+</div></div><!-- /mod1 -->
+<!-- МОДУЛЬ 2 -->
+<div class="mod m2" id="mod2">
+<div class="mh"><div class="mn">Модуль 2 · Дни 7–12</div><div class="mt">Формат ЕГЭ: сопоставление ошибок</div><div class="tags"><span class="tag">Мини 3+6</span><span class="tag">Полный 5+9</span><span class="tag">Зачёт #1 и #2</span></div></div>
+<div class="mod-progress"><div class="mod-progress-fill" id="prog2"></div></div>
+<div class="mod-progress-label" id="progl2">0 / 6 дней</div>
+<div class="days">
+
+<div class="day" id="day8">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 7</span><span class="dttl">Мини-формат ЕГЭ · 3 ошибки + 6 предложений</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><span class="warmup-badge">🔁 Разминка — 5 предложений</span>
+<div class="task"><ol class="ex">
+<li>Ряд задач были решены неверно.</li>
+<li>В повести «Шинели» описана судьба маленького человека.</li>
+<li>По возвращению из поездки он написал статью.</li>
+<li>Читая письмо, у неё навернулись слёзы.</li>
+<li>Большинство гостей пришли вовремя.</li>
+</ol><textarea class="ans" rows="2" placeholder="1. А-была  2. В-Шинель  3. Б-возвращении  4. Д  5. А-пришло"></textarea></div></div>
+<div><div class="bl">🧾 Как работает формат ЕГЭ</div>
+<div class="theory">
+<p>В реальном ЕГЭ: <b>5 типов ошибок + 9 предложений</b> (4 без ошибок). Сегодня: <b>3 ошибки + 6 предложений</b>.</p>
+<p style="margin-top:6px;font-size:12px">Вводи номер предложения в поле буквы. Если ошибок нескольких — через запятую: 3, 8. Если ошибки данного типа нет — <b>оставь поле пустым</b>.</p>
+</div></div>
+<div><div class="bl">✏️ Мини-формат #1</div>
+<div class="task">
+<div class="zachet-instr">Некоторые типы ошибок могут не встретиться в данном наборе — оставь поле пустым, не угадывай.</div>
+<table class="match-table"><tr><th>Тип ошибки</th></tr>
+<tr><td>А. Нарушение связи между подлежащим и сказуемым</td></tr>
+<tr><td>Б. Неправильное употребление падежной формы с предлогом</td></tr>
+<tr><td>В. Нарушение с несогласованным приложением</td></tr></table>
+<ol class="ex" style="margin-top:10px">
+<li>Часть студентов сдала работы досрочно. <span class="anti-tag">антипример</span> <span class="anti-why">— часть → ед.ч. «сдала» верно</span></li>
+<li>Согласно приказу директора, занятия отменили. <span class="anti-tag">антипример</span> <span class="anti-why">— согласно + Дат.п. «приказу» верно</span></li>
+<li>В романе «Отцах и детях» поднимается тема конфликта поколений.</li>
+<li>По приезде в Москву он сразу позвонил другу. <span class="anti-tag">антипример</span> <span class="anti-why">— по приезде — Предл.п., верно</span></li>
+<li>Большинство учеников справились с заданием.</li>
+<li>Статья была напечатана в журнале «Новом мире».</li>
+</ol>
+<div class="match-inputs">
+<div class="match-cell"><span class="match-lbl">А</span><input class="match-in" id="m7a" type="text" placeholder="№"></div>
+<div class="match-cell"><span class="match-lbl">Б</span><input class="match-in" id="m7b" type="text" placeholder="—"></div>
+<div class="match-cell"><span class="match-lbl">В</span><input class="match-in" id="m7v" type="text" placeholder="№,№"></div>
+</div>
+<button class="check-btn" onclick="chk3('m7',{A:'5',B:null,V:'3,6'},['m7a','m7b','m7v'],['А','Б','В'])">Проверить</button>
+<div class="check-result" id="m7-result"></div>
+</div></div>
+<div><div class="bl">🔍 Ключ</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
+<tr><td>А</td><td><b>5</b></td><td>Большинство справились → <b>справилось</b></td></tr>
+<tr><td>Б</td><td><b>—</b></td><td>Ошибок типа Б в этом наборе нет (предл. 2 и 4 правильные)</td></tr>
+<tr><td>В</td><td><b>3, 6</b></td><td>«Отцах и детях» → «Отцы и дети»; «Новом мире» → «Новый мир»</td></tr>
+</table></details></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c7')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c7')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c7')">3 — уверен</button></div>
+<div class="done-row"><input type="checkbox" id="done8" onchange="markDone(8,this.checked,2,6)"><label for="done8">✓ День 7 пройден</label></div>
+</div></div></div>
+
+<div class="day" id="day9">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 8</span><span class="dttl">Мини-формат #2 · 3+6 · типы Г, Д, Е</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><span class="warmup-badge">🔁 Разминка</span>
+<div class="task"><ol class="ex">
+<li>Вопреки прогнозам, лето выдалось холодным. <span class="anti-tag">антипример</span> <span class="anti-why">— вопреки + Дат.п. «прогнозам» верно</span></li>
+<li>Спортсмены, победившие в соревнованиях, получили медали. <span class="anti-tag">антипример</span> <span class="anti-why">— спортсмены Им. → победившие Им. верно</span></li>
+<li>Поднявшись на вершину, нам открылся потрясающий вид.</li>
+</ol><textarea class="ans" rows="2" placeholder="1. ✓  2. ✓  3. Д — Когда мы поднялись..."></textarea></div></div>
+<div><div class="bl">✏️ Мини-формат #2</div>
+<div class="task">
+<div class="zachet-instr">Некоторые типы ошибок могут не встретиться — оставь поле пустым.</div>
+<table class="match-table"><tr><th>Тип ошибки</th></tr>
+<tr><td>Г. Ошибка в построении предложения с причастным оборотом</td></tr>
+<tr><td>Д. Ошибка в построении предложения с деепричастным оборотом</td></tr>
+<tr><td>Е. Нарушение видовременной соотнесённости глаголов</td></tr></table>
+<ol class="ex" style="margin-top:10px">
+<li>Он сел в кресло и открывает книгу.</li>
+<li>Мы видели птиц, летящих на юг. <span class="anti-tag">антипример</span> <span class="anti-why">— птиц Вин. → летящих Вин. — верно</span></li>
+<li>Возвращаясь с работы, начался ливень.</li>
+<li>Деревья, посаженные школьниками, уже выросли. <span class="anti-tag">антипример</span> <span class="anti-why">— деревья Им. → посаженные Им. — верно</span></li>
+<li>Девочка сидела у окна и смотрит на улицу.</li>
+<li>Мы гордимся спортсменами, прославившими нашу страну. <span class="anti-tag">антипример</span> <span class="anti-why">— спортсменами Тв. → прославившими Тв. — верно</span></li>
+</ol>
+<div class="match-inputs">
+<div class="match-cell"><span class="match-lbl">Г</span><input class="match-in" id="m8g" type="text" placeholder="—"></div>
+<div class="match-cell"><span class="match-lbl">Д</span><input class="match-in" id="m8d" type="text" placeholder="№"></div>
+<div class="match-cell"><span class="match-lbl">Е</span><input class="match-in" id="m8e" type="text" placeholder="№,№"></div>
+</div>
+<button class="check-btn" onclick="chk3('m8',{G:null,D:'3',E:'1,5'},['m8g','m8d','m8e'],['Г','Д','Е'])">Проверить</button>
+<div class="check-result" id="m8-result"></div>
+</div></div>
+<div><div class="bl">🔍 Ключ</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
+<tr><td>Г</td><td><b>—</b></td><td>В наборе нет ошибки типа Г — все причастия согласованы</td></tr>
+<tr><td>Д</td><td><b>3</b></td><td>Когда я возвращался, начался ливень.</td></tr>
+<tr><td>Е</td><td><b>1, 5</b></td><td>сел → открыл; сидела → смотрела</td></tr>
+</table></details></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c8')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c8')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c8')">3 — уверен</button></div>
+<div class="done-row"><input type="checkbox" id="done9" onchange="markDone(9,this.checked,2,6)"><label for="done9">✓ День 8 пройден</label></div>
+</div></div></div>
+
+<div class="day" id="day10">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 9 ⭐</span><span class="dttl">Зачёт #1 · Полный формат ЕГЭ · 5+9</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><span class="warmup-badge">🔁 Разминка — 4 предложения</span>
+<div class="task"><ol class="ex">
+<li>Согласно расписанию, поезд отправляется в 8:00. <span class="anti-tag">антипример</span> <span class="anti-why">— согласно + Дат.п. «расписанию» верно</span></li>
+<li>Ряд предложений были составлены неверно.</li>
+<li>Посмотрев фильм, мне стало грустно.</li>
+<li>В повести «Белых ночах» Достоевский исследует одиночество.</li>
+</ol><textarea class="ans" rows="2" placeholder="1. ✓  2. А-было  3. Д  4. В-Белые ночи"></textarea></div></div>
+<div><div class="bl">🏁 Зачёт #1 — Полный формат ЕГЭ</div>
+<div class="task">
+<div class="zachet-instr">Внимание: некоторые типы ошибок могут не встретиться в данном наборе. Если ошибки нет — оставь поле пустым. 4 из 9 предложений будут правильными.</div>
+<table class="match-table"><tr><th>Грамматическая ошибка</th></tr>
+<tr><td>А. Нарушение связи между подлежащим и сказуемым</td></tr>
+<tr><td>Б. Неправильное употребление падежной формы с предлогом</td></tr>
+<tr><td>В. Нарушение в построении с несогласованным приложением</td></tr>
+<tr><td>Г. Ошибка в построении с причастным оборотом</td></tr>
+<tr><td>Д. Нарушение в построении с деепричастным оборотом</td></tr></table>
+<ol class="ex" style="margin-top:10px">
+<li>Большинство участников олимпиады справились с заданиями.</li>
+<li>По окончании школы она поступила в медицинский университет.</li>
+<li>В фильме «Властелине колец» показана борьба добра со злом.</li>
+<li>Мы увидели поезд, стремительно подъезжающий к перрону.</li>
+<li>Он открыл дверь и входит в кабинет директора.</li>
+<li>Вопреки прогнозу синоптиков, на улице было солнечно.</li>
+<li>Обо всём, сказанном на собрании, нужно было подумать.</li>
+<li>В журнале «Науке и жизни» опубликовали интересную статью.</li>
+<li>Войдя в класс, меня встретил классный руководитель.</li>
+</ol>
+<div class="match-inputs">
+<div class="match-cell"><span class="match-lbl">А</span><input class="match-in" id="z1a" type="text" placeholder="№"></div>
+<div class="match-cell"><span class="match-lbl">Б</span><input class="match-in" id="z1b" type="text" placeholder="—"></div>
+<div class="match-cell"><span class="match-lbl">В</span><input class="match-in" id="z1v" type="text" placeholder="№,№"></div>
+<div class="match-cell"><span class="match-lbl">Г</span><input class="match-in" id="z1g" type="text" placeholder="—"></div>
+<div class="match-cell"><span class="match-lbl">Д</span><input class="match-in" id="z1d" type="text" placeholder="№"></div>
+</div>
+<button class="check-btn" onclick="checkZ1()">Проверить зачёт</button>
+<div class="check-result" id="z1-result"></div>
+</div></div>
+<div><div class="bl">🔍 Ключ</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
+<tr><td>А</td><td><b>1</b></td><td>Большинство справились → <b>справилось</b></td></tr>
+<tr><td>Б</td><td><b>—</b></td><td>В задании нет Б (предл. 2, 6 — правильные)</td></tr>
+<tr><td>В</td><td><b>3, 8</b></td><td>«Властелине колец» → «Властелин колец»; «Науке и жизни» → «Наука и жизнь»</td></tr>
+<tr><td>Г</td><td><b>—</b></td><td>В задании нет Г (предл. 4, 7 — правильные)</td></tr>
+<tr><td>Д</td><td><b>9</b></td><td>Войдя — меня встретил: разные субъекты → Когда я вошёл…</td></tr>
+</table>
+<p style="margin-top:4px;font-size:12px;color:var(--muted)">Без ошибок: 2, 4, 6, 7</p>
+</details></div>
+<div><div class="bl">📊 Результат</div>
+<div class="task">
+<div class="score-row"><span style="font-size:13px">Правильных сопоставлений:</span><input class="score-in" type="number" id="z1score" min="0" max="5" oninput="saveScore('z1',this.value)"> / 5</div>
+<p style="margin-top:6px;font-size:12px;color:var(--muted)">5 → 3 балла · 3–4 → 2 балла · 1–2 → 1 балл</p>
+</div></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c9')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c9')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c9')">3 — уверен</button></div>
+<div class="done-row"><input type="checkbox" id="done10" onchange="markDone(10,this.checked,2,6)"><label for="done10">✓ День 9 пройден</label></div>
+</div></div></div>
+
+<div class="day" id="day11">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 10</span><span class="dttl">Работа над ошибками зачёта #1 + карта возврата</span><span class="dmeta">🕒 18 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><div class="bl">🧠 Рефлексия</div>
+<div class="task">
+<p style="font-size:13px">Какой тип ошибки вызвал затруднение? Объясни своими словами.</p>
+<textarea class="ans" rows="2" placeholder="Например: тип В — не замечаю когда есть родовое слово..."></textarea>
+</div></div>
+<div><div class="bl">🗺 Карта возврата — ошибся в типе X → повтори день Y</div>
+<div class="return-map">
+<h4>Нажми на тип — перейдёшь к нужному дню:</h4>
+<div class="return-grid">
+<div class="return-item" onclick="goDay(1)"><b>Тип А</b> → вернись к Дню 1</div>
+<div class="return-item" onclick="goDay(2)"><b>Тип Б</b> → вернись к Дню 2</div>
+<div class="return-item" onclick="goDay(3)"><b>Тип В</b> → вернись к Дню 3</div>
+<div class="return-item" onclick="goDay(4)"><b>Тип Г</b> → вернись к Дню 4</div>
+<div class="return-item" onclick="goDay(4)"><b>Тип Д</b> → вернись к Дню 4</div>
+<div class="return-item" onclick="goDay(5)"><b>Тип Е</b> → вернись к Дню 5а</div>
+<div class="return-item" onclick="goDay(5)"><b>Тип Ж</b> → вернись к Дню 5а</div>
+<div class="return-item" onclick="goDay(6)"><b>Тип З</b> → вернись к Дню 5б</div>
+<div class="return-item" onclick="goDay(6)"><b>Тип И</b> → вернись к Дню 5б</div>
+</div>
+</div></div>
+<div><div class="bl">✏️ Точечная практика — антипримеры типа В</div>
+<div class="task"><ol class="ex">
+<li>В журнале «Юность» опубликовали её первый рассказ. <span class="anti-tag">антипример</span> <span class="anti-why">— есть «журнал», «Юность» не склоняем</span></li>
+<li>В рассказе «Ионыче» Чехов показывает деградацию личности.</li>
+<li>Мы смотрели спектакль «Гамлет» в Большом театре. <span class="anti-tag">антипример</span> <span class="anti-why">— есть «спектакль», «Гамлет» не склоняем</span></li>
+<li>В повести «Тарасе Бульбе» описаны события казачьей эпохи.</li>
+<li>Фильм «Аватар» стал самым кассовым в истории. <span class="anti-tag">антипример</span> <span class="anti-why">— нет родового слова → «Аватар» в Им.п., верно</span></li>
+<li>В газете «Правде» регулярно публиковали официальные сообщения.</li>
+</ol><textarea class="ans" rows="2" placeholder="1. ✓  2. Ионыч  3. ✓  4. Тарас Бульба  5. ✓  6. Правда"></textarea></div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>№</th><th>Правильно</th></tr>
+<tr><td>1</td><td>✓ — есть «журнал», «Юность» не склоняем</td></tr>
+<tr><td>2</td><td>«<b>Ионыч</b>»</td></tr>
+<tr><td>3</td><td>✓ — есть «спектакль», «Гамлет» не склоняем</td></tr>
+<tr><td>4</td><td>«<b>Тарас Бульба</b>»</td></tr>
+<tr><td>5</td><td>✓ — нет родового слова → «Аватар» в Им.п., верно</td></tr>
+<tr><td>6</td><td>«<b>Правда</b>» — есть «газете», не склоняем</td></tr>
+</table></details></div>
+<div class="done-row"><input type="checkbox" id="done11" onchange="markDone(11,this.checked,2,6)"><label for="done11">✓ День 10 пройден</label></div>
+</div></div></div>
+
+<div class="day" id="day12">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 11</span><span class="dttl">Блиц — 12 предложений за 12 минут</span><span class="dmeta">🕒 18 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><div class="bl">⚡ Блиц — 1 минута на предложение</div>
+<div class="task">
+<ol class="ex">
+<li>Большинство учеников написали сочинение.</li>
+<li>Благодаря помощи учителя он успешно сдал экзамен. <span class="anti-tag">антипример</span> <span class="anti-why">— благодаря + Дат.п. «помощи» верно</span></li>
+<li>В книге «Белой гвардии» изображён трагический период истории.</li>
+<li>Он прочитал книгу и пишет отзыв.</li>
+<li>Мы гордимся нашими учёными, открывшими это явление. <span class="anti-tag">антипример</span> <span class="anti-why">— учёными Тв. → открывшими Тв. верно</span></li>
+<li>Поднявшись на холм, открылся прекрасный вид.</li>
+<li>Спросил, что придёт ли она на вечеринку.</li>
+<li>Книгу она читала, которую взяла в библиотеке.</li>
+<li>Я люблю и занимаюсь музыкой.</li>
+<li>Вопреки правилам, он поступил по-своему. <span class="anti-tag">антипример</span> <span class="anti-why">— вопреки + Дат.п. «правилам» верно</span></li>
+<li>По возвращению из Парижа она написала мемуары.</li>
+<li>Туристы, уставшие от долгого пути, добрались до гостиницы. <span class="anti-tag">антипример</span> <span class="anti-why">— туристы Им. → уставшие Им. верно</span></li>
+</ol>
+<textarea class="ans" rows="5" placeholder="1. А-написало  2. ✓  3. В-Белая гвардия  4. Е-написал  5. ✓  6. Д  7. И/З-придёт ли  8. И  9. Ж  10. ✓  11. Б-возвращении  12. ✓"></textarea>
+</div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>№</th><th>Тип</th><th>Исправление</th></tr>
+<tr><td>1</td><td>А</td><td>написало</td></tr><tr><td>2</td><td>✓</td><td>благодаря + Дат.п. «помощи»</td></tr>
+<tr><td>3</td><td>В</td><td>«Белая гвардия»</td></tr><tr><td>4</td><td>Е</td><td>написал</td></tr>
+<tr><td>5</td><td>✓</td><td>учёными Тв. → открывшими Тв.</td></tr>
+<tr><td>6</td><td>Д</td><td>Когда мы поднялись на холм, открылся вид.</td></tr>
+<tr><td>7</td><td>И/З</td><td>Спросил, придёт ли она.</td></tr>
+<tr><td>8</td><td>И</td><td>Она читала книгу, которую взяла в библиотеке.</td></tr>
+<tr><td>9</td><td>Ж</td><td>Я люблю музыку и занимаюсь ею.</td></tr>
+<tr><td>10</td><td>✓</td><td>вопреки + Дат.п. «правилам»</td></tr>
+<tr><td>11</td><td>Б</td><td>по возвращении</td></tr><tr><td>12</td><td>✓</td><td>туристы Им. → уставшие Им.</td></tr>
+</table></details></div>
+<div class="done-row"><input type="checkbox" id="done12" onchange="markDone(12,this.checked,2,6)"><label for="done12">✓ День 11 пройден</label></div>
+</div></div></div>
+
+<div class="day" id="day13">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 12 ⭐</span><span class="dttl">Зачёт #2 · Полный формат · 5+9</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><div class="bl">🏆 Зачёт #2</div>
+<div class="task">
+<div class="zachet-instr">Некоторые типы ошибок могут не встретиться в данном наборе — оставь поле пустым. 4 из 9 предложений без ошибок.</div>
+<table class="match-table"><tr><th>Грамматическая ошибка</th></tr>
+<tr><td>А. Нарушение связи между подлежащим и сказуемым</td></tr>
+<tr><td>Б. Неправильное употребление падежной формы с предлогом</td></tr>
+<tr><td>В. Нарушение с несогласованным приложением</td></tr>
+<tr><td>Г. Ошибка в построении с причастным оборотом</td></tr>
+<tr><td>Д. Нарушение в построении с деепричастным оборотом</td></tr></table>
+<ol class="ex" style="margin-top:10px">
+<li>Ряд заданий были выполнены правильно.</li>
+<li>Вопреки прогнозу метеорологов, погода была тёплой. <span class="anti-tag">антипример</span> <span class="anti-why">— вопреки + Дат.п. «прогнозу» верно</span></li>
+<li>В романе «Войне и мире» Толстой показывает нравственный поиск человека.</li>
+<li>Мы увидели поезд, подъезжающий к станции. <span class="anti-tag">антипример</span> <span class="anti-why">— поезд Вин. → подъезжающий Вин. верно</span></li>
+<li>Он прочитал книгу и пишет рецензию.</li>
+<li>Благодаря чёткой организации работы всё прошло хорошо. <span class="anti-tag">антипример</span> <span class="anti-why">— благодаря + Дат.п. «организации» верно</span></li>
+<li>Обо всём, сказанном на конференции, долго спорили коллеги. <span class="anti-tag">антипример</span> <span class="anti-why">— о всём Пр.п. → сказанном Пр.п. верно</span></li>
+<li>Сдав экзамен, у него наконец появилось свободное время.</li>
+<li>В газете «Правде» напечатали статью о реформах.</li>
+</ol>
+<div class="match-inputs">
+<div class="match-cell"><span class="match-lbl">А</span><input class="match-in" id="z2a" type="text" placeholder="№"></div>
+<div class="match-cell"><span class="match-lbl">Б</span><input class="match-in" id="z2b" type="text" placeholder="—"></div>
+<div class="match-cell"><span class="match-lbl">В</span><input class="match-in" id="z2v" type="text" placeholder="№,№"></div>
+<div class="match-cell"><span class="match-lbl">Г</span><input class="match-in" id="z2g" type="text" placeholder="—"></div>
+<div class="match-cell"><span class="match-lbl">Д</span><input class="match-in" id="z2d" type="text" placeholder="№"></div>
+</div>
+<button class="check-btn" onclick="checkZ2()">Проверить зачёт</button>
+<div class="check-result" id="z2-result"></div>
+</div></div>
+<div><div class="bl">🔍 Ключ</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
+<tr><td>А</td><td><b>1</b></td><td>Ряд заданий были → <b>было выполнено</b></td></tr>
+<tr><td>Б</td><td><b>—</b></td><td>В задании нет Б</td></tr>
+<tr><td>В</td><td><b>3, 9</b></td><td>«Войне и мире» → «Война и мир»; «Правде» → «Правда»</td></tr>
+<tr><td>Г</td><td><b>—</b></td><td>В задании нет Г</td></tr>
+<tr><td>Д</td><td><b>8</b></td><td>Сдав — у него: разные субъекты → Когда он сдал…</td></tr>
+</table></details></div>
+<div><div class="bl">📊 Прогресс</div>
+<div class="task">
+<div class="score-row"><span style="font-size:13px">Зачёт #2:</span><input class="score-in" type="number" id="z2score" min="0" max="5" oninput="saveScore('z2',this.value)"> / 5</div>
+<p style="margin-top:8px;font-size:13px;font-weight:600">Зачёт #1 → <b><span id="show_z1">—</span></b> / 5 &nbsp; Зачёт #2 → <b><span id="show_z2">—</span></b> / 5 &nbsp; <span id="dynamic"></span></p>
+</div></div>
+<div class="done-row"><input type="checkbox" id="done13" onchange="markDone(13,this.checked,2,6)"><label for="done13">✓ День 12 пройден</label></div>
+</div></div></div>
+
+</div></div><!-- /mod2 -->
+
+<!-- МОДУЛЬ 3 -->
+<div class="mod m3" id="mod3">
+<div class="mh"><div class="mn">Модуль 3 · Дни 13–16</div><div class="mt">Ловушки ФИПИ + финальный зачёт</div><div class="tags"><span class="tag">Ловушки ФИПИ</span><span class="tag">Симуляция</span><span class="tag">Финал 🏆</span></div></div>
+<div class="mod-progress"><div class="mod-progress-fill" id="prog3"></div></div>
+<div class="mod-progress-label" id="progl3">0 / 4 дней</div>
+<div class="days">
+
+<div class="day" id="day14">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 13</span><span class="dttl">Ловушки ФИПИ — «всё выглядит правильно», но ошибка есть</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><div class="bl">🎯 Топ-5 ловушек из реальных КИМов</div>
+<div class="theory">
+<p><b>Ловушка 1 (А):</b> «Те, кто» — при «те» мн.ч., при «кто» ед.ч.<br>✅ <i>Те, кто <b>хочет</b> поступить, <b>должны</b> готовиться.</i></p>
+<p style="margin-top:6px"><b>Ловушка 2 (Б):</b> «вследствие + Род.п.» vs «благодаря + Дат.п.»</p>
+<p style="margin-top:6px"><b>Ловушка 3 (В):</b> без родового слова → название склоняется: в «<b>Войне и мире</b>»</p>
+<p style="margin-top:6px"><b>Ловушка 4 (Г):</b> причастие выглядит странно, но верное: <i>спортсменами <b>победившими</b></i></p>
+<p style="margin-top:6px"><b>Ловушка 5 (Д):</b> безличные — всегда ошибка: <i>Читая, <b>стемнело</b></i> — у «стемнело» нет субъекта!</p>
+</div></div>
+<div><div class="bl">✏️ 12 предложений — ловушки вперемешку</div>
+<div class="task"><ol class="ex">
+<li>Те, кто хочет поступить на бюджет, должен готовиться с 9-го класса.</li>
+<li>Те, кто приходит раньше, занимают лучшие места. <span class="anti-tag">антипример</span> <span class="anti-why">— при «те» допустимо мн.ч. «занимают»</span></li>
+<li>Благодаря умелому руководству компания вышла в лидеры. <span class="anti-tag">антипример</span> <span class="anti-why">— благодаря + Дат.п. «руководству» верно</span></li>
+<li>Вследствие сильных морозов трубы замёрзли. <span class="anti-tag">антипример</span> <span class="anti-why">— вследствие + Род.п. «морозов» верно</span></li>
+<li>Читая эту книгу, мне стало интересно.</li>
+<li>Читая эту книгу, я не мог оторваться. <span class="anti-tag">антипример</span> <span class="anti-why">— читаю я и не мог я — один субъект</span></li>
+<li>Гордимся спортсменами, победившими в чемпионате. <span class="anti-tag">антипример</span> <span class="anti-why">— спортсменами Тв. → победившими Тв. верно</span></li>
+<li>Гордимся спортсменами, победивших в чемпионате.</li>
+<li>Прочитав «Преступление и наказание», роман оставил глубокое впечатление.</li>
+<li>Прочитав «Преступление и наказание», я долго думал о главном герое. <span class="anti-tag">антипример</span> <span class="anti-why">— читал я и думал я — один субъект</span></li>
+<li>По возвращении из экспедиции учёные написали отчёт. <span class="anti-tag">антипример</span> <span class="anti-why">— по возвращении — Предл.п. верно</span></li>
+<li>По возвращению из экспедиции учёные написали отчёт.</li>
+</ol>
+<textarea class="ans" rows="4" placeholder="1. А-должны  2. ✓  3. ✓  4. ✓  5. Д  6. ✓  7. ✓  8. Г-победившими  9. Д  10. ✓  11. ✓  12. Б-возвращении"></textarea></div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>№</th><th>Тип/ответ</th></tr>
+<tr><td>1</td><td>А: «те» → <b>должны</b></td></tr>
+<tr><td>2</td><td>✓ — при «те» мн.ч. верно</td></tr>
+<tr><td>3</td><td>✓ — благодаря + Дат.п.</td></tr>
+<tr><td>4</td><td>✓ — вследствие + Род.п.</td></tr>
+<tr><td>5</td><td>Д: «стало» — безличное → Когда я читал…</td></tr>
+<tr><td>6</td><td>✓ — один субъект</td></tr>
+<tr><td>7</td><td>✓ — Тв.п. совпадают</td></tr>
+<tr><td>8</td><td>Г: победивших Род. → <b>победившими</b> Тв.</td></tr>
+<tr><td>9</td><td>Д: «роман» читать не может → Когда я прочитал…</td></tr>
+<tr><td>10</td><td>✓ — один субъект</td></tr>
+<tr><td>11</td><td>✓ — Предл.п. верно</td></tr>
+<tr><td>12</td><td>Б: по возвращению → <b>по возвращении</b></td></tr>
+</table></details></div>
+<div class="done-row"><input type="checkbox" id="done14" onchange="markDone(14,this.checked,3,4)"><label for="done14">✓ День 13 пройден</label></div>
+</div></div></div>
+
+<div class="day" id="day15">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 14</span><span class="dttl">Работа над ошибками + прокачка слабых мест</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><div class="bl">🧠 Анализ уверенности</div>
+<div class="task">
+<p style="font-size:13px">Посмотри, где ставил «1 — угадывал». Запиши слабые типы:</p>
+<textarea class="ans" rows="2" placeholder="Например: Д — не замечаю разных субъектов..."></textarea>
+</div></div>
+<div><div class="bl">✏️ Финальная прокачка — 12 предложений</div>
+<div class="task"><ol class="ex">
+<li>Часть участников отказалась от голосования. <span class="anti-tag">антипример</span> <span class="anti-why">— часть → ед.ч. «отказалась» верно</span></li>
+<li>Согласно данным статистики, уровень жизни вырос. <span class="anti-tag">антипример</span> <span class="anti-why">— согласно + Дат.п. «данным» верно</span></li>
+<li>В рассказе «Хамелеоне» Чехов высмеивает чиновничество.</li>
+<li>Мы гордимся учёными, открывших новые законы физики.</li>
+<li>Приехав в город, нас поселили в хорошую гостиницу.</li>
+<li>Туман рассеялся, и солнце освещает поляну ярким светом.</li>
+<li>Она сказала, что я позвоню ему вечером.</li>
+<li>Он не только написал роман, но и перевёл его на три языка. <span class="anti-tag">антипример</span> <span class="anti-why">— не только... но и — верно</span></li>
+<li>Я люблю и восхищаюсь творчеством этого художника.</li>
+<li>По прилёте в Лондон он сразу направился в отель. <span class="anti-tag">антипример</span> <span class="anti-why">— по прилёте — Предл.п. верно</span></li>
+<li>Он спросил, что успею ли я к обеду.</li>
+<li>Большинство голосов было отдано за этого кандидата. <span class="anti-tag">антипример</span> <span class="anti-why">— большинство → ед.ч. «было» верно</span></li>
+</ol>
+<textarea class="ans" rows="4" placeholder="1. ✓  2. ✓  3. В-Хамелеон  4. Г-открывшими  5. Д  6. Е-осветило  7. З-она  8. ✓  9. Ж  10. ✓  11. И/З-успею ли  12. ✓"></textarea></div></div>
+<div><div class="bl">🔍 Самопроверка</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>№</th><th>Тип</th><th>Исправление</th></tr>
+<tr><td>1</td><td>✓</td><td>часть → ед.ч. «отказалась» верно</td></tr>
+<tr><td>2</td><td>✓</td><td>согласно + Дат.п. «данным»</td></tr>
+<tr><td>3</td><td>В</td><td>«Хамелеон»</td></tr>
+<tr><td>4</td><td>Г</td><td>открывшими (Тв.п.)</td></tr>
+<tr><td>5</td><td>Д</td><td>Когда мы приехали в город, нас поселили…</td></tr>
+<tr><td>6</td><td>Е</td><td>осветило</td></tr>
+<tr><td>7</td><td>З</td><td>Она сказала, что <b>она</b> позвонит ему вечером.</td></tr>
+<tr><td>8</td><td>✓</td><td>не только... но и — верно</td></tr>
+<tr><td>9</td><td>Ж</td><td>Я люблю творчество этого художника и восхищаюсь им.</td></tr>
+<tr><td>10</td><td>✓</td><td>по прилёте — Предл.п.</td></tr>
+<tr><td>11</td><td>И/З</td><td>Спросил, успею ли я к обеду.</td></tr>
+<tr><td>12</td><td>✓</td><td>большинство → ед.ч. «было»</td></tr>
+</table></details></div>
+<div class="done-row"><input type="checkbox" id="done15" onchange="markDone(15,this.checked,3,4)"><label for="done15">✓ День 14 пройден</label></div>
+</div></div></div>
+
+<div class="day" id="day16">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 15</span><span class="dttl">Симуляция экзамена — 2 варианта подряд</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><div class="bl">⏱️ Вариант А</div>
+<div class="task">
+<div class="zachet-instr">Некоторые типы могут отсутствовать — оставь поле пустым.</div>
+<table class="match-table"><tr><th>Ошибка</th></tr>
+<tr><td>А. Нарушение связи между подлежащим и сказуемым</td></tr>
+<tr><td>Б. Неправильное употребление падежной формы с предлогом</td></tr>
+<tr><td>В. Нарушение с несогласованным приложением</td></tr>
+<tr><td>Г. Ошибка в построении с причастным оборотом</td></tr>
+<tr><td>Д. Нарушение в построении с деепричастным оборотом</td></tr></table>
+<ol class="ex" style="margin-top:10px">
+<li>Ряд вопросов были заданы на пресс-конференции.</li>
+<li>Благодаря упорному труду она добилась успеха. <span class="anti-tag">антипример</span> <span class="anti-why">— благодаря + Дат.п. «труду» верно</span></li>
+<li>В опере «Евгении Онегине» звучит знаменитая ария.</li>
+<li>Обо всём, написанном в докладе, мы подробно поговорим. <span class="anti-tag">антипример</span> <span class="anti-why">— о всём Пр.п. → написанном Пр.п. верно</span></li>
+<li>Туристы увидели горы, покрытые снегом. <span class="anti-tag">антипример</span> <span class="anti-why">— горы Вин. → покрытые Вин. верно</span></li>
+<li>Вернувшись из похода, ребятам дали горячий чай.</li>
+<li>По приезде в столицу делегация была принята президентом. <span class="anti-tag">антипример</span> <span class="anti-why">— по приезде — Предл.п. верно</span></li>
+<li>В рассказе «Антоновских яблоках» Бунин воспевает уходящую Россию.</li>
+<li>Мы гордимся спортсменами, завоевавшими олимпийские медали. <span class="anti-tag">антипример</span> <span class="anti-why">— спортсменами Тв. → завоевавшими Тв. верно</span></li>
+</ol>
+<div class="match-inputs">
+<div class="match-cell"><span class="match-lbl">А</span><input class="match-in" id="s1a" type="text" placeholder="№"></div>
+<div class="match-cell"><span class="match-lbl">Б</span><input class="match-in" id="s1b" type="text" placeholder="—"></div>
+<div class="match-cell"><span class="match-lbl">В</span><input class="match-in" id="s1v" type="text" placeholder="№,№"></div>
+<div class="match-cell"><span class="match-lbl">Г</span><input class="match-in" id="s1g" type="text" placeholder="—"></div>
+<div class="match-cell"><span class="match-lbl">Д</span><input class="match-in" id="s1d" type="text" placeholder="№"></div>
+</div>
+<details class="key" style="margin-top:10px"><summary></summary>
+<table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
+<tr><td>А</td><td><b>1</b></td><td>Ряд вопросов были → <b>было задано</b></td></tr>
+<tr><td>Б</td><td><b>—</b></td><td>Нет Б (предл. 2, 7 правильные)</td></tr>
+<tr><td>В</td><td><b>3, 8</b></td><td>«Евгении Онегине» → «Евгений Онегин»; «Антоновских яблоках» → «Антоновские яблоки»</td></tr>
+<tr><td>Г</td><td><b>—</b></td><td>Нет Г (предл. 4, 5, 9 правильные)</td></tr>
+<tr><td>Д</td><td><b>6</b></td><td>Вернувшись — чай дали другие → Когда ребята вернулись, им дали чай.</td></tr>
+</table></details>
+<div class="score-row" style="margin-top:10px"><span style="font-size:13px">Вариант А:</span><input class="score-in" type="number" id="sim1score" min="0" max="5" oninput="saveScore('sim1',this.value)"> / 5</div>
+</div></div>
+<div><div class="bl">⏱️ Вариант Б</div>
+<div class="task">
+<div class="zachet-instr">Некоторые типы могут отсутствовать — оставь поле пустым.</div>
+<table class="match-table"><tr><th>Ошибка</th></tr>
+<tr><td>Е. Нарушение видовременной соотнесённости глаголов</td></tr>
+<tr><td>Ж. Нарушение в построении с однородными членами</td></tr>
+<tr><td>З. Неправильное построение с косвенной речью</td></tr>
+<tr><td>И. Нарушение в построении сложного предложения</td></tr>
+<tr><td>А. Нарушение связи между подлежащим и сказуемым</td></tr></table>
+<ol class="ex" style="margin-top:10px">
+<li>Он взял книгу и начинает читать.</li>
+<li>Автор утверждал, что я уверен в правоте своих слов.</li>
+<li>Я уважаю и восхищаюсь этим человеком.</li>
+<li>Письмо он написал, которое отправил по почте.</li>
+<li>Не только студенты, но и преподаватели участвовали в конференции. <span class="anti-tag">антипример</span> <span class="anti-why">— не только... но и — верно</span></li>
+<li>Девушка сидела у окна и смотрит на улицу.</li>
+<li>Большинство голосов было отдано за нового кандидата. <span class="anti-tag">антипример</span> <span class="anti-why">— большинство → ед.ч. «было» верно</span></li>
+<li>Он спросил, что придём ли мы на встречу.</li>
+<li>Ряд предложений оказались неверными.</li>
+</ol>
+<div class="match-inputs">
+<div class="match-cell"><span class="match-lbl">Е</span><input class="match-in" id="s2e" type="text" placeholder="№,№"></div>
+<div class="match-cell"><span class="match-lbl">Ж</span><input class="match-in" id="s2zh" type="text" placeholder="№"></div>
+<div class="match-cell"><span class="match-lbl">З</span><input class="match-in" id="s2z" type="text" placeholder="№"></div>
+<div class="match-cell"><span class="match-lbl">И</span><input class="match-in" id="s2i" type="text" placeholder="№,№"></div>
+<div class="match-cell"><span class="match-lbl">А</span><input class="match-in" id="s2a" type="text" placeholder="№"></div>
+</div>
+<details class="key" style="margin-top:10px"><summary></summary>
+<table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
+<tr><td>Е</td><td><b>1, 6</b></td><td>взял → начал; сидела → смотрела</td></tr>
+<tr><td>Ж</td><td><b>3</b></td><td>уважаю этого человека и восхищаюсь им</td></tr>
+<tr><td>З</td><td><b>2</b></td><td>что я уверен → что <b>он</b> уверен</td></tr>
+<tr><td>И</td><td><b>4, 8</b></td><td>Он написал письмо, которое…; Спросил, придём ли мы.</td></tr>
+<tr><td>А</td><td><b>9</b></td><td>Ряд предложений оказались → <b>оказался</b></td></tr>
+</table></details>
+<div class="score-row" style="margin-top:10px"><span style="font-size:13px">Вариант Б:</span><input class="score-in" type="number" id="sim2score" min="0" max="5" oninput="saveScore('sim2',this.value)"> / 5</div>
+</div></div>
+<div class="done-row"><input type="checkbox" id="done16" onchange="markDone(16,this.checked,3,4)"><label for="done16">✓ День 15 пройден</label></div>
+</div></div></div>
+
+<div class="day" id="day17">
+<button class="dbtn" onclick="tog(this)"><span class="dnum">День 16 🏆</span><span class="dttl">Финальный зачёт #3 + итоговая рефлексия</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
+<div class="dbody"><div class="lesson">
+<div><div class="bl">🏁 Финальный зачёт</div>
+<div class="task">
+<div class="zachet-instr">Внимание: некоторые типы ошибок могут не встретиться. Оставь поле пустым — не угадывай. 5 из 9 предложений без ошибок.</div>
+<table class="match-table"><tr><th>Грамматическая ошибка</th></tr>
+<tr><td>А. Нарушение связи между подлежащим и сказуемым</td></tr>
+<tr><td>Б. Неправильное употребление падежной формы с предлогом</td></tr>
+<tr><td>В. Нарушение с несогласованным приложением</td></tr>
+<tr><td>Г. Ошибка в построении с причастным оборотом</td></tr>
+<tr><td>Д. Нарушение в построении с деепричастным оборотом</td></tr></table>
+<ol class="ex" style="margin-top:10px">
+<li>Многие из тех, кто читал этот роман, были потрясены финалом. <span class="anti-tag">антипример</span> <span class="anti-why">— при «многие» сказуемое мн.ч. «были» верно</span></li>
+<li>Вопреки советам врача, он продолжал работать. <span class="anti-tag">антипример</span> <span class="anti-why">— вопреки + Дат.п. «советам» верно</span></li>
+<li>В поэме «Мёртвых душах» Гоголь создаёт галерею помещиков.</li>
+<li>Картина, написанная молодым художником, получила первый приз. <span class="anti-tag">антипример</span> <span class="anti-why">— картина Им. → написанная Им. верно</span></li>
+<li>Войдя в зал, у меня перехватило дыхание.</li>
+<li>По окончании университета она устроилась на работу. <span class="anti-tag">антипример</span> <span class="anti-why">— по окончании — Предл.п. верно</span></li>
+<li>Лес, окружавший деревню, был очень густым. <span class="anti-tag">антипример</span> <span class="anti-why">— лес Им. → окружавший Им. верно</span></li>
+<li>Ряд исследователей полагали, что находка уникальна.</li>
+<li>Учёные, занимавшихся этой проблемой, получили Нобелевскую премию.</li>
+</ol>
+<div class="match-inputs">
+<div class="match-cell"><span class="match-lbl">А</span><input class="match-in" id="f1a" type="text" placeholder="№"></div>
+<div class="match-cell"><span class="match-lbl">Б</span><input class="match-in" id="f1b" type="text" placeholder="—"></div>
+<div class="match-cell"><span class="match-lbl">В</span><input class="match-in" id="f1v" type="text" placeholder="№"></div>
+<div class="match-cell"><span class="match-lbl">Г</span><input class="match-in" id="f1g" type="text" placeholder="№"></div>
+<div class="match-cell"><span class="match-lbl">Д</span><input class="match-in" id="f1d" type="text" placeholder="№"></div>
+</div>
+<button class="check-btn" onclick="checkFinal()">Проверить финальный зачёт</button>
+<div class="check-result" id="f1-result"></div>
+</div></div>
+<div><div class="bl">🔍 Ключ</div>
+<details class="key"><summary></summary>
+<table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
+<tr><td>А</td><td><b>8</b></td><td>Ряд исследователей полагали → <b>полагал</b></td></tr>
+<tr><td>Б</td><td><b>—</b></td><td>В задании нет Б (предл. 2, 6 правильные)</td></tr>
+<tr><td>В</td><td><b>3</b></td><td>«Мёртвых душах» → «Мёртвые души»</td></tr>
+<tr><td>Г</td><td><b>9</b></td><td>учёными Тв. → занимавшихся Род. → <b>занимавшимися</b></td></tr>
+<tr><td>Д</td><td><b>5</b></td><td>Войдя — «перехватило» безличное → Когда я вошёл…</td></tr>
+</table></details></div>
+<div><div class="bl">📊 Итоговая динамика</div>
+<div class="task">
+<div class="score-row"><span style="font-size:13px">Зачёт #3:</span><input class="score-in" type="number" id="z3score" min="0" max="5" oninput="saveScore('z3',this.value)"> / 5</div>
+<p style="margin-top:10px;font-size:14px">Зачёт #1 → <b><span id="final_z1">—</span></b> / 5 &nbsp;→&nbsp; Зачёт #2 → <b><span id="final_z2">—</span></b> / 5 &nbsp;→&nbsp; Зачёт #3 → <b><span id="final_z3">—</span></b> / 5</p>
+<p style="margin-top:6px;font-size:14px;font-weight:600">Итоговый прогресс: <span id="dynamic2">—</span></p>
+</div></div>
+<div><div class="bl">🎓 Итоговая рефлексия</div>
+<div class="task">
+<p style="font-size:13px;font-style:italic">Что стало понятнее за 17 дней? Какой тип теперь самый лёгкий?</p>
+<textarea class="ans" rows="3" placeholder="Твои мысли..."></textarea>
+</div></div>
+<div class="done-row"><input type="checkbox" id="done17" onchange="markDone(17,this.checked,3,4)"><label for="done17">✓ День 16 пройден — курс завершён!</label></div>
+</div></div></div>
+
+</div></div><!-- /mod3 -->
+</div><!-- /mods -->
+</div>
+</section>
+
+<div class="finish">
+  <span class="fi">🏆</span>
+  <h2>17 дней позади.<br>Задание 8 — твоё.</h2>
+  <ul>
+    <li>Все 9 типов ошибок — от глоссария до автоматизма</li>
+    <li>Формат ЕГЭ с 7-го дня, антипримеры с объяснениями</li>
+    <li>Ловушки ФИПИ разобраны детально</li>
+    <li>3 зачёта — виден реальный прогресс</li>
+  </ul>
+  <p class="fc">Дальше — полные варианты. Ты готов. 🚀</p>
+  <div class="toolbar">
+    <button class="tool-btn" onclick="window.print()">🖨 PDF / Распечатать</button>
+    <button class="tool-btn" onclick="openModal()">📋 Открыть шпаргалку</button>
+    <button class="tool-btn" onclick="resetAll()">↺ Сбросить прогресс</button>
+  </div>
+</div>
+<footer>Задание 8 ЕГЭ · Интерактивный тренажёр</footer>
+<script>
+const STORE='langust_ru_task8_v3';
+let DATA={answers:{},done:{},scores:{},conf:{}};
+function load(){try{const r=localStorage.getItem(STORE);if(r)DATA=Object.assign({answers:{},done:{},scores:{},conf:{}},JSON.parse(r));}catch(e){}}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(DATA));}catch(e){}}
+
+// MODAL
+function openModal(){
+  const o=document.getElementById('modalOverlay');
+  o.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function overlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// NAV
+const DAYIDS=['day0','day1','day2','day3','day4','day5','day6','day7','day8','day9','day10','day11','day12','day13','day14','day15','day16','day17'];
+function goDay(n){
+  const id=DAYIDS[n];if(!id)return;
+  const el=document.getElementById(id);if(!el)return;
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>{if(!el.classList.contains('open'))el.querySelector('.dbtn').click();},300);
+  setActive(n);
+}
+function setActive(n){document.querySelectorAll('.nav-day').forEach((d,i)=>d.classList.toggle('active',i===n));}
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const idx=DAYIDS.indexOf(e.target.id);if(idx>=0)setActive(idx);}});},{rootMargin:'-20% 0px -60% 0px'});
+function tog(btn){btn.closest('.day').classList.toggle('open');}
+
+// TEXTAREA
+let taIdx=0;
+function initAnswers(){
+  document.querySelectorAll('textarea.ans').forEach(t=>{
+    const key='a'+(taIdx++);t.dataset.key=key;
+    if(DATA.answers[key])t.value=DATA.answers[key];
+    grow(t);
+    t.addEventListener('input',()=>{DATA.answers[key]=t.value;grow(t);save();});
+  });
+}
+function grow(t){t.style.height='auto';t.style.height=t.scrollHeight+'px';}
+
+// DONE — 17 days + day 0
+const DAYMAP=[[0,1,8],[1,1,8],[2,1,8],[3,1,8],[4,1,8],[5,1,8],[6,1,8],[7,1,8],[8,2,6],[9,2,6],[10,2,6],[11,2,6],[12,2,6],[13,2,6],[14,3,4],[15,3,4],[16,3,4],[17,3,4]];
+function markDone(n,val,mod,total){
+  DATA.done['d'+n]=val;save();
+  const el=document.getElementById('day'+n);if(el)el.classList.toggle('is-done',val);
+  const navIdx=DAYIDS.indexOf('day'+n);
+  if(navIdx>=0)document.querySelectorAll('.nav-day')[navIdx].classList.toggle('done',val);
+  updateCount();updateModProgress(mod,total);
+}
+function updateCount(){
+  const c=Object.values(DATA.done).filter(Boolean).length;
+  document.getElementById('navCount').textContent=c+' / 17';
+}
+function updateModProgress(mod,total){
+  const ranges={1:[0,1,2,3,4,5,6,7],2:[8,9,10,11,12,13],3:[14,15,16,17]};
+  const d=ranges[mod];
+  const done=d.filter(n=>DATA.done['d'+n]).length;
+  const pct=Math.round(done/d.length*100);
+  const bar=document.getElementById('prog'+mod);
+  const lbl=document.getElementById('progl'+mod);
+  if(bar)bar.style.width=pct+'%';
+  if(lbl)lbl.textContent=done+' / '+d.length+' дней';
+}
+function initDone(){
+  DAYMAP.forEach(([n,m,t])=>{
+    const cb=document.getElementById('done'+n);
+    if(cb&&DATA.done['d'+n]){cb.checked=true;markDone(n,true,m,t);}
+  });
+  updateCount();[1,2,3].forEach(m=>updateModProgress(m,m===1?8:m===2?6:4));
+}
+
+// CONFIDENCE
+function setConf(btn,val,key){
+  btn.closest('.confidence').querySelectorAll('.conf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');DATA.conf[key]=val;save();
+}
+function initConf(){
+  Object.entries(DATA.conf).forEach(([key,val])=>{
+    document.querySelectorAll('.conf-btn').forEach(b=>{
+      const fn=b.getAttribute('onclick')||'';
+      if(fn.includes("'"+key+"'")&&fn.includes(','+val+','))b.classList.add('active');
+    });
+  });
+}
+
+// SCORES
+function saveScore(id,val){DATA.scores[id]=parseInt(val)||0;save();updateDynamic();}
+function getScore(id){return DATA.scores[id]!==undefined?DATA.scores[id]:null;}
+function updateDynamic(){
+  const z1=getScore('z1'),z2=getScore('z2'),z3=getScore('z3');
+  const d=document.getElementById('dynamic');
+  if(d&&z1!==null&&z2!==null){const diff=z2-z1;d.textContent='Прогресс: '+(diff>=0?'+':'')+diff;}
+  const s1=document.getElementById('show_z1'),s2=document.getElementById('show_z2');
+  if(s1)s1.textContent=z1!==null?z1:'—';if(s2)s2.textContent=z2!==null?z2:'—';
+  const f1=document.getElementById('final_z1'),f2=document.getElementById('final_z2'),f3=document.getElementById('final_z3');
+  if(f1)f1.textContent=z1!==null?z1:'—';if(f2)f2.textContent=z2!==null?z2:'—';if(f3)f3.textContent=z3!==null?z3:'—';
+  const d2=document.getElementById('dynamic2');
+  if(d2&&z1!==null&&z3!==null){const diff=z3-z1;d2.textContent=(diff>0?'+':'')+diff+(diff>0?' — молодец! 🚀':diff<0?' — нужно повторить':' — стабильно');}
+  const z3el=document.getElementById('z3score');if(z3el&&z3!==null)z3el.value=z3;
+}
+function initScores(){
+  [['z1score','z1'],['z2score','z2'],['sim1score','sim1'],['sim2score','sim2']].forEach(([elId,key])=>{
+    const e=document.getElementById(elId);if(e&&getScore(key)!==null)e.value=getScore(key);
+  });
+  updateDynamic();
+}
+
+// CHECK
+function chk3(id,correct,inputIds,labels){
+  const result=document.getElementById(id+'-result');
+  let ok=0,total=0;
+  inputIds.forEach((iid,i)=>{
+    const el=document.getElementById(iid);if(!el)return;
+    const lbl=labels?labels[i]:iid.slice(-1).toUpperCase();
+    const exp=correct[lbl];
+    const val=el.value.trim();
+    if(!exp||exp===null){el.className='match-in empty-ok';return;}
+    total++;
+    const exps=exp.toString().split(',').map(s=>s.trim());
+    if(exps.includes(val)){el.classList.add('correct');el.classList.remove('wrong','empty-ok');ok++;}
+    else if(val){el.classList.add('wrong');el.classList.remove('correct','empty-ok');}
+  });
+  if(result){
+    result.style.display='block';
+    result.className='check-result '+(ok>=total&&total>0?'ok':ok>0?'partial':'err');
+    result.textContent=total===0?'В этом наборе некоторых ошибок нет — оставляй поле пустым!':ok+' из '+total+' верно. Смотри ключ.';
+  }
+}
+function checkZ1(){
+  let ok=0;
+  [['z1a','1'],['z1v','3,8'],['z1d','9']].forEach(([id,exp])=>{
+    const el=document.getElementById(id);if(!el)return;
+    const val=el.value.trim();
+    if(exp.split(',').map(s=>s.trim()).includes(val)){el.classList.add('correct');el.classList.remove('wrong');ok++;}
+    else if(val){el.classList.add('wrong');el.classList.remove('correct');}
+  });
+  const r=document.getElementById('z1-result');r.style.display='block';
+  r.className='check-result '+(ok===3?'ok':ok>0?'partial':'err');
+  r.textContent=ok+' из 3 верно (Б и Г — в задании нет). Предл. 2,4,6,7 — без ошибок.';
+}
+function checkZ2(){
+  let ok=0;
+  [['z2a','1'],['z2v','3,9'],['z2d','8']].forEach(([id,exp])=>{
+    const el=document.getElementById(id);if(!el)return;
+    const val=el.value.trim();
+    if(exp.split(',').map(s=>s.trim()).includes(val)){el.classList.add('correct');el.classList.remove('wrong');ok++;}
+    else if(val){el.classList.add('wrong');el.classList.remove('correct');}
+  });
+  const r=document.getElementById('z2-result');r.style.display='block';
+  r.className='check-result '+(ok===3?'ok':ok>0?'partial':'err');
+  r.textContent=ok+' из 3 верно (Б и Г — в задании нет). Предл. 2,4,6,7 — без ошибок.';
+}
+function checkFinal(){
+  let ok=0;
+  [['f1a','8'],['f1v','3'],['f1g','9'],['f1d','5']].forEach(([id,exp])=>{
+    const el=document.getElementById(id);if(!el)return;
+    const val=el.value.trim();
+    if(val===exp){el.classList.add('correct');el.classList.remove('wrong');ok++;}
+    else if(val){el.classList.add('wrong');el.classList.remove('correct');}
+  });
+  const r=document.getElementById('f1-result');r.style.display='block';
+  r.className='check-result '+(ok===4?'ok':ok>=2?'partial':'err');
+  r.textContent=ok+' из 4 верно (Б — в задании нет). Без ошибок: 1,2,4,6,7.';
+}
+
+function resetAll(){
+  if(!confirm('Сбросить весь прогресс? Это нельзя отменить.'))return;
+  DATA={answers:{},done:{},scores:{},conf:{}};
+  try{localStorage.removeItem(STORE);}catch(e){}
+  location.reload();
+}
+
+load();
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('[id^="day"]').forEach(el=>obs.observe(el));
+  initAnswers();initDone();initConf();initScores();
+});
+</script>
+</body>
+</html>
