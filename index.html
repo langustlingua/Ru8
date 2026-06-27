@@ -158,8 +158,8 @@ section{padding:40px 24px}
 ol.ex{list-style:none;counter-reset:exc;padding:0;margin-top:8px}
 ol.ex li{counter-increment:exc;margin-bottom:7px;display:flex;gap:7px;align-items:flex-start;font-size:13px}
 ol.ex li::before{content:counter(exc)".";font-weight:700;min-width:20px;flex-shrink:0;color:var(--ink)}
-.anti-tag{display:inline-block;font-size:10px;font-weight:600;background:#fdf5e6;color:var(--warn);border:1px solid var(--m2b);border-radius:4px;padding:1px 6px;margin-left:5px;cursor:help}
-.anti-tag:hover{background:#f5dbc0}
+.anti-tag{display:inline-block;font-size:10px;font-weight:600;background:var(--okbg);color:var(--ok);border:1px solid #9fddb9;border-radius:4px;padding:1px 8px;margin-left:5px}
+.err-tag{display:inline-block;font-size:10px;font-weight:600;background:var(--errbg);color:var(--err);border:1px solid #f5c6c2;border-radius:4px;padding:1px 8px;margin-left:5px}
 /* ANTI WHY (замечание Кати — объяснение) */
 .anti-why{display:inline;font-size:11px;color:var(--muted);font-style:italic;margin-left:4px}
 
@@ -265,47 +265,47 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
       <div class="modal-grid">
         <div class="modal-row">
           <div class="modal-err">А · Подлежащее + сказуемое</div>
-          <div class="modal-trigger">Триггер: большинство / ряд / часть + мн.ч.; «кто» в придаточной</div>
+          <div class="modal-trigger">Смотри на подлежащее: большинство / ряд / часть → глагол ед.ч.</div>
           <div class="modal-ex">❌ Ряд студентов <u>сдали</u> экзамен → ✅ <b>сдал</b></div>
           <div class="modal-ex">❌ Те, кто хочет, должен → ✅ <b>должны</b> (при «те» мн.ч.)</div>
         </div>
         <div class="modal-row">
           <div class="modal-err">Б · Падеж с предлогом</div>
-          <div class="modal-trigger">Дат.п. (чему?): благодаря, согласно, вопреки, наперекор<br>Предл.п. (о чём?): по (= «после»)</div>
+          <div class="modal-trigger">После согласно/благодаря/вопреки → чему? (Дат.п.)<br>После по (= «после»): по приезде, по окончании (Предл.п.)</div>
           <div class="modal-ex">❌ согласно <u>приказа</u> → ✅ <b>приказу</b></div>
           <div class="modal-ex">❌ по <u>приезду</u> → ✅ <b>по приезде</b></div>
         </div>
         <div class="modal-row">
           <div class="modal-err">В · Несогласованное приложение</div>
-          <div class="modal-trigger">Есть родовое слово (роман, фильм…) → название не склоняется<br>Нет родового слова → название склоняется</div>
+          <div class="modal-trigger">Есть роман / фильм / журнал... → название в кавычках не склоняем<br>Нет такого слова → название склоняем</div>
           <div class="modal-ex">❌ в романе «<u>Войне и мире</u>» → ✅ «<b>Война и мир</b>»</div>
           <div class="modal-ex">✅ в «<b>Войне и мире</b>» (нет родового слова)</div>
         </div>
         <div class="modal-row">
           <div class="modal-err">Г · Причастный оборот</div>
-          <div class="modal-trigger">Падеж причастия = падеж определяемого слова</div>
+          <div class="modal-trigger">Причастие должно отвечать на тот же падежный вопрос, что и слово, которое оно описывает</div>
           <div class="modal-ex">❌ спортсменами, <u>победивших</u> (Род.) → ✅ спортсменами, <b>победившими</b> (Тв.)</div>
         </div>
         <div class="modal-row" style="border-left-color:var(--warn)">
           <div class="modal-err" style="color:#7a5800">Д · Деепричастный оборот</div>
-          <div class="modal-trigger">Деепричастие и сказуемое — один субъект<br>⚠ Безличные предложения — всегда ошибка!</div>
+          <div class="modal-trigger">Кто совершает добавочное действие — он же и подлежащее<br>⚠ При «стемнело / казалось» — всегда ошибка!</div>
           <div class="modal-ex">❌ Читая, у меня возник... → ✅ <b>Когда я читал</b>...</div>
           <div class="modal-ex">❌ Читая, <u>стемнело</u> → безличное, нет субъекта!</div>
         </div>
         <div class="modal-row">
           <div class="modal-err">Е · Вид и время глаголов</div>
-          <div class="modal-trigger">Все глаголы в предложении — одно время</div>
+          <div class="modal-trigger">Все глаголы в предложении должны стоять в одном времени</div>
           <div class="modal-ex">❌ открыл и <u>входит</u> → ✅ открыл и <b>вошёл</b></div>
         </div>
         <div class="modal-row">
           <div class="modal-err">Ж · Однородные члены</div>
-          <div class="modal-trigger">Однородные глаголы могут требовать разных падежей</div>
+          <div class="modal-trigger">Если два глагола требуют разных падежей — нужны два разных дополнения</div>
           <div class="modal-ex">❌ любить и гордиться <u>родиной</u></div>
           <div class="modal-ex">✅ <b>любить родину</b> и <b>гордиться ею</b></div>
         </div>
         <div class="modal-row" style="border-left-color:var(--m2)">
           <div class="modal-err" style="color:#7a5800">З · Косвенная речь</div>
-          <div class="modal-trigger">Местоимения меняются; нельзя «что...ли»</div>
+          <div class="modal-trigger">«Я» в косвенной речи → «он/она». Не «что придёт ли», а «придёт ли»</div>
           <div class="modal-ex">❌ Сказал, что <u>я</u> иду → ✅ что <b>он</b> идёт</div>
           <div class="modal-kosv">
             <b>Прямая → Косвенная:</b><br>
@@ -315,7 +315,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
         </div>
         <div class="modal-row">
           <div class="modal-err">И · Сложное предложение</div>
-          <div class="modal-trigger">«Который» стоит рядом со своим словом; не смешивай «что» и «ли»</div>
+          <div class="modal-trigger">«Который» — сразу после слова, к которому относится. Не путать «что» и «ли»</div>
           <div class="modal-ex">❌ Фильм мы смотрели, <u>который</u>...</div>
           <div class="modal-ex">✅ Мы смотрели <b>фильм</b>, который...</div>
           <div class="modal-ex">❌ Спросил, <u>что</u> буду ли → ✅ Спросил, <b>буду ли</b></div>
@@ -349,13 +349,13 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 </nav>
 
 <section class="hero">
-  <p class="hero-eye">ЕГЭ · Русский язык · 17 дней · 20 минут в день</p>
+  <p class="hero-eye">ЕГЭ · Русский язык · 16 занятий + подготовительный день 0 · 20 минут в день</p>
   <h1>Задание 8<br><span>Синтаксические нормы</span></h1>
   <p class="hero-sub">Интерактивный тренажёр с форматом ЕГЭ, ловушками ФИПИ и автопроверкой</p>
   <div class="pills">
     <span class="pill">🎯 3 первичных балла</span>
     <span class="pill">⚡ 9 типов ошибок</span>
-    <span class="pill">🔁 Спейсд-репетишн</span>
+    <span class="pill">🔁 </span>
     <span class="pill">✅ Автопроверка зачётов</span>
     <span class="pill">📋 Шпаргалка в 1 клик</span>
   </div>
@@ -363,7 +363,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 
 <div class="stats">
   <div class="stats-g">
-    <div class="stat"><div class="stat-n">17</div><div class="stat-l">дней</div></div>
+    <div class="stat"><div class="stat-n">17</div><div class="stat-l">занятий</div></div>
     <div class="stat"><div class="stat-n">20′</div><div class="stat-l">в день</div></div>
     <div class="stat"><div class="stat-n">9</div><div class="stat-l">типов ошибок</div></div>
     <div class="stat"><div class="stat-n">3</div><div class="stat-l">балла max</div></div>
@@ -382,29 +382,29 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
   </div>
 </div>
 <div class="cheat">
-  <div class="cheat-title">📋 Таблица: маркеры, ловушки и «было → стало»</div>
+  <div class="cheat-title">9 типов ошибок — на что смотреть и как исправить</div>
   <div class="cheat-grid">
-    <div class="cheat-row"><div class="cheat-err">А · Подлежащее + сказуемое</div><div class="cheat-trigger">Триггер: большинство / ряд / часть → ед.ч.; «кто» → ед.ч.</div><div class="cheat-ex">❌ Ряд студентов <u>сдали</u> экзамен → ✅ <b>сдал</b></div></div>
-    <div class="cheat-row"><div class="cheat-err">Б · Падеж с предлогом</div><div class="cheat-trigger">согласно/благодаря/вопреки + Дат.п.; по (после) + Предл.п.</div><div class="cheat-ex">❌ согласно <u>приказа</u> → ✅ <b>приказу</b></div></div>
-    <div class="cheat-row"><div class="cheat-err">В · Несогласованное приложение</div><div class="cheat-trigger">Есть родовое слово → название не склоняем</div><div class="cheat-ex">❌ в романе «<u>Войне и мире</u>» → ✅ «<b>Война и мир</b>»</div></div>
-    <div class="cheat-row"><div class="cheat-err">Г · Причастный оборот</div><div class="cheat-trigger">Падеж причастия = падеж определяемого слова</div><div class="cheat-ex">❌ спортсменами <u>победивших</u> → ✅ спортсменами, <b>победившими</b></div></div>
-    <div class="cheat-row"><div class="cheat-err">Д · Деепричастный оборот</div><div class="cheat-trigger">Один субъект; безличные — всегда ошибка</div><div class="cheat-ex">❌ Читая, <u>стемнело</u> → ✅ <b>Когда я читал</b>...</div></div>
-    <div class="cheat-row"><div class="cheat-err">Е · Вид и время глаголов</div><div class="cheat-trigger">Все глаголы — одно время</div><div class="cheat-ex">❌ открыл и <u>входит</u> → ✅ открыл и <b>вошёл</b></div></div>
-    <div class="cheat-row"><div class="cheat-err">Ж · Однородные члены</div><div class="cheat-trigger">Глаголы с разными падежами — разные дополнения</div><div class="cheat-ex">❌ любить и гордиться <u>родиной</u> → ✅ <b>любить родину</b> и <b>гордиться ею</b></div></div>
-    <div class="cheat-row"><div class="cheat-err">З · Косвенная речь</div><div class="cheat-trigger">«я» меняется; нельзя «что + ли»</div><div class="cheat-ex">❌ сказал, что <u>я</u> иду → ✅ что <b>он</b> идёт</div></div>
+    <div class="cheat-row"><div class="cheat-err">А · Подлежащее + сказуемое</div><div class="cheat-trigger">Смотри на подлежащее: большинство / ряд / часть → глагол в ед.ч.</div><div class="cheat-ex">❌ Ряд студентов <u>сдали</u> экзамен → ✅ <b>сдал</b></div></div>
+    <div class="cheat-row"><div class="cheat-err">Б · Падеж с предлогом</div><div class="cheat-trigger">После согласно / благодаря / вопреки → вопрос «чему?»; после по (= после) → вопрос «о чём?»</div><div class="cheat-ex">❌ согласно <u>приказа</u> → ✅ <b>приказу</b></div></div>
+    <div class="cheat-row"><div class="cheat-err">В · Несогласованное приложение</div><div class="cheat-trigger">Если перед названием стоит роман / фильм / журнал... → название в кавычках не склоняем</div><div class="cheat-ex">❌ в романе «<u>Войне и мире</u>» → ✅ «<b>Война и мир</b>»</div></div>
+    <div class="cheat-row"><div class="cheat-err">Г · Причастный оборот</div><div class="cheat-trigger">Причастие должно отвечать на тот же падежный вопрос, что и слово, которое оно описывает</div><div class="cheat-ex">❌ спортсменами <u>победивших</u> → ✅ спортсменами, <b>победившими</b></div></div>
+    <div class="cheat-row"><div class="cheat-err">Д · Деепричастный оборот</div><div class="cheat-trigger">Кто совершает добавочное действие — он же и подлежащее. «Стемнело», «казалось» — всегда ошибка</div><div class="cheat-ex">❌ Читая, <u>стемнело</u> → ✅ <b>Когда я читал</b>...</div></div>
+    <div class="cheat-row"><div class="cheat-err">Е · Вид и время глаголов</div><div class="cheat-trigger">Все глаголы в предложении — одно и то же время</div><div class="cheat-ex">❌ открыл и <u>входит</u> → ✅ открыл и <b>вошёл</b></div></div>
+    <div class="cheat-row"><div class="cheat-err">Ж · Однородные члены</div><div class="cheat-trigger">Если два глагола требуют разных падежей — нужны разные дополнения к каждому</div><div class="cheat-ex">❌ любить и гордиться <u>родиной</u> → ✅ <b>любить родину</b> и <b>гордиться ею</b></div></div>
+    <div class="cheat-row"><div class="cheat-err">З · Косвенная речь</div><div class="cheat-trigger">В косвенной речи «я» меняется на «он/она». Вопрос вводится без «что»: не «что придёт ли», а «придёт ли»</div><div class="cheat-ex">❌ сказал, что <u>я</u> иду → ✅ что <b>он</b> идёт</div></div>
     <div class="cheat-row"><div class="cheat-err">И · Сложное предложение</div><div class="cheat-trigger">«который» рядом со своим словом</div><div class="cheat-ex">❌ Фильм мы смотрели, <u>который</u> → ✅ смотрели <b>фильм</b>, который</div></div>
   </div>
 </div>
 <div class="howto">
   <h3>📖 Как заниматься</h3>
   <ul>
-    <li><b>День 0</b> — глоссарий терминов. Если уже знаешь — пропускай, но загляни на 2 минуты.</li>
-    <li>Каждый день начинается с <b>разминки</b> — предложения из прошлых тем (спейсд-репетишн).</li>
-    <li>Основное задание — <b>8–12 предложений</b>. Навык строится на объёме.</li>
-    <li>С дня 7 — <b>формат ЕГЭ</b>: сопоставляй ошибки и предложения.</li>
-    <li><b>Шпаргалку</b> можно открыть в любой момент кнопкой справа внизу — твои ответы останутся.</li>
-    <li>После ответа — оцени <b>уверенность</b> (1–3). Помогает найти слабые места.</li>
-    <li>Ставь галочку → счётчик растёт.</li>
+    <li><b>День 0</b> — начни с глоссария. Там объяснены все термины, которые встретятся в заданиях.</li>
+    <li><b>Разминка</b> в начале каждого дня — несколько предложений из прошлых тем. Не пропускай: именно повторение закрепляет навык.</li>
+    <li><b>Основное задание</b> — 8–12 предложений. В каждом либо ошибка, либо нет. Записывай ответ сам, потом открывай ключ.</li>
+    <li><b>Начиная с занятия 7</b> — формат как на экзамене: слева список ошибок, справа предложения, нужно сопоставить.</li>
+    <li><b>Уверенность 1–3</b> после каждого дня — отмечай честно, это покажет, что нужно повторить.</li>
+    <li><b>Уверенность 1–3</b> — оцени честно после каждого дня. Поставил «1 — угадывал»? Запомни этот тип и вернись к нему перед следующим зачётом.</li>
+    <li>Ставь галочку по завершении дня — прогресс виден в счётчике вверху.</li>
   </ul>
 </div>
 <div class="mods">
@@ -419,7 +419,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="day" id="day0">
 <button class="dbtn" onclick="tog(this)"><span class="dnum">День 0</span><span class="dttl">Глоссарий — термины простым языком</span><span class="dmeta">🕒 5 мин</span><span class="darr">▼</span></button>
 <div class="dbody"><div class="lesson">
-<div><div class="bl">📖 Термины, которые встретятся в тренажёре</div>
+<div><div class="bl">Прочитай перед стартом — эти слова встретятся в каждом дне</div>
 <div class="day0-banner">
 <h3>Знай эти слова — и всё станет понятнее</h3>
 <div class="glossary">
@@ -430,6 +430,8 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="gterm"><div class="gterm-word">Причастный оборот</div><div class="gterm-def">Группа слов с причастием (слово на -ший, -вший, -нный, -тый), описывает предмет.</div><div class="gterm-ex">«Спортсмены, <b>победившие на Олимпиаде</b>, получили медали» — оборот выделен.</div></div>
 <div class="gterm"><div class="gterm-word">Деепричастный оборот</div><div class="gterm-def">Группа слов с деепричастием (слово на -я, -в, -вши), описывает добавочное действие.</div><div class="gterm-ex">«<b>Читая книгу</b>, я не замечал времени» — «читая книгу» — оборот.</div></div>
 <div class="gterm"><div class="gterm-word">Однородные члены</div><div class="gterm-def">Слова, отвечающие на один вопрос и относящиеся к одному слову.</div><div class="gterm-ex">«Я <b>люблю</b> и <b>уважаю</b> его» — однородные сказуемые.</div></div>
+<div class="gterm"><div class="gterm-word">Дополнение</div><div class="gterm-def">Слово, отвечающее на вопрос <b>кого? что? кому? чему?</b> — то, на что направлено действие глагола.</div><div class="gterm-ex">«Читаю <b>книгу</b>» — «книгу» дополнение (что?). «Горжусь <b>другом</b>» — «другом» (кем?).</div></div>
+<div class="gterm"><div class="gterm-word">Определяемое слово</div><div class="gterm-def">Слово, к которому относится причастный оборот. Именно с ним причастие должно совпадать по падежу.</div><div class="gterm-ex">«Спортсмены, <b>победившие</b> на Олимпиаде» — «спортсмены» — определяемое слово.</div></div>
 <div class="gterm"><div class="gterm-word">Родовое слово</div><div class="gterm-def">Слово перед названием в кавычках: роман, фильм, журнал, повесть, рассказ…</div><div class="gterm-ex">В романе «Война и мир» — «роман» — родовое слово.</div></div>
 </div>
 </div></div>
@@ -440,33 +442,60 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="day" id="day1">
 <button class="dbtn" onclick="tog(this)"><span class="dnum">День 1</span><span class="dttl">Тип А — нарушение связи подлежащего и сказуемого</span><span class="dmeta">🕒 18 мин</span><span class="darr">▼</span></button>
 <div class="dbody"><div class="lesson">
-<div><div class="bl">📌 Теория</div>
+<div><div class="bl">Читай внимательно — это основа дня</div>
 <div class="theory">
-<p><b>Суть:</b> сказуемое не согласуется с подлежащим по числу или роду.</p>
-<p style="margin-top:8px">🔍 <b>Три главных случая:</b></p>
-<ul style="margin:6px 0 0 16px;font-size:13px">
-<li style="margin-bottom:5px"><b>«Большинство / ряд / часть / множество»</b> + сущ. → сказуемое <b>ед.ч.</b>, согласуется в роде по главному слову: <i>Большинство студентов <u>сдало</u> (ср.р.). Ряд студентов <u>сдал</u> (м.р.). Часть студентов <u>сдала</u> (ж.р.).</i></li>
-<li style="margin-bottom:5px"><b>«Кто»</b> в придаточной → сказуемое <b>ед.ч.</b>: <i>Те, кто <u>занимается</u> спортом, реже болеет.</i><br>Но: при <b>«все / те»</b> → сказуемое <b>мн.ч.</b>: <i>Те, кто хочет, <b>должны</b> готовиться.</i></li>
-<li><b>Аббревиатура</b> → по главному слову: МИД → <u>объявило</u>; ООН → <u>приняла</u></li>
-</ul>
-<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как в КИМе:</b> «нарушение связи между подлежащим и сказуемым»</p>
+<p><b>Суть ошибки:</b> сказуемое написано во множественном числе, хотя должно быть в единственном — или наоборот.</p>
+
+<p style="margin-top:10px;background:#eaf7f0;border-radius:6px;padding:8px 12px;font-size:12px">
+🧭 <b>Алгоритм проверки:</b><br>
+Шаг 1 — найди подлежащее (кто? что?)<br>
+Шаг 2 — определи его род и число<br>
+Шаг 3 — проверь, согласуется ли сказуемое
+</p>
+
+<p style="margin-top:10px">🔑 <b>Случай 1.</b> Подлежащее — «большинство», «ряд», «часть», «множество»</p>
+<p style="margin-top:4px;font-size:13px">Сказуемое всегда в <b>единственном числе</b>, род — по главному слову:</p>
+<table class="tb" style="margin-top:6px">
+<tr><th>Подлежащее</th><th>Род</th><th>✅ Верно</th><th>❌ Ошибка</th></tr>
+<tr><td>Большинство студентов</td><td>ср.р.</td><td>сдал<b>о</b></td><td>сдали</td></tr>
+<tr><td>Ряд студентов</td><td>м.р.</td><td>сдал</td><td>сдали</td></tr>
+<tr><td>Часть студентов</td><td>ж.р.</td><td>сдал<b>а</b></td><td>сдали</td></tr>
+</table>
+
+<p style="margin-top:10px">🔑 <b>Случай 2.</b> «Кто» и «те/все» — в одном предложении два разных сказуемых</p>
+<p style="margin-top:4px;font-size:13px">Каждое сказуемое согласуется со своим словом отдельно:</p>
+<table class="tb" style="margin-top:6px">
+<tr><th>Слово-якорь</th><th>Правило</th><th>Пример</th></tr>
+<tr><td><b>кто</b></td><td>→ ед.ч.</td><td>Кто <u>хочет</u> учиться...</td></tr>
+<tr><td><b>те / все</b></td><td>→ мн.ч.</td><td>...те <u>добиваются</u> успеха</td></tr>
+</table>
+<p style="margin-top:6px;font-size:12px;color:var(--err)">❌ Типичная ошибка: «Те, кто <u>хотят</u>» (мн.ч. при «кто») или «Те... <u>добивается</u>» (ед.ч. при «те»)</p>
+
+<p style="margin-top:10px">🔑 <b>Случай 3.</b> Аббревиатура — согласование по главному слову</p>
+<table class="tb" style="margin-top:6px">
+<tr><th>Аббревиатура</th><th>Главное слово</th><th>✅ Верно</th></tr>
+<tr><td>МИД</td><td>Министерство (ср.р.)</td><td>МИД объявил<b>о</b></td></tr>
+<tr><td>ООН</td><td>Организация (ж.р.)</td><td>ООН принял<b>а</b></td></tr>
+</table>
+
+<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как называется в КИМе:</b> «нарушение связи между подлежащим и сказуемым»</p>
 </div></div>
-<div><div class="bl">✏️ Задание — 8 предложений</div>
+<div><div class="bl">Твой черёд — найди и исправь ошибку</div>
 <div class="task">
-<p style="font-size:12px;color:var(--muted);margin-bottom:8px">Запиши исправленное слово или «✓» если предложение правильное.</p>
+<p style="font-size:12px;color:var(--muted);margin-bottom:8px">Найди и исправь ошибку — запиши исправленное слово. Предложения с меткой <span style="background:var(--okbg);color:var(--ok);border:1px solid #9fddb9;border-radius:4px;padding:1px 7px;font-size:10px;font-weight:600">✅ Верно</span> — правильные, исправлять не нужно. <b>Пример ответа:</b> «1. выступал (ряд → ед.ч.)»</p>
 <ol class="ex">
-<li>Ряд известных учёных выступали против этой теории.</li>
-<li>Те, кто мечтает стать врачом, должны много учиться. <span class="anti-tag">антипример</span> <span class="anti-why">— при «те» сказуемое мн.ч. «должны» верно</span></li>
-<li>НАТО приняло решение о проведении учений. <span class="anti-tag" title="Подсказка: НАТО — несклоняемое ср.р.">антипример</span> <span class="anti-why">— НАТО = несклоняемое → ср.р. → «приняло» верно</span></li>
-<li>Большинство опрошенных поддержали новые правила.</li>
-<li>Все, кто работает в этой компании, знают о проблемах. <span class="anti-tag" title="Подсказка: при 'все, кто' смотри на 'все'">антипример</span> <span class="anti-why">— при «все» сказуемое мн.ч. «знают» верно</span></li>
-<li>Часть документов были утеряны при переезде.</li>
-<li>Множество вопросов остались без ответа.</li>
-<li>Ряд специалистов отметили улучшение ситуации.</li>
+<li>Ряд известных учёных выступали против этой теории. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Те, кто мечтает стать врачом, должны много учиться. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— при «те» сказуемое мн.ч. «должны» верно</span></li>
+<li>НАТО приняло решение о проведении учений. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— НАТО = несклоняемое → ср.р. → «приняло» верно</span></li>
+<li>Большинство опрошенных поддержали новые правила. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Все, кто работает в этой компании, знают о проблемах. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— при «все» сказуемое мн.ч. «знают» верно</span></li>
+<li>Часть документов были утеряны при переезде. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Множество вопросов остались без ответа. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Ряд специалистов отметили улучшение ситуации. <span class="err-tag">❌ Найди ошибку</span></li>
 </ol>
 <textarea class="ans" rows="3" placeholder="1. выступал  2. ✓ (при «те» — мн.ч. «должны» верно)  3. ✓  4. поддержало  5. ✓  6. была утеряна  7. осталось  8. отметил"></textarea>
 </div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb">
 <tr><th>№</th><th>Правильно</th><th>Почему</th></tr>
@@ -490,30 +519,33 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="dbody"><div class="lesson">
 <div><span class="warmup-badge">🔁 Разминка — тип А</span>
 <div class="task"><ol class="ex">
-<li>Ряд вопросов остался без ответа. <span class="anti-tag">антипример</span> <span class="anti-why">— ряд (м.р.) → ед.ч. м.р. «остался» верно</span></li>
-<li>Те, кто участвовал в олимпиаде, получили дипломы. <span class="anti-tag">антипример</span> <span class="anti-why">— при «те» допустимо мн.ч. «получили»</span></li>
-<li>МВД сообщило о задержании. <span class="anti-tag">антипример</span> <span class="anti-why">— МВД = Министерство, ср.р. → «сообщило» верно</span></li>
-</ol><textarea class="ans" rows="2" placeholder="1. ✓  2. ✓  3. ✓"></textarea></div></div>
-<div><div class="bl">📌 Теория — тип Б</div>
+<li>Ряд вопросов остался без ответа. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— ряд (м.р.) → ед.ч. м.р. «остался» верно</span></li>
+<li>Большинство участников проголосовали за предложение. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>МВД сообщило о задержании. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— МВД = Министерство, ср.р. → «сообщило» верно</span></li>
+</ol><textarea class="ans" rows="2" placeholder="1. ✓  2. А — проголосовало (большинство → ед.ч. ср.р.)  3. ✓"></textarea></div></div>
+<div><div class="bl">Читай внимательно — это основа дня</div>
 <div class="theory">
-<p><b>Суть:</b> существительное при предлоге стоит не в том падеже.</p>
-<table class="tb" style="margin-top:8px"><tr><th>Предлог</th><th>Нужен падеж</th><th>Пример</th></tr>
-<tr><td><b>благодаря, согласно, вопреки, наперекор</b></td><td>Дат.п. (кому? чему?)</td><td>согласно <b>приказу</b></td></tr>
-<tr><td><b>по</b> (= «после»)</td><td>Предл.п. (о чём?)</td><td>по <b>приезде</b>, по <b>окончании</b></td></tr></table>
-<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как в КИМе:</b> «неправильное употребление падежной формы существительного с предлогом»</p>
+<p><b>Суть ошибки:</b> существительное стоит не в том падеже после предлога.</p>
+<p style="margin-top:8px">🧭 <b>Как распознать:</b> видишь предлог «благодаря / согласно / вопреки / по» — сразу проверь падеж следующего слова.</p>
+<table class="tb" style="margin-top:8px">
+<tr><th>Предлог</th><th>Нужен падеж</th><th>✅ Верно</th><th>❌ Ошибка</th></tr>
+<tr><td><b>благодаря, согласно, вопреки, наперекор</b></td><td>Дат.п. (кому? чему?)</td><td>согласно приказ<b>у</b></td><td>согласно приказа</td></tr>
+<tr><td><b>по</b> (= «после»)</td><td>Предл.п. (о чём?)</td><td>по приезд<b>е</b>, по оконча<b>нии</b></td><td>по приезду, по окончанию</td></tr>
+</table>
+<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как называется в КИМе:</b> «неправильное употребление падежной формы существительного с предлогом»</p>
 </div></div>
-<div><div class="bl">✏️ Задание — 8 предложений</div>
+<div><div class="bl">Твой черёд — найди и исправь ошибку</div>
 <div class="task"><ol class="ex">
-<li>Благодаря своевременной помощи удалось избежать проблем. <span class="anti-tag">антипример</span> <span class="anti-why">— благодаря + Дат.п. «помощи» — верно</span></li>
-<li>Вопреки прогноза синоптиков, погода оказалась тёплой.</li>
-<li>По прилёту в город мы сразу поехали в гостиницу.</li>
-<li>Согласно расписания, поезд прибывает в 10:00.</li>
-<li>По возвращению из командировки он написал отчёт.</li>
-<li>Вопреки предсказаниям, команда выиграла. <span class="anti-tag">антипример</span> <span class="anti-why">— вопреки + Дат.п. «предсказаниям» — верно</span></li>
-<li>По окончанию школы она поступила в университет.</li>
-<li>По приезду на дачу мы сразу пошли купаться.</li>
+<li>Благодаря своевременной помощи удалось избежать проблем. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— благодаря + Дат.п. «помощи» — верно</span></li>
+<li>Вопреки прогноза синоптиков, погода оказалась тёплой. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>По прилёту в город мы сразу поехали в гостиницу. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Согласно расписания, поезд прибывает в 10:00. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>По возвращению из командировки он написал отчёт. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Вопреки предсказаниям, команда выиграла. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— вопреки + Дат.п. «предсказаниям» — верно</span></li>
+<li>По окончанию школы она поступила в университет. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>По приезду на дачу мы сразу пошли купаться. <span class="err-tag">❌ Найди ошибку</span></li>
 </ol><textarea class="ans" rows="3" placeholder="1. ✓  2. прогнозу  3. прилёте  4. расписанию  5. возвращении  6. ✓  7. окончании  8. приезде"></textarea></div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>№</th><th>Правильно</th></tr>
 <tr><td>1</td><td>✓ — благодаря + Дат.п. «помощи» верно</td></tr>
@@ -535,31 +567,36 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="dbody"><div class="lesson">
 <div><span class="warmup-badge">🔁 Разминка — А и Б</span>
 <div class="task"><ol class="ex">
-<li>Большинство учеников справились с контрольной.</li>
-<li>Согласно договора, оплата производится раз в месяц.</li>
-<li>По прилёте мы сразу позвонили домой. <span class="anti-tag">антипример</span> <span class="anti-why">— по прилёте — Предл.п., верно</span></li>
+<li>Большинство учеников справились с контрольной. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Согласно договора, оплата производится раз в месяц. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>По прилёте мы сразу позвонили домой. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— по прилёте — Предл.п., верно</span></li>
 </ol><textarea class="ans" rows="2" placeholder="1. справилось  2. договору  3. ✓"></textarea></div></div>
-<div><div class="bl">📌 Теория — тип В</div>
+<div><div class="bl">Читай внимательно — это основа дня</div>
 <div class="theory">
-<p><b>Правило:</b> если есть родовое слово (роман, фильм, журнал...) — название в кавычках <b>не склоняется</b>.</p>
-<table class="tb" style="margin-top:8px"><tr><th>Ситуация</th><th>Правильно</th><th>Ошибка</th></tr>
-<tr><td>Есть родовое слово</td><td>в романе «Война и мир»</td><td>в романе «Войне и мире» ✗</td></tr>
-<tr><td>Нет родового слова</td><td>в «Войне и мире»</td><td>в «Война и мир» ✗</td></tr>
-<tr><td>Газеты, журналы</td><td>в газете «Известия»</td><td>в газете «Известиях» ✗</td></tr></table>
-<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как в КИМе:</b> «нарушение в построении предложения с несогласованным приложением»</p>
+<p><b>Суть ошибки:</b> название в кавычках склоняют, хотя не нужно — или наоборот.</p>
+<p style="margin-top:8px">🧭 <b>Как распознать:</b> видишь название в кавычках — найди родовое слово перед ним (роман, фильм, журнал, повесть, рассказ...).</p>
+<table class="tb" style="margin-top:8px">
+<tr><th>Ситуация</th><th>✅ Верно</th><th>❌ Ошибка</th></tr>
+<tr><td>Есть родовое слово → название <b>не склоняем</b></td><td>в романе «Война и мир»</td><td>в романе «Войне и мире»</td></tr>
+<tr><td>Нет родового слова → название <b>склоняем</b></td><td>в «Войне и мире»</td><td>в «Война и мир»</td></tr>
+<tr><td>Газеты, журналы → название <b>не склоняем</b></td><td>в газете «Известия»</td><td>в газете «Известиях»</td></tr>
+</table>
+<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как называется в КИМе:</b> «нарушение в построении предложения с несогласованным приложением»</p>
 </div></div>
-<div><div class="bl">✏️ Задание — 8 предложений</div>
+<div><div class="bl">Твой черёд — найди и исправь ошибку</div>
 <div class="task"><ol class="ex">
-<li>В романе «Преступлении и наказании» поднимаются вечные вопросы.</li>
-<li>События фильма «Оно» происходят в вымышленном городе. <span class="anti-tag">антипример</span> <span class="anti-why">— есть «фильм», название «Оно» не склоняем</span></li>
-<li>В газете «Известиям» опубликовали интервью с актёром.</li>
-<li>Сюжет пьесы «Вишнёвого сада» разворачивается в усадьбе.</li>
-<li>В журнале «Новом мире» впервые напечатали эту повесть.</li>
-<li>Режиссёр снял продолжение фильма «Аватар». <span class="anti-tag">антипример</span> <span class="anti-why">— есть «фильм», «Аватар» не склоняем</span></li>
-<li>В повести «Капитанской дочке» описана пугачёвщина.</li>
-<li>В рассказе «Хамелеоне» Чехов высмеивает угодничество.</li>
-</ol><textarea class="ans" rows="3" placeholder="1. Преступление и наказание  2. ✓  3. Известия  4. Вишнёвый сад  5. Новый мир  6. ✓  7. Капитанская дочка  8. Хамелеон"></textarea></div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<li>В романе «Преступлении и наказании» поднимаются вечные вопросы. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>События фильма «Оно» происходят в вымышленном городе. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— есть «фильм», название «Оно» не склоняем</span></li>
+<li>В газете «Известиям» опубликовали интервью с актёром. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Сюжет пьесы «Вишнёвого сада» разворачивается в усадьбе. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>В журнале «Новом мире» впервые напечатали эту повесть. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Режиссёр снял продолжение фильма «Аватар». <span class="anti-tag">✅ Верно</span> <span class="anti-why">— есть «фильм», «Аватар» не склоняем</span></li>
+<li>В повести «Капитанской дочке» описана пугачёвщина. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>В рассказе «Хамелеоне» Чехов высмеивает угодничество. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Он читал «Война и мир» несколько месяцев. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Она процитировала строки из «Мастер и Маргарита». <span class="err-tag">❌ Найди ошибку</span></li>
+</ol><textarea class="ans" rows="3" placeholder="1. Преступление и наказание  2. ✓  3. Известия  4. Вишнёвый сад  5. Новый мир  6. ✓  7. Капитанская дочка  8. Хамелеон  9. Войны и мира  10. Мастера и Маргариты"></textarea></div></div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>№</th><th>Правильно</th></tr>
 <tr><td>1</td><td>«<b>Преступление и наказание</b>»</td></tr>
@@ -570,6 +607,8 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <tr><td>6</td><td>✓ — есть «фильм», «Аватар» не склоняем</td></tr>
 <tr><td>7</td><td>«<b>Капитанская дочка</b>»</td></tr>
 <tr><td>8</td><td>«<b>Хамелеон</b>»</td></tr>
+<tr><td>9</td><td>«<b>Войны и мира</b>» — нет родового слова, название склоняется само</td></tr>
+<tr><td>10</td><td>«<b>Мастера и Маргариты</b>» — нет родового слова, склоняем</td></tr>
 </table></details></div>
 <div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c3')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c3')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c3')">3 — уверен</button></div>
 <div class="done-row"><input type="checkbox" id="done3" onchange="markDone(3,this.checked,1,8)"><label for="done3">✓ День 3 пройден</label></div>
@@ -581,41 +620,55 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="dbody"><div class="lesson">
 <div><span class="warmup-badge">🔁 Разминка — А, Б, В</span>
 <div class="task"><ol class="ex">
-<li>Вопреки предсказаний, фильм стал хитом.</li>
-<li>В книге «Войне и мире» описана эпоха Наполеона.</li>
-<li>Часть вопросов осталась без ответа. <span class="anti-tag">антипример</span> <span class="anti-why">— часть → ед.ч. «осталась» верно</span></li>
+<li>Вопреки предсказаний, фильм стал хитом. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>В книге «Войне и мире» описана эпоха Наполеона. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Часть вопросов осталась без ответа. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— часть → ед.ч. «осталась» верно</span></li>
 </ol><textarea class="ans" rows="2" placeholder="1. предсказаниям  2. Война и мир  3. ✓"></textarea></div></div>
-<div><div class="bl">📌 Теория — Г и Д</div>
+<div><div class="bl">Читай внимательно — это основа дня</div>
 <div class="theory">
-<p><b>Г — Причастный оборот:</b> причастие согласуется с определяемым словом в роде, числе, <b>падеже</b>.</p>
-<p>❌ Гордимся спортсменами, <u>победивших</u> (Род.п.) — нужно <b>победившими</b> (Тв.п.)</p>
-<p style="margin-top:8px"><b>Д — Деепричастный оборот:</b> деепричастие и сказуемое — <b>один субъект</b>.</p>
-<p>❌ <u>Читая</u> книгу, у меня возник вопрос. (читаю я; возник вопрос — разные субъекты)</p>
-<p>✅ <u>Читая</u> книгу, я задал вопрос. (и читаю, и задал — я)</p>
-<p style="margin-top:6px;font-size:12px;background:#fff3cd;border-radius:6px;padding:7px 10px">⚠️ <b>Безличные предложения:</b> «Читая книгу, <b>стемнело</b>» — всегда ошибка! У «стемнело», «было скучно», «казалось» нет субъекта.</p>
+<p><b>Тип Г. Суть ошибки:</b> причастие стоит не в том падеже — не совпадает с определяемым словом.</p>
+<p style="margin-top:6px">🧭 <b>Как распознать:</b> найди причастие (слово на -ший, -вший, -нный, -тый) → задай падежный вопрос от определяемого слова → они должны совпадать.</p>
+<table class="tb" style="margin-top:6px">
+<tr><th></th><th>✅ Верно</th><th>❌ Ошибка</th></tr>
+<tr><td>Пример</td><td>Гордимся спортсменами, победившими (Тв.п.)</td><td>Гордимся спортсменами, победивших (Род.п.)</td></tr>
+</table>
+
+<p style="margin-top:10px"><b>Тип Д. Суть ошибки:</b> деепричастие и сказуемое относятся к разным лицам.</p>
+<p style="margin-top:6px">🧭 <b>Как распознать:</b> найди деепричастие (слово на -я, -в, -вши) → спроси: кто совершает это действие? → он же должен быть подлежащим.</p>
+<table class="tb" style="margin-top:6px">
+<tr><th></th><th>✅ Верно</th><th>❌ Ошибка</th></tr>
+<tr><td>Один субъект</td><td>Читая книгу, <b>я</b> задал вопрос</td><td>Читая книгу, у <b>меня</b> возник вопрос</td></tr>
+<tr><td>Безличное сказуемое</td><td>Когда я читал, <b>стемнело</b></td><td>Читая книгу, <b>стемнело</b> ← всегда ошибка!</td></tr>
+</table>
+<p style="margin-top:6px;font-size:12px;background:#fff3cd;border-radius:6px;padding:7px 10px">⚠️ При безличных сказуемых («стемнело», «было скучно», «казалось») деепричастный оборот <b>всегда</b> ошибка — у них нет субъекта.</p>
+<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как называется в КИМе:</b> «ошибка в построении предложения с причастным оборотом» / «с деепричастным оборотом»</p>
 </div></div>
-<div><div class="bl">✏️ Задание — 8 предложений (оба типа + безличные)</div>
+<div><div class="bl">Твой черёд — найди и исправь ошибку (типы Г и Д)</div>
 <div class="task"><ol class="ex">
-<li>Мы гордимся нашими футболистами, победивших английскую команду.</li>
-<li>Читая книгу, у меня возник вопрос.</li>
-<li>Последние вопросы, рассматривавшиеся на совещании, были решены. <span class="anti-tag">антипример</span> <span class="anti-why">— вопросы (Им.п.) рассматривавшиеся (Им.п.) — падежи совпадают</span></li>
-<li>Возвращаясь домой, пошёл сильный дождь.</li>
-<li>Книга, написанная известным автором, стала бестселлером. <span class="anti-tag">антипример</span> <span class="anti-why">— книга (Им.п.) написанная (Им.п.) — верно</span></li>
-<li>Сделав домашнее задание, я пошёл гулять. <span class="anti-tag">антипример</span> <span class="anti-why">— я сделал и я пошёл — один субъект</span></li>
-<li>Подъезжая к станции, у меня зазвонил телефон.</li>
-<li>Проснувшись рано, мне сразу захотелось пить.</li>
-</ol><textarea class="ans" rows="3" placeholder="1. победившими  2. Когда я читал...  3. ✓  4. Когда я возвращался...  5. ✓  6. ✓  7. Когда я подъезжал...  8. Когда я проснулся... (безличное!)"></textarea></div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<li>Мы гордимся нашими футболистами, победивших английскую команду. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Читая книгу, у меня возник вопрос. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Последние вопросы, рассматривавшиеся на совещании, были решены. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— вопросы (Им.п.) рассматривавшиеся (Им.п.) — падежи совпадают</span></li>
+<li>Возвращаясь с прогулки, у Андрея зазвонил телефон. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Книга, написанная известным автором, стала бестселлером. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— книга (Им.п.) написанная (Им.п.) — верно</span></li>
+<li>Сделав домашнее задание, я пошёл гулять. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— я сделал и я пошёл — один субъект</span></li>
+<li>Подъезжая к станции, у меня зазвонил телефон. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Проснувшись рано, мне сразу захотелось пить. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Автор описывает события, произошедших в прошлом веке. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Учёные обнаружили вещество, способным растворять металлы. <span class="err-tag">❌ Найди ошибку</span></li>
+</ol><textarea class="ans" rows="4" placeholder="1. Г-победившими  2. Д-Когда я читал...  3. ✓  4. Д-Когда Андрей возвращался...  5. ✓  6. ✓  7. Д-Когда я подъезжал...  8. Д-безличное!  9. Г-произошедших→произошедших(Вин.)→произошедшие  10. Г-способным→способное"></textarea></div></div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>№</th><th>Тип</th><th>Правильно</th></tr>
 <tr><td>1</td><td>Г</td><td>победившими (Тв.п. мн.ч.)</td></tr>
 <tr><td>2</td><td>Д</td><td>Когда я читал книгу, у меня возник вопрос.</td></tr>
 <tr><td>3</td><td>✓</td><td>вопросы Им. → рассматривавшиеся Им. — падежи совпадают</td></tr>
-<tr><td>4</td><td>Д</td><td>Когда я возвращался домой, начался дождь.</td></tr>
+<tr><td>4</td><td>Д</td><td>Когда Андрей возвращался с прогулки, у него зазвонил телефон.</td></tr>
 <tr><td>5</td><td>✓</td><td>книга Им. → написанная Им.</td></tr>
 <tr><td>6</td><td>✓</td><td>Я сделал и я пошёл — один субъект</td></tr>
 <tr><td>7</td><td>Д</td><td>Когда я подъезжал к станции, у меня зазвонил телефон.</td></tr>
 <tr><td>8</td><td>Д</td><td>Безличное «захотелось» — нет субъекта → Когда я проснулся, мне захотелось пить.</td></tr>
+<tr><td>9</td><td>Г</td><td>события, <b>произошедшие</b> (Вин.п. мн.ч.) — «произошедших» (Род.п.) неверно</td></tr>
+<tr><td>10</td><td>Г</td><td>вещество, <b>способное</b> (Вин.п. ср.р.) — «способным» (Тв.п.) неверно</td></tr>
 </table></details></div>
 <div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c4')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c4')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c4')">3 — уверен</button></div>
 <div class="done-row"><input type="checkbox" id="done4" onchange="markDone(4,this.checked,1,8)"><label for="done4">✓ День 4 пройден</label></div>
@@ -627,31 +680,43 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="dbody"><div class="lesson">
 <div><span class="warmup-badge">🔁 Разминка — Г и Д</span>
 <div class="task"><ol class="ex">
-<li>Прочитав книгу, меня поразил главный герой.</li>
-<li>Ученики, сдавшие экзамен, получили дипломы. <span class="anti-tag">антипример</span> <span class="anti-why">— ученики Им. → сдавшие Им. — верно</span></li>
-<li>Войдя в комнату, свет был выключен.</li>
+<li>Прочитав книгу, меня поразил главный герой. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Ученики, сдавшие экзамен, получили дипломы. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— ученики Им. → сдавшие Им. — верно</span></li>
+<li>Войдя в комнату, свет был выключен. <span class="err-tag">❌ Найди ошибку</span></li>
 </ol><textarea class="ans" rows="2" placeholder="1. Когда я прочитал...  2. ✓  3. Когда я вошёл... (или: безличное — свет не входил)"></textarea></div></div>
-<div><div class="bl">📌 Теория — Е и Ж</div>
+<div><div class="bl">Читай внимательно — это основа дня</div>
 <div class="theory">
-<p><b>Е — Видовременная соотнесённость:</b> все глаголы в одном предложении → одно время.</p>
-<p>❌ Он <u>открыл</u> окно и <u>дышит</u>. → ✅ открыл и <b>вдохнул</b></p>
-<p>❌ Туман <u>рассеялся</u>, и солнце <u>освещает</u> поляну. → ✅ <b>осветило</b></p>
-<p style="margin-top:8px"><b>Ж — Однородные члены:</b> однородные глаголы могут требовать разных падежей.</p>
-<p>❌ Любить и гордиться <u>родиной</u>. → ✅ <b>любить родину</b> и <b>гордиться ею</b></p>
-<p>❌ Он увлекается и <u>занимается</u> спортом. → ✅ <b>увлекается спортом</b> и занимается им</p>
+<p><b>Тип Е. Суть ошибки:</b> глаголы в одном предложении стоят в разных временах.</p>
+<p style="margin-top:6px">🧭 <b>Как распознать:</b> найди все глаголы → проверь, все ли в одном времени.</p>
+<table class="tb" style="margin-top:6px">
+<tr><th></th><th>✅ Верно</th><th>❌ Ошибка</th></tr>
+<tr><td>Пример 1</td><td>Он открыл окно и вдохнул воздух</td><td>Он открыл окно и дышит</td></tr>
+<tr><td>Пример 2</td><td>Туман рассеялся, и солнце осветило поляну</td><td>Туман рассеялся, и солнце освещает</td></tr>
+</table>
+
+<p style="margin-top:10px"><b>Тип Ж. Суть ошибки:</b> однородные глаголы требуют разных падежей, но дополнение одно на двоих.</p>
+<p style="margin-top:6px">🧭 <b>Как распознать:</b> найди однородные глаголы → задай вопрос от каждого к дополнению → если вопросы разные, нужны разные дополнения.</p>
+<table class="tb" style="margin-top:6px">
+<tr><th></th><th>✅ Верно</th><th>❌ Ошибка</th></tr>
+<tr><td>Пример</td><td>Любить родину и гордиться ею</td><td>Любить и гордиться родиной</td></tr>
+<tr><td>Пример</td><td>Увлекаться спортом и заниматься им</td><td>Увлекаться и заниматься спортом</td></tr>
+</table>
+<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как называется в КИМе:</b> «нарушение видовременной соотнесённости» / «ошибка в построении предложения с однородными членами»</p>
 </div></div>
-<div><div class="bl">✏️ Задание — 8 предложений (только Е и Ж)</div>
+<div><div class="bl">Твой черёд — найди и исправь ошибку (типы Е и Ж)</div>
 <div class="task"><ol class="ex">
-<li>Туман рассеялся, и солнце освещает поляну.</li>
-<li>Он увлекается и занимается спортом.</li>
-<li>Он вышел на улицу и видит знакомого.</li>
-<li>Мы не только прочитали книгу, но и написали отзыв. <span class="anti-tag">антипример</span> <span class="anti-why">— не только... но и — союз правильный, падежи совпадают</span></li>
-<li>Поезд остановился, и пассажиры выходят из вагонов.</li>
-<li>Я люблю и восхищаюсь природой.</li>
-<li>Девочка подошла к окну и смотрит на улицу.</li>
-<li>Он взял книгу и начинает читать.</li>
-</ol><textarea class="ans" rows="3" placeholder="1. Е — осветило  2. Ж — увлекается спортом и занимается им  3. Е — увидел  4. ✓  5. Е — вышли  6. Ж — люблю природу и восхищаюсь ею  7. Е — посмотрела  8. Е — начал"></textarea></div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<li>Туман рассеялся, и солнце освещает поляну. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Он увлекается и занимается спортом. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Он вышел на улицу и видит знакомого. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Мы не только прочитали книгу, но и написали отзыв. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— не только... но и — союз правильный, падежи совпадают</span></li>
+<li>Поезд остановился, и пассажиры выходят из вагонов. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Я люблю и восхищаюсь природой. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Девочка подошла к окну и смотрит на улицу. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Он взял книгу и начинает читать. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Я интересуюсь и занимаюсь историей. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Она любит и заботится о животных. <span class="err-tag">❌ Найди ошибку</span></li>
+</ol><textarea class="ans" rows="4" placeholder="1. Е-осветило  2. Ж-увлекается спортом и занимается им  3. Е-увидел  4. ✓  5. Е-вышли  6. Ж-люблю природу и восхищаюсь ею  7. Е-посмотрела  8. Е-начал  9. Ж-интересуюсь историей и занимаюсь ею  10. Ж-любит животных и заботится о них"></textarea></div></div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>№</th><th>Тип</th><th>Правильно</th></tr>
 <tr><td>1</td><td>Е</td><td>осветило</td></tr>
@@ -662,6 +727,8 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <tr><td>6</td><td>Ж</td><td>Я люблю природу и восхищаюсь ею.</td></tr>
 <tr><td>7</td><td>Е</td><td>посмотрела</td></tr>
 <tr><td>8</td><td>Е</td><td>начал читать</td></tr>
+<tr><td>9</td><td>Ж</td><td>Я интересуюсь историей и занимаюсь ею.</td></tr>
+<tr><td>10</td><td>Ж</td><td>Она любит животных и заботится о них.</td></tr>
 </table></details></div>
 <div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c5a')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c5a')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c5a')">3 — уверен</button></div>
 <div class="done-row"><input type="checkbox" id="done5" onchange="markDone(5,this.checked,1,8)"><label for="done5">✓ День 5а пройден</label></div>
@@ -673,35 +740,46 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="dbody"><div class="lesson">
 <div><span class="warmup-badge">🔁 Разминка — Е и Ж</span>
 <div class="task"><ol class="ex">
-<li>Он открыл дверь и выходит на улицу.</li>
-<li>Я уважаю и восхищаюсь этим человеком.</li>
-<li>Она взяла зонт и вышла на улицу. <span class="anti-tag">антипример</span> <span class="anti-why">— оба глагола прошедшее время — верно</span></li>
+<li>Он открыл дверь и выходит на улицу. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Я уважаю и восхищаюсь этим человеком. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Она взяла зонт и вышла на улицу. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— оба глагола прошедшее время — верно</span></li>
 </ol><textarea class="ans" rows="2" placeholder="1. Е — вышел  2. Ж — уважаю этого человека и восхищаюсь им  3. ✓"></textarea></div></div>
-<div><div class="bl">📌 Теория — З и И</div>
+<div><div class="bl">Читай внимательно — это основа дня</div>
 <div class="theory">
-<p><b>З — Косвенная речь:</b> в косвенной речи местоимения меняются; нельзя «что + ли».</p>
-<p>❌ Сказала, что <u>я</u> приду. → ✅ что <b>она</b> придёт.</p>
-<p>❌ Спросил, <u>что</u> буду ли я → ✅ Спросил, <b>буду ли</b> я.</p>
+<p><b>Тип З. Суть ошибки:</b> в косвенной речи оставили местоимение от прямой речи или неверно построили вопрос.</p>
+<p style="margin-top:6px">🧭 <b>Как распознать:</b> видишь «сказал, что...» / «спросил, что...» → проверь местоимение и союз.</p>
+<table class="tb" style="margin-top:6px">
+<tr><th></th><th>✅ Верно</th><th>❌ Ошибка</th></tr>
+<tr><td>Местоимение</td><td>Сказала, что <b>она</b> придёт</td><td>Сказала, что <b>я</b> приду</td></tr>
+<tr><td>Вопрос</td><td>Спросил, <b>буду ли</b> я</td><td>Спросил, <b>что</b> буду ли я</td></tr>
+</table>
 <div style="background:#fff8e1;border-radius:7px;padding:8px 12px;margin-top:8px;font-size:12px">
-<b>Прямая → Косвенная (таблица):</b><br>
+<b>Прямая → Косвенная:</b><br>
 «я иду» → он идёт &nbsp;|&nbsp; «я скажу» → он скажет<br>
 «мы придём» → они придут &nbsp;|&nbsp; «что придёт ли» → <b>придёт ли</b>
 </div>
-<p style="margin-top:8px"><b>И — Сложное предложение:</b> «который» стоит рядом со своим словом; не смешивай союзы.</p>
-<p>❌ Фильм мы смотрели, <u>который</u>. → ✅ Мы смотрели <b>фильм</b>, который</p>
+
+<p style="margin-top:10px"><b>Тип И. Суть ошибки:</b> «который» стоит далеко от своего слова или смешаны союзы.</p>
+<p style="margin-top:6px">🧭 <b>Как распознать:</b> найди «который» → проверь, рядом ли стоит слово, к которому он относится.</p>
+<table class="tb" style="margin-top:6px">
+<tr><th></th><th>✅ Верно</th><th>❌ Ошибка</th></tr>
+<tr><td>Порядок слов</td><td>Мы смотрели <b>фильм</b>, который...</td><td>Фильм мы смотрели, который...</td></tr>
+<tr><td>Смешение союзов</td><td>Спросил, <b>придёт ли</b> он</td><td>Спросил, <b>что придёт ли</b> он</td></tr>
+</table>
+<p style="margin-top:8px;background:#fff3cd;border-radius:6px;padding:7px 10px;font-size:12px">📋 <b>Как называется в КИМе:</b> «неправильное построение предложения с косвенной речью» / «нарушение в построении сложного предложения»</p>
 </div></div>
-<div><div class="bl">✏️ Задание — 8 предложений (только З и И)</div>
+<div><div class="bl">Твой черёд — найди и исправь ошибку (типы З и И)</div>
 <div class="task"><ol class="ex">
-<li>Мама сказала, что я уже поужинал.</li>
-<li>Он спросил меня, что буду ли я завтра.</li>
-<li>Письмо он написал, которое собирался отправить.</li>
-<li>Она сообщила, что придёт к пяти. <span class="anti-tag">антипример</span> <span class="anti-why">— местоимение «она», не «я» — косвенная речь составлена верно</span></li>
-<li>Автор утверждал, что я уверен в правоте своих слов.</li>
-<li>Книгу она читала, которую взяла в библиотеке.</li>
-<li>Он спросил, что придём ли мы на встречу.</li>
-<li>Она предупредила, что задержится на работе. <span class="anti-tag">антипример</span> <span class="anti-why">— «она задержится» — местоимение верное</span></li>
+<li>Мама сказала, что я уже поужинал. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Он спросил меня, что буду ли я завтра. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Письмо он написал, которое собирался отправить. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Она сообщила, что придёт к пяти. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— местоимение «она», не «я» — косвенная речь составлена верно</span></li>
+<li>Автор утверждал, что я уверен в правоте своих слов. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Книгу она читала, которую взяла в библиотеке. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Он спросил, что придём ли мы на встречу. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Она предупредила, что задержится на работе. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— «она задержится» — местоимение верное</span></li>
 </ol><textarea class="ans" rows="3" placeholder="1. З — она  2. З — буду ли  3. И — Он написал письмо, которое  4. ✓  5. З — он уверен  6. И — Она читала книгу, которую  7. И/З — придём ли  8. ✓"></textarea></div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>№</th><th>Тип</th><th>Правильно</th></tr>
 <tr><td>1</td><td>З</td><td>Мама сказала, что <b>она</b> уже поужинала.</td></tr>
@@ -723,30 +801,30 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="dbody"><div class="lesson">
 <div><span class="warmup-badge">🔁 Разминка — З и И</span>
 <div class="task"><ol class="ex">
-<li>Он открыл дверь и выходит на улицу.</li>
-<li>Она сказала, что я обязательно приду.</li>
-<li>Книгу он прочитал, которую ему подарили.</li>
+<li>Он открыл дверь и выходит на улицу. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Она сказала, что я обязательно приду. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Книгу он прочитал, которую ему подарили. <span class="err-tag">❌ Найди ошибку</span></li>
 </ol><textarea class="ans" rows="2" placeholder="1. Е — вышел  2. З — она придёт  3. И — Он прочитал книгу, которую..."></textarea></div></div>
-<div><div class="bl">🏁 Ревью — 12 предложений, все типы А–И</div>
+<div><div class="bl">Итог модуля — все 9 типов в одном задании</div>
 <div class="task">
-<p style="font-size:12px;color:var(--muted);margin-bottom:8px">Определи тип (А–И) и запиши исправление. «✓» если ошибки нет.</p>
+<p style="font-size:12px;color:var(--muted);margin-bottom:8px">Определи тип ошибки (А–И) и запиши исправление. Предложения с меткой <span style="background:var(--okbg);color:var(--ok);border:1px solid #9fddb9;border-radius:4px;padding:1px 7px;font-size:10px;font-weight:600">✅ Верно</span> — правильные, исправлять не нужно.</p>
 <ol class="ex">
-<li>Ряд экспертов полагали, что ситуация изменится.</li>
-<li>Вопреки прогноза, акции выросли.</li>
-<li>В романе «Мастере и Маргарите» много загадок.</li>
-<li>Сделав уроки, мама позвала меня ужинать.</li>
-<li>Мы гордимся спортсменами, завоевавшими медали. <span class="anti-tag">антипример</span> <span class="anti-why">— спортсменами Тв. → завоевавшими Тв. — падежи совпадают</span></li>
-<li>Она сказала, что я обязательно приду.</li>
-<li>Я люблю и восхищаюсь природой.</li>
-<li>Согласно плана, строительство завершится в марте.</li>
-<li>Туристы, уставшие от долгой дороги, остановились. <span class="anti-tag">антипример</span> <span class="anti-why">— туристы Им. → уставшие Им. — верно</span></li>
-<li>Большинство участников проголосовали за это решение.</li>
-<li>Спросил, что придёт ли он завтра.</li>
-<li>Читая рукопись, у редактора возникли замечания.</li>
+<li>Ряд экспертов полагали, что ситуация изменится. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Вопреки прогноза, акции выросли. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>В романе «Мастере и Маргарите» много загадок. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Сделав уроки, мама позвала меня ужинать. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Мы гордимся спортсменами, завоевавшими медали. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— спортсменами Тв. → завоевавшими Тв. — падежи совпадают</span></li>
+<li>Она сказала, что я обязательно приду. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Я люблю и восхищаюсь природой. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Согласно плана, строительство завершится в марте. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Туристы, уставшие от долгой дороги, остановились. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— туристы Им. → уставшие Им. — верно</span></li>
+<li>Большинство участников проголосовали за это решение. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Спросил, что придёт ли он завтра. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Читая рукопись, у редактора возникли замечания. <span class="err-tag">❌ Найди ошибку</span></li>
 </ol>
 <textarea class="ans" rows="4" placeholder="1. А — полагал  2. Б — прогнозу  3. В — Мастер и Маргарита  4. Д — Когда я сделал...  5. ✓  6. З — она придёт  7. Ж  8. Б — плану  9. ✓  10. А — проголосовало  11. И/З — придёт ли  12. Д"></textarea>
 </div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>№</th><th>Тип</th><th>Исправление</th></tr>
 <tr><td>1</td><td>А</td><td>полагал</td></tr>
@@ -779,18 +857,18 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="dbody"><div class="lesson">
 <div><span class="warmup-badge">🔁 Разминка — 5 предложений</span>
 <div class="task"><ol class="ex">
-<li>Ряд задач были выполнены неверно.</li>
-<li>В повести «Шинели» описана судьба маленького человека.</li>
-<li>По возвращению из поездки он написал статью.</li>
-<li>Читая письмо, у неё навернулись слёзы.</li>
-<li>Большинство гостей пришли вовремя.</li>
+<li>Ряд задач были выполнены неверно. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>В повести «Шинели» описана судьба маленького человека. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>По возвращению из поездки он написал статью. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Читая письмо, у неё навернулись слёзы. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Большинство гостей пришли вовремя. <span class="err-tag">❌ Найди ошибку</span></li>
 </ol><textarea class="ans" rows="2" placeholder="1. А-была  2. В-Шинель  3. Б-возвращении  4. Д  5. А-пришло"></textarea></div></div>
-<div><div class="bl">🧾 Как работает формат ЕГЭ</div>
+<div><div class="bl">Как устроено задание 8 на экзамене</div>
 <div class="theory">
 <p>В реальном ЕГЭ: <b>5 типов ошибок + 9 предложений</b> (4 без ошибок). Сегодня: <b>3 ошибки + 6 предложений</b>.</p>
 <p style="margin-top:6px;font-size:12px">Вводи номер предложения в поле буквы. Если ошибок нескольких — через запятую: 3, 8. Если ошибки данного типа нет — <b>оставь поле пустым</b>.</p>
 </div></div>
-<div><div class="bl">✏️ Мини-формат #1</div>
+<div><div class="bl">Сопоставь ошибку с предложением</div>
 <div class="task">
 <div class="zachet-instr">Некоторые типы ошибок могут не встретиться в данном наборе — оставь поле пустым, не угадывай.</div>
 <table class="match-table"><tr><th>Тип ошибки</th></tr>
@@ -798,10 +876,10 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <tr><td>Б. Неправильное употребление падежной формы с предлогом</td></tr>
 <tr><td>В. Нарушение с несогласованным приложением</td></tr></table>
 <ol class="ex" style="margin-top:10px">
-<li>Часть студентов сдала работы досрочно. <span class="anti-tag">антипример</span> <span class="anti-why">— часть → ед.ч. «сдала» верно</span></li>
-<li>Согласно приказу директора, занятия отменили. <span class="anti-tag">антипример</span> <span class="anti-why">— согласно + Дат.п. «приказу» верно</span></li>
+<li>Часть студентов сдала работы досрочно. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— часть → ед.ч. «сдала» верно</span></li>
+<li>Согласно приказу директора, занятия отменили. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— согласно + Дат.п. «приказу» верно</span></li>
 <li>В романе «Отцах и детях» поднимается тема конфликта поколений.</li>
-<li>По приезде в Москву он сразу позвонил другу. <span class="anti-tag">антипример</span> <span class="anti-why">— по приезде — Предл.п., верно</span></li>
+<li>По приезде в Москву он сразу позвонил другу. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— по приезде — Предл.п., верно</span></li>
 <li>Большинство учеников справились с заданием.</li>
 <li>Статья была напечатана в журнале «Новом мире».</li>
 </ol>
@@ -813,7 +891,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <button class="check-btn" onclick="chk3('m7',{A:'5',B:null,V:'3,6'},['m7a','m7b','m7v'],['А','Б','В'])">Проверить</button>
 <div class="check-result" id="m7-result"></div>
 </div></div>
-<div><div class="bl">🔍 Ключ</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
 <tr><td>А</td><td><b>5</b></td><td>Большинство справились → <b>справилось</b></td></tr>
@@ -829,11 +907,11 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="dbody"><div class="lesson">
 <div><span class="warmup-badge">🔁 Разминка</span>
 <div class="task"><ol class="ex">
-<li>Вопреки прогнозам, лето выдалось холодным. <span class="anti-tag">антипример</span> <span class="anti-why">— вопреки + Дат.п. «прогнозам» верно</span></li>
-<li>Спортсмены, победившие в соревнованиях, получили медали. <span class="anti-tag">антипример</span> <span class="anti-why">— спортсмены Им. → победившие Им. верно</span></li>
-<li>Поднявшись на вершину, нам открылся потрясающий вид.</li>
+<li>Вопреки прогнозам, лето выдалось холодным. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— вопреки + Дат.п. «прогнозам» верно</span></li>
+<li>Спортсмены, победившие в соревнованиях, получили медали. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— спортсмены Им. → победившие Им. верно</span></li>
+<li>Поднявшись на вершину, нам открылся потрясающий вид. <span class="err-tag">❌ Найди ошибку</span></li>
 </ol><textarea class="ans" rows="2" placeholder="1. ✓  2. ✓  3. Д — Когда мы поднялись..."></textarea></div></div>
-<div><div class="bl">✏️ Мини-формат #2</div>
+<div><div class="bl">Сопоставь ошибку с предложением</div>
 <div class="task">
 <div class="zachet-instr">Некоторые типы ошибок могут не встретиться — оставь поле пустым.</div>
 <table class="match-table"><tr><th>Тип ошибки</th></tr>
@@ -842,11 +920,11 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <tr><td>Е. Нарушение видовременной соотнесённости глаголов</td></tr></table>
 <ol class="ex" style="margin-top:10px">
 <li>Он сел в кресло и открывает книгу.</li>
-<li>Мы видели птиц, летящих на юг. <span class="anti-tag">антипример</span> <span class="anti-why">— птиц Вин. → летящих Вин. — верно</span></li>
+<li>Мы видели птиц, летящих на юг. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— птиц Вин. → летящих Вин. — верно</span></li>
 <li>Возвращаясь с работы, начался ливень.</li>
-<li>Деревья, посаженные школьниками, уже выросли. <span class="anti-tag">антипример</span> <span class="anti-why">— деревья Им. → посаженные Им. — верно</span></li>
+<li>Деревья, посаженные школьниками, уже выросли. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— деревья Им. → посаженные Им. — верно</span></li>
 <li>Девочка сидела у окна и смотрит на улицу.</li>
-<li>Мы гордимся спортсменами, прославившими нашу страну. <span class="anti-tag">антипример</span> <span class="anti-why">— спортсменами Тв. → прославившими Тв. — верно</span></li>
+<li>Мы гордимся спортсменами, прославившими нашу страну. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— спортсменами Тв. → прославившими Тв. — верно</span></li>
 </ol>
 <div class="match-inputs">
 <div class="match-cell"><span class="match-lbl">Г</span><input class="match-in" id="m8g" type="text" placeholder="—"></div>
@@ -856,7 +934,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <button class="check-btn" onclick="chk3('m8',{G:null,D:'3',E:'1,5'},['m8g','m8d','m8e'],['Г','Д','Е'])">Проверить</button>
 <div class="check-result" id="m8-result"></div>
 </div></div>
-<div><div class="bl">🔍 Ключ</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
 <tr><td>Г</td><td><b>—</b></td><td>В наборе нет ошибки типа Г — все причастия согласованы</td></tr>
@@ -872,20 +950,20 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="dbody"><div class="lesson">
 <div><span class="warmup-badge">🔁 Разминка — 4 предложения</span>
 <div class="task"><ol class="ex">
-<li>Согласно расписанию, поезд отправляется в 8:00. <span class="anti-tag">антипример</span> <span class="anti-why">— согласно + Дат.п. «расписанию» верно</span></li>
-<li>Ряд предложений были составлены неверно.</li>
-<li>Посмотрев фильм, мне стало грустно.</li>
-<li>В повести «Белых ночах» Достоевский исследует одиночество.</li>
+<li>Согласно расписанию, поезд отправляется в 8:00. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— согласно + Дат.п. «расписанию» верно</span></li>
+<li>Ряд предложений были составлены неверно. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Посмотрев фильм, мне стало грустно. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>В повести «Белых ночах» Достоевский исследует одиночество. <span class="err-tag">❌ Найди ошибку</span></li>
 </ol><textarea class="ans" rows="2" placeholder="1. ✓  2. А-было  3. Д  4. В-Белые ночи"></textarea></div></div>
-<div><div class="bl">🏁 Зачёт #1 — Полный формат ЕГЭ</div>
+<div><div class="bl">Зачёт — формат точно как на экзамене</div>
 <div class="task">
 <div class="zachet-instr">Внимание: некоторые типы ошибок могут не встретиться в данном наборе. Если ошибки нет — оставь поле пустым. 4 из 9 предложений будут правильными.</div>
 <table class="match-table"><tr><th>Грамматическая ошибка</th></tr>
 <tr><td>А. Нарушение связи между подлежащим и сказуемым</td></tr>
 <tr><td>Б. Неправильное употребление падежной формы с предлогом</td></tr>
-<tr><td>В. Нарушение в построении с несогласованным приложением</td></tr>
-<tr><td>Г. Ошибка в построении с причастным оборотом</td></tr>
-<tr><td>Д. Нарушение в построении с деепричастным оборотом</td></tr></table>
+<tr><td>В. Нарушение в построении предложения с несогласованным приложением</td></tr>
+<tr><td>Г. Ошибка в построении предложения с причастным оборотом</td></tr>
+<tr><td>Д. Нарушение в построении предложения с деепричастным оборотом</td></tr></table>
 <ol class="ex" style="margin-top:10px">
 <li>Большинство участников олимпиады справились с заданиями.</li>
 <li>По окончании школы она поступила в медицинский университет.</li>
@@ -907,7 +985,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <button class="check-btn" onclick="checkZ1()">Проверить зачёт</button>
 <div class="check-result" id="z1-result"></div>
 </div></div>
-<div><div class="bl">🔍 Ключ</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
 <tr><td>А</td><td><b>1</b></td><td>Большинство справились → <b>справилось</b></td></tr>
@@ -918,7 +996,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 </table>
 <p style="margin-top:4px;font-size:12px;color:var(--muted)">Без ошибок: 2, 4, 6, 7</p>
 </details></div>
-<div><div class="bl">📊 Результат</div>
+<div><div class="bl">Запиши результат</div>
 <div class="task">
 <div class="score-row"><span style="font-size:13px">Правильных сопоставлений:</span><input class="score-in" type="number" id="z1score" min="0" max="5" oninput="saveScore('z1',this.value)"> / 5</div>
 <p style="margin-top:6px;font-size:12px;color:var(--muted)">5 → 3 балла · 3–4 → 2 балла · 1–2 → 1 балл</p>
@@ -930,12 +1008,12 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="day" id="day11">
 <button class="dbtn" onclick="tog(this)"><span class="dnum">День 10</span><span class="dttl">Работа над ошибками зачёта #1 + карта возврата</span><span class="dmeta">🕒 18 мин</span><span class="darr">▼</span></button>
 <div class="dbody"><div class="lesson">
-<div><div class="bl">🧠 Рефлексия</div>
+<div><div class="bl">Подумай — где было сложнее всего?</div>
 <div class="task">
 <p style="font-size:13px">Какой тип ошибки вызвал затруднение? Объясни своими словами.</p>
 <textarea class="ans" rows="2" placeholder="Например: тип В — не замечаю когда есть родовое слово..."></textarea>
 </div></div>
-<div><div class="bl">🗺 Карта возврата — ошибся в типе X → повтори день Y</div>
+<div><div class="bl">Ошибся — вот куда вернуться</div>
 <div class="return-map">
 <h4>Нажми на тип — перейдёшь к нужному дню:</h4>
 <div class="return-grid">
@@ -950,16 +1028,16 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="return-item" onclick="goDay(6)"><b>Тип И</b> → вернись к Дню 5б</div>
 </div>
 </div></div>
-<div><div class="bl">✏️ Точечная практика — антипримеры типа В</div>
+<div><div class="bl">Дополнительная практика — только тип В</div>
 <div class="task"><ol class="ex">
-<li>В журнале «Юность» опубликовали её первый рассказ. <span class="anti-tag">антипример</span> <span class="anti-why">— есть «журнал», «Юность» не склоняем</span></li>
-<li>В рассказе «Ионыче» Чехов показывает деградацию личности.</li>
-<li>Мы смотрели спектакль «Гамлет» в Большом театре. <span class="anti-tag">антипример</span> <span class="anti-why">— есть «спектакль», «Гамлет» не склоняем</span></li>
-<li>В повести «Тарасе Бульбе» описаны события казачьей эпохи.</li>
-<li>Фильм «Аватар» стал самым кассовым в истории. <span class="anti-tag">антипример</span> <span class="anti-why">— нет родового слова → «Аватар» в Им.п., верно</span></li>
-<li>В газете «Правде» регулярно публиковали официальные сообщения.</li>
+<li>В журнале «Юность» опубликовали её первый рассказ. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— есть «журнал», «Юность» не склоняем</span></li>
+<li>В рассказе «Ионыче» Чехов показывает деградацию личности. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Мы смотрели спектакль «Гамлет» в Большом театре. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— есть «спектакль», «Гамлет» не склоняем</span></li>
+<li>В повести «Тарасе Бульбе» описаны события казачьей эпохи. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Фильм «Аватар» стал самым кассовым в истории. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— нет родового слова → «Аватар» в Им.п., верно</span></li>
+<li>В газете «Правде» регулярно публиковали официальные сообщения. <span class="err-tag">❌ Найди ошибку</span></li>
 </ol><textarea class="ans" rows="2" placeholder="1. ✓  2. Ионыч  3. ✓  4. Тарас Бульба  5. ✓  6. Правда"></textarea></div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>№</th><th>Правильно</th></tr>
 <tr><td>1</td><td>✓ — есть «журнал», «Юность» не склоняем</td></tr>
@@ -975,25 +1053,25 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="day" id="day12">
 <button class="dbtn" onclick="tog(this)"><span class="dnum">День 11</span><span class="dttl">Блиц — 12 предложений за 12 минут</span><span class="dmeta">🕒 18 мин</span><span class="darr">▼</span></button>
 <div class="dbody"><div class="lesson">
-<div><div class="bl">⚡ Блиц — 1 минута на предложение</div>
+<div><div class="bl">Блиц — одна минута на каждое предложение</div>
 <div class="task">
 <ol class="ex">
-<li>Большинство учеников написали сочинение.</li>
-<li>Благодаря помощи учителя он успешно сдал экзамен. <span class="anti-tag">антипример</span> <span class="anti-why">— благодаря + Дат.п. «помощи» верно</span></li>
-<li>В книге «Белой гвардии» изображён трагический период истории.</li>
-<li>Он прочитал книгу и пишет отзыв.</li>
-<li>Мы гордимся нашими учёными, открывшими это явление. <span class="anti-tag">антипример</span> <span class="anti-why">— учёными Тв. → открывшими Тв. верно</span></li>
-<li>Поднявшись на холм, открылся прекрасный вид.</li>
-<li>Спросил, что придёт ли она на вечеринку.</li>
-<li>Книгу она читала, которую взяла в библиотеке.</li>
-<li>Я люблю и занимаюсь музыкой.</li>
-<li>Вопреки правилам, он поступил по-своему. <span class="anti-tag">антипример</span> <span class="anti-why">— вопреки + Дат.п. «правилам» верно</span></li>
-<li>По возвращению из Парижа она написала мемуары.</li>
-<li>Туристы, уставшие от долгого пути, добрались до гостиницы. <span class="anti-tag">антипример</span> <span class="anti-why">— туристы Им. → уставшие Им. верно</span></li>
+<li>Большинство учеников написали сочинение. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Благодаря помощи учителя он успешно сдал экзамен. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— благодаря + Дат.п. «помощи» верно</span></li>
+<li>В книге «Белой гвардии» изображён трагический период истории. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Он прочитал книгу и пишет отзыв. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Мы гордимся нашими учёными, открывшими это явление. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— учёными Тв. → открывшими Тв. верно</span></li>
+<li>Поднявшись на холм, открылся прекрасный вид. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Спросил, что придёт ли она на вечеринку. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Книгу она читала, которую взяла в библиотеке. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Я люблю и занимаюсь музыкой. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Вопреки правилам, он поступил по-своему. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— вопреки + Дат.п. «правилам» верно</span></li>
+<li>По возвращению из Парижа она написала мемуары. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Туристы, уставшие от долгого пути, добрались до гостиницы. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— туристы Им. → уставшие Им. верно</span></li>
 </ol>
 <textarea class="ans" rows="5" placeholder="1. А-написало  2. ✓  3. В-Белая гвардия  4. Е-написал  5. ✓  6. Д  7. И/З-придёт ли  8. И  9. Ж  10. ✓  11. Б-возвращении  12. ✓"></textarea>
 </div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>№</th><th>Тип</th><th>Исправление</th></tr>
 <tr><td>1</td><td>А</td><td>написало</td></tr><tr><td>2</td><td>✓</td><td>благодаря + Дат.п. «помощи»</td></tr>
@@ -1006,29 +1084,36 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <tr><td>10</td><td>✓</td><td>вопреки + Дат.п. «правилам»</td></tr>
 <tr><td>11</td><td>Б</td><td>по возвращении</td></tr><tr><td>12</td><td>✓</td><td>туристы Им. → уставшие Им.</td></tr>
 </table></details></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c11')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c11')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c11')">3 — уверен</button></div>
 <div class="done-row"><input type="checkbox" id="done12" onchange="markDone(12,this.checked,2,6)"><label for="done12">✓ День 11 пройден</label></div>
 </div></div></div>
 
 <div class="day" id="day13">
 <button class="dbtn" onclick="tog(this)"><span class="dnum">День 12 ⭐</span><span class="dttl">Зачёт #2 · Полный формат · 5+9</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
 <div class="dbody"><div class="lesson">
-<div><div class="bl">🏆 Зачёт #2</div>
+<div><div><span class="warmup-badge">🔁 Разминка — 3 предложения</span>
+<div class="task"><ol class="ex">
+<li>Согласно договора, выплата производится ежемесячно. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>В повести «Степи» Чехов описывает детские впечатления от дороги. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Прочитав отчёт, директором было принято решение. <span class="err-tag">❌ Найди ошибку</span></li>
+</ol><textarea class="ans" rows="2" placeholder="1. Б — договору  2. В — Степь (есть 'повести' → не склоняем)  3. Д — Когда директор прочитал отчёт..."></textarea></div></div>
+<div><div class="bl">Зачёт — сравни с прошлым результатом</div>
 <div class="task">
 <div class="zachet-instr">Некоторые типы ошибок могут не встретиться в данном наборе — оставь поле пустым. 4 из 9 предложений без ошибок.</div>
 <table class="match-table"><tr><th>Грамматическая ошибка</th></tr>
 <tr><td>А. Нарушение связи между подлежащим и сказуемым</td></tr>
 <tr><td>Б. Неправильное употребление падежной формы с предлогом</td></tr>
-<tr><td>В. Нарушение с несогласованным приложением</td></tr>
-<tr><td>Г. Ошибка в построении с причастным оборотом</td></tr>
-<tr><td>Д. Нарушение в построении с деепричастным оборотом</td></tr></table>
+<tr><td>В. Нарушение в построении предложения с несогласованным приложением</td></tr>
+<tr><td>Г. Ошибка в построении предложения с причастным оборотом</td></tr>
+<tr><td>Д. Нарушение в построении предложения с деепричастным оборотом</td></tr></table>
 <ol class="ex" style="margin-top:10px">
 <li>Ряд заданий были выполнены правильно.</li>
-<li>Вопреки прогнозу метеорологов, погода была тёплой. <span class="anti-tag">антипример</span> <span class="anti-why">— вопреки + Дат.п. «прогнозу» верно</span></li>
+<li>Вопреки прогнозу метеорологов, погода была тёплой. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— вопреки + Дат.п. «прогнозу» верно</span></li>
 <li>В романе «Войне и мире» Толстой показывает нравственный поиск человека.</li>
-<li>Мы увидели поезд, подъезжающий к станции. <span class="anti-tag">антипример</span> <span class="anti-why">— поезд Вин. → подъезжающий Вин. верно</span></li>
+<li>Мы увидели поезд, подъезжающий к станции. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— поезд Вин. → подъезжающий Вин. верно</span></li>
 <li>Он прочитал книгу и пишет рецензию.</li>
-<li>Благодаря чёткой организации работы всё прошло хорошо. <span class="anti-tag">антипример</span> <span class="anti-why">— благодаря + Дат.п. «организации» верно</span></li>
-<li>Обо всём, сказанном на конференции, долго спорили коллеги. <span class="anti-tag">антипример</span> <span class="anti-why">— обо всём Пр.п. → сказанном Пр.п. верно</span></li>
+<li>Благодаря чёткой организации работы всё прошло хорошо. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— благодаря + Дат.п. «организации» верно</span></li>
+<li>Обо всём, сказанном на конференции, долго спорили коллеги. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— обо всём Пр.п. → сказанном Пр.п. верно</span></li>
 <li>Сдав экзамен, у него наконец появилось свободное время.</li>
 <li>В газете «Правде» напечатали статью о реформах.</li>
 </ol>
@@ -1042,7 +1127,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <button class="check-btn" onclick="checkZ2()">Проверить зачёт</button>
 <div class="check-result" id="z2-result"></div>
 </div></div>
-<div><div class="bl">🔍 Ключ</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
 <tr><td>А</td><td><b>1</b></td><td>Ряд заданий были → <b>было выполнено</b></td></tr>
@@ -1051,11 +1136,12 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <tr><td>Г</td><td><b>—</b></td><td>В задании нет Г</td></tr>
 <tr><td>Д</td><td><b>8</b></td><td>Сдав — у него: разные субъекты → Когда он сдал…</td></tr>
 </table></details></div>
-<div><div class="bl">📊 Прогресс</div>
+<div><div class="bl">Запиши результат и сравни с предыдущим зачётом</div>
 <div class="task">
 <div class="score-row"><span style="font-size:13px">Зачёт #2:</span><input class="score-in" type="number" id="z2score" min="0" max="5" oninput="saveScore('z2',this.value)"> / 5</div>
 <p style="margin-top:8px;font-size:13px;font-weight:600">Зачёт #1 → <b><span id="show_z1">—</span></b> / 5 &nbsp; Зачёт #2 → <b><span id="show_z2">—</span></b> / 5 &nbsp; <span id="dynamic"></span></p>
 </div></div>
+<div class="confidence"><span>Уверенность:</span><button class="conf-btn" onclick="setConf(this,1,'c12')">1 — угадывал</button><button class="conf-btn" onclick="setConf(this,2,'c12')">2 — в целом понял</button><button class="conf-btn" onclick="setConf(this,3,'c12')">3 — уверен</button></div>
 <div class="done-row"><input type="checkbox" id="done13" onchange="markDone(13,this.checked,2,6)"><label for="done13">✓ День 12 пройден</label></div>
 </div></div></div>
 
@@ -1071,7 +1157,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="day" id="day14">
 <button class="dbtn" onclick="tog(this)"><span class="dnum">День 13</span><span class="dttl">Ловушки ФИПИ — «всё выглядит правильно», но ошибка есть</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
 <div class="dbody"><div class="lesson">
-<div><div class="bl">🎯 Топ-5 ловушек из реальных КИМов</div>
+<div><div class="bl">Пять мест, где чаще всего ошибаются на ЕГЭ</div>
 <div class="theory">
 <p><b>Ловушка 1 (А):</b> «Те, кто» — при «те» мн.ч., при «кто» ед.ч.<br>✅ <i>Те, кто <b>хочет</b> поступить, <b>должны</b> готовиться.</i></p>
 <p style="margin-top:6px"><b>Ловушка 2 (Б):</b> «вследствие + Род.п.» vs «благодаря + Дат.п.»</p>
@@ -1079,23 +1165,25 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <p style="margin-top:6px"><b>Ловушка 4 (Г):</b> причастие выглядит странно, но верное: <i>спортсменами, <b>победившими</b></i></p>
 <p style="margin-top:6px"><b>Ловушка 5 (Д):</b> безличные — всегда ошибка: <i>Читая, <b>стемнело</b></i> — у «стемнело» нет субъекта!</p>
 </div></div>
-<div><div class="bl">✏️ 12 предложений — ловушки вперемешку</div>
+<div><div class="bl">Твой черёд — в этих предложениях спрятаны ловушки</div>
 <div class="task"><ol class="ex">
-<li>Те, кто хочет поступить на бюджет, должен готовиться с 9-го класса.</li>
-<li>Те, кто приходит раньше, занимают лучшие места. <span class="anti-tag">антипример</span> <span class="anti-why">— при «те» допустимо мн.ч. «занимают»</span></li>
-<li>Благодаря умелому руководству компания вышла в лидеры. <span class="anti-tag">антипример</span> <span class="anti-why">— благодаря + Дат.п. «руководству» верно</span></li>
-<li>Вследствие сильных морозов трубы замёрзли. <span class="anti-tag">антипример</span> <span class="anti-why">— вследствие + Род.п. «морозов» верно</span></li>
-<li>Читая эту книгу, мне стало интересно.</li>
-<li>Читая эту книгу, я не мог оторваться. <span class="anti-tag">антипример</span> <span class="anti-why">— читаю я и не мог я — один субъект</span></li>
-<li>Гордимся спортсменами, победившими в чемпионате. <span class="anti-tag">антипример</span> <span class="anti-why">— спортсменами Тв. → победившими Тв. верно</span></li>
-<li>Гордимся спортсменами, победивших в чемпионате.</li>
-<li>Прочитав «Преступление и наказание», роман оставил глубокое впечатление.</li>
-<li>Прочитав «Преступление и наказание», я долго думал о главном герое. <span class="anti-tag">антипример</span> <span class="anti-why">— читал я и думал я — один субъект</span></li>
-<li>По возвращении из экспедиции учёные написали отчёт. <span class="anti-tag">антипример</span> <span class="anti-why">— по возвращении — Предл.п. верно</span></li>
-<li>По возвращению из экспедиции учёные написали отчёт.</li>
+<li>Те, кто хочет поступить на бюджет, должен готовиться с 9-го класса. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Те, кто приходит раньше, занимают лучшие места. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— при «те» допустимо мн.ч. «занимают»</span></li>
+<li>Благодаря умелому руководству компания вышла в лидеры. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— благодаря + Дат.п. «руководству» верно</span></li>
+<li>Вследствие сильных морозов трубы замёрзли. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— вследствие + Род.п. «морозов» верно</span></li>
+<li>Читая эту книгу, мне стало интересно. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Читая эту книгу, я не мог оторваться. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— читаю я и не мог я — один субъект</span></li>
+<li>Гордимся спортсменами, победившими в чемпионате. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— спортсменами Тв. → победившими Тв. верно</span></li>
+<li>Гордимся спортсменами, победивших в чемпионате. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Прочитав «Преступление и наказание», роман оставил глубокое впечатление. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Прочитав «Преступление и наказание», я долго думал о главном герое. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— читал я и думал я — один субъект</span></li>
+<li>По возвращении из экспедиции учёные написали отчёт. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— по возвращении — Предл.п. верно</span></li>
+<li>По возвращению из экспедиции учёные написали отчёт. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Вследствие заботе родителей дети выросли уверенными в себе. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Вследствие сильного ветра деревья во дворе повалились. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— вследствие + Род.п. «ветра» верно</span></li>
 </ol>
-<textarea class="ans" rows="4" placeholder="1. А-должны  2. ✓  3. ✓  4. ✓  5. Д  6. ✓  7. ✓  8. Г-победившими  9. Д  10. ✓  11. ✓  12. Б-возвращении"></textarea></div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<textarea class="ans" rows="4" placeholder="1. А-должны  2. ✓  3. ✓  4. ✓  5. Д  6. ✓  7. ✓  8. Г-победившими  9. Д  10. ✓  11. ✓  12. Б-возвращении  13. Б-заботы (вследствие+Род.п.)  14. ✓"></textarea></div></div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>№</th><th>Тип/ответ</th></tr>
 <tr><td>1</td><td>А: «те» → <b>должны</b></td></tr>
@@ -1110,6 +1198,8 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <tr><td>10</td><td>✓ — один субъект</td></tr>
 <tr><td>11</td><td>✓ — Предл.п. верно</td></tr>
 <tr><td>12</td><td>Б: по возвращению → <b>по возвращении</b></td></tr>
+<tr><td>13</td><td>Б: вследствие + Род.п. — «заботе» (Дат.) → <b>заботы</b> (Род.)</td></tr>
+<tr><td>14</td><td>✓ — вследствие + Род.п. «ветра» верно</td></tr>
 </table></details></div>
 <div class="done-row"><input type="checkbox" id="done14" onchange="markDone(14,this.checked,3,4)"><label for="done14">✓ День 13 пройден</label></div>
 </div></div></div>
@@ -1117,28 +1207,28 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="day" id="day15">
 <button class="dbtn" onclick="tog(this)"><span class="dnum">День 14</span><span class="dttl">Работа над ошибками + прокачка слабых мест</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
 <div class="dbody"><div class="lesson">
-<div><div class="bl">🧠 Анализ уверенности</div>
+<div><div class="bl">Посмотри, где ставил «1 — угадывал»</div>
 <div class="task">
 <p style="font-size:13px">Посмотри, где ставил «1 — угадывал». Запиши слабые типы:</p>
 <textarea class="ans" rows="2" placeholder="Например: Д — не замечаю разных субъектов..."></textarea>
 </div></div>
-<div><div class="bl">✏️ Финальная прокачка — 12 предложений</div>
+<div><div class="bl">Твой черёд — все типы вперемешку</div>
 <div class="task"><ol class="ex">
-<li>Часть участников отказалась от голосования. <span class="anti-tag">антипример</span> <span class="anti-why">— часть → ед.ч. «отказалась» верно</span></li>
-<li>Согласно данным статистики, уровень жизни вырос. <span class="anti-tag">антипример</span> <span class="anti-why">— согласно + Дат.п. «данным» верно</span></li>
-<li>В рассказе «Хамелеоне» Чехов высмеивает чиновничество.</li>
-<li>Мы гордимся учёными, открывших новые законы физики.</li>
-<li>Приехав в город, нас поселили в хорошую гостиницу.</li>
-<li>Туман рассеялся, и солнце освещает поляну ярким светом.</li>
-<li>Она сказала, что я позвоню ему вечером.</li>
-<li>Он не только написал роман, но и перевёл его на три языка. <span class="anti-tag">антипример</span> <span class="anti-why">— не только... но и — верно</span></li>
-<li>Я люблю и восхищаюсь творчеством этого художника.</li>
-<li>По прилёте в Лондон он сразу направился в отель. <span class="anti-tag">антипример</span> <span class="anti-why">— по прилёте — Предл.п. верно</span></li>
-<li>Он спросил, что успею ли я к обеду.</li>
-<li>Большинство голосов было отдано за этого кандидата. <span class="anti-tag">антипример</span> <span class="anti-why">— большинство → ед.ч. «было» верно</span></li>
+<li>Часть участников отказалась от голосования. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— часть → ед.ч. «отказалась» верно</span></li>
+<li>Согласно данным статистики, уровень жизни вырос. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— согласно + Дат.п. «данным» верно</span></li>
+<li>В рассказе «Хамелеоне» Чехов высмеивает чиновничество. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Мы гордимся учёными, открывших новые законы физики. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Приехав в город, нас поселили в хорошую гостиницу. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Туман рассеялся, и солнце освещает поляну ярким светом. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Она сказала, что я позвоню ему вечером. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Он не только написал роман, но и перевёл его на три языка. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— не только... но и — верно</span></li>
+<li>Я люблю и восхищаюсь творчеством этого художника. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>По прилёте в Лондон он сразу направился в отель. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— по прилёте — Предл.п. верно</span></li>
+<li>Он спросил, что успею ли я к обеду. <span class="err-tag">❌ Найди ошибку</span></li>
+<li>Большинство голосов было отдано за этого кандидата. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— большинство → ед.ч. «было» верно</span></li>
 </ol>
 <textarea class="ans" rows="4" placeholder="1. ✓  2. ✓  3. В-Хамелеон  4. Г-открывшими  5. Д  6. Е-осветило  7. З-она  8. ✓  9. Ж  10. ✓  11. И/З-успею ли  12. ✓"></textarea></div></div>
-<div><div class="bl">🔍 Самопроверка</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>№</th><th>Тип</th><th>Исправление</th></tr>
 <tr><td>1</td><td>✓</td><td>часть → ед.ч. «отказалась» верно</td></tr>
@@ -1160,7 +1250,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="day" id="day16">
 <button class="dbtn" onclick="tog(this)"><span class="dnum">День 15</span><span class="dttl">Симуляция экзамена — 2 варианта подряд</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
 <div class="dbody"><div class="lesson">
-<div><div class="bl">⏱️ Вариант А</div>
+<div><div class="bl">Вариант А — 7 минут, без паузы</div>
 <div class="task">
 <div class="zachet-instr">Некоторые типы могут отсутствовать — оставь поле пустым.</div>
 <table class="match-table"><tr><th>Ошибка</th></tr>
@@ -1171,14 +1261,14 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <tr><td>Д. Нарушение в построении с деепричастным оборотом</td></tr></table>
 <ol class="ex" style="margin-top:10px">
 <li>Ряд вопросов были заданы на пресс-конференции.</li>
-<li>Благодаря упорному труду она добилась успеха. <span class="anti-tag">антипример</span> <span class="anti-why">— благодаря + Дат.п. «труду» верно</span></li>
+<li>Благодаря упорному труду она добилась успеха. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— благодаря + Дат.п. «труду» верно</span></li>
 <li>В опере «Евгении Онегине» звучит знаменитая ария.</li>
-<li>Обо всём, написанном в докладе, мы подробно поговорим. <span class="anti-tag">антипример</span> <span class="anti-why">— обо всём Пр.п. → написанном Пр.п. верно</span></li>
-<li>Туристы увидели горы, покрытые снегом. <span class="anti-tag">антипример</span> <span class="anti-why">— горы Вин. → покрытые Вин. верно</span></li>
+<li>Обо всём, написанном в докладе, мы подробно поговорим. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— обо всём Пр.п. → написанном Пр.п. верно</span></li>
+<li>Туристы увидели горы, покрытые снегом. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— горы Вин. → покрытые Вин. верно</span></li>
 <li>Вернувшись из похода, ребятам дали горячий чай.</li>
-<li>По приезде в столицу делегация была принята президентом. <span class="anti-tag">антипример</span> <span class="anti-why">— по приезде — Предл.п. верно</span></li>
+<li>По приезде в столицу делегация была принята президентом. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— по приезде — Предл.п. верно</span></li>
 <li>В рассказе «Антоновских яблоках» Бунин воспевает уходящую Россию.</li>
-<li>Мы гордимся спортсменами, завоевавшими олимпийские медали. <span class="anti-tag">антипример</span> <span class="anti-why">— спортсменами Тв. → завоевавшими Тв. верно</span></li>
+<li>Мы гордимся спортсменами, завоевавшими олимпийские медали. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— спортсменами Тв. → завоевавшими Тв. верно</span></li>
 </ol>
 <div class="match-inputs">
 <div class="match-cell"><span class="match-lbl">А</span><input class="match-in" id="s1a" type="text" placeholder="№"></div>
@@ -1197,7 +1287,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 </table></details>
 <div class="score-row" style="margin-top:10px"><span style="font-size:13px">Вариант А:</span><input class="score-in" type="number" id="sim1score" min="0" max="5" oninput="saveScore('sim1',this.value)"> / 5</div>
 </div></div>
-<div><div class="bl">⏱️ Вариант Б</div>
+<div><div class="bl">Вариант Б — сразу после варианта А</div>
 <div class="task">
 <div class="zachet-instr">Некоторые типы могут отсутствовать — оставь поле пустым.</div>
 <table class="match-table"><tr><th>Ошибка</th></tr>
@@ -1211,9 +1301,9 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <li>Автор утверждал, что я уверен в правоте своих слов.</li>
 <li>Я уважаю и восхищаюсь этим человеком.</li>
 <li>Письмо он написал, которое отправил по почте.</li>
-<li>Не только студенты, но и преподаватели участвовали в конференции. <span class="anti-tag">антипример</span> <span class="anti-why">— не только... но и — верно</span></li>
+<li>Не только студенты, но и преподаватели участвовали в конференции. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— не только... но и — верно</span></li>
 <li>Девушка сидела у окна и смотрит на улицу.</li>
-<li>Большинство голосов было отдано за нового кандидата. <span class="anti-tag">антипример</span> <span class="anti-why">— большинство → ед.ч. «было» верно</span></li>
+<li>Большинство голосов было отдано за нового кандидата. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— большинство → ед.ч. «было» верно</span></li>
 <li>Он спросил, что придём ли мы на встречу.</li>
 <li>Ряд предложений оказались неверными.</li>
 </ol>
@@ -1240,7 +1330,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <div class="day" id="day17">
 <button class="dbtn" onclick="tog(this)"><span class="dnum">День 16 🏆</span><span class="dttl">Финальный зачёт #3 + итоговая рефлексия</span><span class="dmeta">🕒 20 мин</span><span class="darr">▼</span></button>
 <div class="dbody"><div class="lesson">
-<div><div class="bl">🏁 Финальный зачёт</div>
+<div><div class="bl">Финальный зачёт — формат точно как на экзамене</div>
 <div class="task">
 <div class="zachet-instr">Внимание: некоторые типы ошибок могут не встретиться. Оставь поле пустым — не угадывай. 5 из 9 предложений без ошибок.</div>
 <table class="match-table"><tr><th>Грамматическая ошибка</th></tr>
@@ -1250,13 +1340,13 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <tr><td>Г. Ошибка в построении с причастным оборотом</td></tr>
 <tr><td>Д. Нарушение в построении с деепричастным оборотом</td></tr></table>
 <ol class="ex" style="margin-top:10px">
-<li>Многие из тех, кто читал этот роман, были потрясены финалом. <span class="anti-tag">антипример</span> <span class="anti-why">— при «многие» сказуемое мн.ч. «были» верно</span></li>
-<li>Вопреки советам врача, он продолжал работать. <span class="anti-tag">антипример</span> <span class="anti-why">— вопреки + Дат.п. «советам» верно</span></li>
+<li>Многие из тех, кто читал этот роман, были потрясены финалом. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— при «многие» сказуемое мн.ч. «были» верно</span></li>
+<li>Вопреки советам врача, он продолжал работать. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— вопреки + Дат.п. «советам» верно</span></li>
 <li>В поэме «Мёртвых душах» Гоголь создаёт галерею помещиков.</li>
-<li>Картина, написанная молодым художником, получила первый приз. <span class="anti-tag">антипример</span> <span class="anti-why">— картина Им. → написанная Им. верно</span></li>
+<li>Картина, написанная молодым художником, получила первый приз. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— картина Им. → написанная Им. верно</span></li>
 <li>Войдя в зал, у меня перехватило дыхание.</li>
-<li>По окончании университета она устроилась на работу. <span class="anti-tag">антипример</span> <span class="anti-why">— по окончании — Предл.п. верно</span></li>
-<li>Лес, окружавший деревню, был очень густым. <span class="anti-tag">антипример</span> <span class="anti-why">— лес Им. → окружавший Им. верно</span></li>
+<li>По окончании университета она устроилась на работу. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— по окончании — Предл.п. верно</span></li>
+<li>Лес, окружавший деревню, был очень густым. <span class="anti-tag">✅ Верно</span> <span class="anti-why">— лес Им. → окружавший Им. верно</span></li>
 <li>Ряд исследователей полагали, что находка уникальна.</li>
 <li>Учёные, занимавшихся этой проблемой, получили Нобелевскую премию.</li>
 </ol>
@@ -1270,7 +1360,7 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <button class="check-btn" onclick="checkFinal()">Проверить финальный зачёт</button>
 <div class="check-result" id="f1-result"></div>
 </div></div>
-<div><div class="bl">🔍 Ключ</div>
+<div><div class="bl">Проверь себя — открывай только после своего ответа</div>
 <details class="key"><summary></summary>
 <table class="tb"><tr><th>Ошибка</th><th>№</th><th>Разбор</th></tr>
 <tr><td>А</td><td><b>8</b></td><td>Ряд исследователей полагали → <b>полагал</b></td></tr>
@@ -1279,13 +1369,18 @@ footer{text-align:center;padding:22px 20px;color:var(--muted);font-size:11px;bor
 <tr><td>Г</td><td><b>9</b></td><td>учёными Тв. → занимавшихся Род. → <b>занимавшимися</b></td></tr>
 <tr><td>Д</td><td><b>5</b></td><td>Войдя — «перехватило» безличное → Когда я вошёл…</td></tr>
 </table></details></div>
-<div><div class="bl">📊 Итоговая динамика</div>
+<div><div class="bl">Запиши итоговый результат</div>
 <div class="task">
-<div class="score-row"><span style="font-size:13px">Зачёт #3:</span><input class="score-in" type="number" id="z3score" min="0" max="5" oninput="saveScore('z3',this.value)"> / 5</div>
+<div class="score-row"><span style="font-size:13px">Часть 1 (А–Д):</span><input class="score-in" type="number" id="z3score" min="0" max="5" oninput="saveScore('z3',this.value)"> / 5</div>
+<div class="score-row" style="margin-top:6px"><span style="font-size:13px">Часть 2 (Е–И+А):</span><input class="score-in" type="number" id="z3bscore" min="0" max="5" oninput="saveScore('z3b',this.value)"> / 5</div>
+</div></div>
+<div><div class="bl">Твой прогресс за весь курс</div>
+<div class="task">
+<div style="font-size:13px;font-weight:600;margin-bottom:8px">Итого по финалу: <span id="z3total">—</span> / 10</div>
 <p style="margin-top:10px;font-size:14px">Зачёт #1 → <b><span id="final_z1">—</span></b> / 5 &nbsp;→&nbsp; Зачёт #2 → <b><span id="final_z2">—</span></b> / 5 &nbsp;→&nbsp; Зачёт #3 → <b><span id="final_z3">—</span></b> / 5</p>
 <p style="margin-top:6px;font-size:14px;font-weight:600">Итоговый прогресс: <span id="dynamic2">—</span></p>
 </div></div>
-<div><div class="bl">🎓 Итоговая рефлексия</div>
+<div><div class="bl">Что изменилось за 17 занятий?</div>
 <div class="task">
 <p style="font-size:13px;font-style:italic">Что стало понятнее за 17 дней? Какой тип теперь самый лёгкий?</p>
 <textarea class="ans" rows="3" placeholder="Твои мысли..."></textarea>
@@ -1482,6 +1577,22 @@ function checkFinal(){
   const r=document.getElementById('f1-result');r.style.display='block';
   r.className='check-result '+(ok===4?'ok':ok>=2?'partial':'err');
   r.textContent=ok+' из 4 верно (Б — в задании нет). Без ошибок: 1,2,4,6,7.';
+}
+function checkFinal2(){
+  let ok=0;
+  const checks=[
+    ['f2e','1,6'],['f2zh','3'],['f2z','2'],['f2i','4,8'],['f2a','9']
+  ];
+  checks.forEach(([id,exp])=>{
+    const el=document.getElementById(id);if(!el)return;
+    const val=el.value.trim();
+    const exps=exp.split(',').map(s=>s.trim());
+    if(exps.includes(val)){el.classList.add('correct');el.classList.remove('wrong');ok++;}
+    else if(val){el.classList.add('wrong');el.classList.remove('correct');}
+  });
+  const r=document.getElementById('f2-result');r.style.display='block';
+  r.className='check-result '+(ok===5?'ok':ok>=3?'partial':'err');
+  r.textContent=ok+' из 5 верно. Без ошибок: 5, 7.';
 }
 
 function resetAll(){
